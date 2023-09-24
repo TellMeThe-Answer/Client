@@ -1,0 +1,51 @@
+/* src/MainPage.css */
+
+.main-page {
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.main-header {
+  background: linear-gradient(160deg, #505ac5, #3e3a61);
+  color: white;
+  padding: 50px 0;
+  margin: 0;
+  position: relative;
+}
+
+.main-header h1 {
+  font-size: 3em;
+  margin: 0;
+  padding: 0;
+}
+
+.main-content {
+  background-color: #f4f4f4;
+  padding: 50px 0;
+}
+
+.main-content p {
+  font-size: 1.2em;
+}
+
+.main-footer {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  font-size: 0.8em;
+  position: relative;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .main-header h1 {
+    font-size: 2em;
+  }
+  .main-content p {
+    font-size: 1em;
+  }
+}
