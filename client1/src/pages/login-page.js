@@ -1,7 +1,7 @@
 // LoginPage.js
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { BigTitle, BigBtn } from "../App.js";
+import { BigTitle, BigBtn, EmptyArea } from "../App.js";
 // 모달 스타일을 LoginPage 컴포넌트 바깥에서 정의합니다.
 const modalStyle = {
   position: "fixed",
@@ -27,6 +27,19 @@ const users = [
   { email: "user2@example.com", password: "password2" },
   // 추가 회원 정보 추가 가능
 ];
+
+function LoginInput({ type, label, value, onChange }) {
+  return (
+    <div style={{ marginBottom: "10px" }}>
+      <div>
+        <label>{label}</label>
+      </div>
+      <div class="input-login-area">
+        <input class="input-login"type={type} value={value} onChange={onChange} required />
+      </div>
+    </div>
+  );
+}
 
 function LoginPage() {
   const [email, setEmail] = useState("");
@@ -88,81 +101,30 @@ function LoginPage() {
     <div style={{ padding: "50px" }}>
       {shouldNavigate && <Navigate to="/menu-page" />}
       <BigTitle ttl="로그인" />
+      <EmptyArea />
       <form onSubmit={handleLoginSubmit}>
-        <div style={{ marginBottom: "10px" }}>
-          <label>
-            이메일:
-            <input
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-        <div style={{ marginBottom: "10px" }}>
-          <label>
-            비밀번호:
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
-        </div>
-        <div class="bigBtnArea">
-          <button type="submit" className="bigBtn">
-            로그인
-          </button>
-        </div>
-        <div class="bigBtnArea">
-          <button
-            type="button"
-            className="bigBtn"
-            onClick={() => setIsSignupModalOpen(true)}
-          >
-            회원가입
-          </button>
-        </div>
+        <LoginInput type="email" label="이메일" value={email} onChange={(e) => setEmail(e.target.value)} />
+        <LoginInput type="password" label="비밀번호" value={password} onChange={(e) => setPassword(e.target.value)} />
+        <EmptyArea />
+        <BigBtn ttl="로그인" type="submit" />
+        <BigBtn ttl="회원가입" type="button" onClick={()=>setIsSignupModalOpen(true)} />
       </form>
-
       {isSignupModalOpen && (
         <div style={modalStyle}>
           <div style={modalContentStyle}>
             {/* 회원가입 모달 내용 */}
             <h2>회원가입</h2>
             <form onSubmit={handleSignupSubmit}>
-              <div style={{ marginBottom: "10px" }}>
-                <label>
-                  이메일:
-                  <input
-                    type="email"
-                    value={signupEmail}
-                    onChange={(e) => setSignupEmail(e.target.value)}
-                    required
-                  />
-                </label>
-              </div>
-              <div style={{ marginBottom: "10px" }}>
-                <label>
-                  비밀번호:
-                  <input
-                    type="password"
-                    value={signupPassword}
-                    onChange={(e) => setSignupPassword(e.target.value)}
-                    required
-                  />
-                </label>
-              </div>
-              <button type="submit">회원가입</button>
+            <LoginInput type="email" label="이메일" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
+            <LoginInput type="password" label="비밀번호" value={signupPassword} onChange={(e) => setSignupPassword(e.target.value)} />
+            <BigBtn ttl="회원가입" type="submit" />
             </form>
-            <button onClick={() => setIsSignupModalOpen(false)}>닫기</button>
+            <BigBtn ttl="닫기" type="button" onClick={()=>setIsSignupModalOpen(false)} />
           </div>
         </div>
       )}
     </div>
-  );
+  )
 }
 
 export default LoginPage;

@@ -1,26 +1,23 @@
-<<<<<<< Updated upstream
-import logo from './logo.svg';
-import './App.css';
-=======
-// App.js
-import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import logo from "./logo.svg";
 import "./App.css";
+// App.js
+import React from "react";
+import { Routes, Route } from "react-router-dom";
+import LoginPage from "./pages/login-page";
 //import MenuPage from './MenuPage';
 //import DetectionPage from './DetectionPage';
 //import DictionaryPage from './DictionaryPage';
 //import MapPage from './MapPage';
 //import MonthPage from './MonthPage';
->>>>>>> Stashed changes
 
 function BigTitle({ ttl }) {
   return <h2>{ttl}</h2>;
 }
 
-function BigBtn({ ttl }) {
+function BigBtn({ ttl, type, onClick }) {
   return (
     <div class="bigBtnArea">
-      <button className="bigBtn">{ttl}</button>;
+      <button type={type} className="bigBtn" onClick={onClick}>{ttl}</button>
     </div>
   );
 }
@@ -34,26 +31,12 @@ function MenuBtn({ color, ttl }) {
   );
 }
 
-/*
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+function EmptyArea() {
+  return(
+    <div className="empty-area">
+      
     </div>
   );
 }
-*/
-export {BigTitle};
+
+export { BigTitle, BigBtn, EmptyArea };
