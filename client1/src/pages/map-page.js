@@ -10,12 +10,25 @@ const MapPage = () => {
 
     script.onload = () => {
       window.kakao.maps.load(() => {
-        const container = document.getElementById('map__kakao');
-        const options = {
-          center: new window.kakao.maps.LatLng(37.549037, 127.075107),
-          level: 3,
-        };
-        const map = new window.kakao.maps.Map(container, options);
+        // 사용자의 현재 위치를 얻기
+        navigator.geolocation.getCurrentPosition((position) => {
+          const userLat = position.coords.latitude; // 사용자의 위도
+          const userLng = position.coords.longitude; // 사용자의 경도
+
+          const container = document.getElementById('map__kakao');
+          const options = {
+            center: new window.kakao.maps.LatLng(userLat, userLng), // 지도의 중심을 사용자의 위치로 설정
+            level: 3,
+          };
+          const map = new window.kakao.maps.Map(container, options);
+
+          // 마커 생성
+          const markerPosition = new window.kakao.maps.LatLng(userLat, userLng);
+          const marker = new window.kakao.maps.Marker({ position: markerPosition });
+
+          // 지도 위에 마커를 표시
+          marker.setMap(map);
+        });
       });
     };
   }, []);
@@ -23,7 +36,6 @@ const MapPage = () => {
   return (
     <div>
       <h1>Map Page</h1>
-      {/* Other page content and Kakao Map */}
       <div id="map__kakao" style={{ width: '100%', height: '100vh' }}></div>
     </div>
   );
