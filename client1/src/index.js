@@ -1,15 +1,18 @@
-// index.js
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client'; 
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/login-page'; // LoginPage 컴포넌트 파일 경로
-import MenuPage from './pages/menu-page'; // MenuPage 컴포넌트 파일 경로
-import DetectionPage from './pages/detection-page'; // DetectionPage 컴포넌트 파일 경로
-import MapPage from './pages/map-page'; // MapPage 컴포넌트 파일 경로
-import DictionaryPage from './pages/dictionary-page'; // DictionaryPage 컴포넌트 파일 경로
-import MonthPage from './pages/month-page'; // MonthPage 컴포넌트 파일 경로
+import LoginPage from './pages/login-page'; // LoginPage component file path
+import MenuPage from './pages/menu-page'; // MenuPage component file path
+import DetectionPage from './pages/detection-page'; // DetectionPage component file path
+import MapPage from './pages/map-page'; // MapPage component file path
+import DictionaryPage from './pages/dictionary-page'; // DictionaryPage component file path
+import MonthPage from './pages/month-page'; // MonthPage component file path
 
-ReactDOM.render(
+// Get the 'root' DOM element
+const root = document.getElementById('root');
+
+// Create a root and render the application using the new `createRoot` API
+ReactDOM.createRoot(root).render(
   <Router>
     <Routes>
       <Route path="/" element={<LoginPage />} />
@@ -19,6 +22,5 @@ ReactDOM.render(
       <Route path="/dictionary-page" element={<DictionaryPage />} />
       <Route path="/month-page" element={<MonthPage />} />
     </Routes>
-  </Router>,
-  document.getElementById('root')
+  </Router>
 );
