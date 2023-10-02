@@ -1,7 +1,7 @@
 // LoginPage.js
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
-import { BigTitle, BigBtn, EmptyArea } from "../App.js";
+import { BigTitle, BigBtn, EmptyArea } from "../components/components";
 // 모달 스타일을 LoginPage 컴포넌트 바깥에서 정의합니다.
 const modalStyle = {
   position: "fixed",
@@ -19,6 +19,7 @@ const modalContentStyle = {
   backgroundColor: "white",
   padding: "20px",
   borderRadius: "8px",
+  width: "80%",
 };
 
 // 가상의 회원 정보
@@ -35,7 +36,7 @@ function LoginInput({ type, label, value, onChange }) {
         <label>{label}</label>
       </div>
       <div class="input-login-area">
-        <input class="input-login"type={type} value={value} onChange={onChange} required />
+        <input class="input-login" type={type} value={value} onChange={onChange} required />
       </div>
     </div>
   );
@@ -94,12 +95,12 @@ function LoginPage() {
   const navigate = useNavigate();
 
   const goToMenuPage = () => {
-    navigate("/menu-page");
+    navigate("/month-page");
   };
 
   return (
     <div style={{ padding: "50px" }}>
-      {shouldNavigate && <Navigate to="/menu-page" />}
+      {shouldNavigate && <Navigate to="/month-page" />}
       <BigTitle ttl="로그인" />
       <EmptyArea />
       <form onSubmit={handleLoginSubmit}>

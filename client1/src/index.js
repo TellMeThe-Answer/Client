@@ -2,7 +2,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import LoginPage from './pages/login-page'; // LoginPage 컴포넌트 파일 경로
+import App from './App'
 //import MenuPage from './pages/menu-page'; // MenuPage 컴포넌트 파일 경로
 //import DetectionPage from './pages/detection-page'; // DetectionPage 컴포넌트 파일 경로
 //import MapPage from './pages/map-page'; // MapPage 컴포넌트 파일 경로
@@ -10,10 +10,8 @@ import LoginPage from './pages/login-page'; // LoginPage 컴포넌트 파일 경
 //import MonthPage from './pages/month-page'; // MonthPage 컴포넌트 파일 경로
 
 ReactDOM.render(
-  <Router>
-    <Routes>
-      <Route path="/" element={<LoginPage />} />
-    </Routes>
-  </Router>,
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
   document.getElementById('root')
 );

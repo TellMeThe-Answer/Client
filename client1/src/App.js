@@ -1,42 +1,27 @@
-import logo from "./logo.svg";
-import "./App.css";
-// App.js
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import LoginPage from "./pages/login-page";
-//import MenuPage from './MenuPage';
-//import DetectionPage from './DetectionPage';
-//import DictionaryPage from './DictionaryPage';
-//import MapPage from './MapPage';
-//import MonthPage from './MonthPage';
+import React, {useState} from 'react';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import LoginPage from './pages/login-page';
+import MonthPage from './pages/month-page';
 
-function BigTitle({ ttl }) {
-  return <h2>{ttl}</h2>;
-}
-
-function BigBtn({ ttl, type, onClick }) {
-  return (
-    <div class="bigBtnArea">
-      <button type={type} className="bigBtn" onClick={onClick}>{ttl}</button>
-    </div>
-  );
-}
-
-function MenuBtn({ color, ttl }) {
-  const buttonClass = `${color} menuBtn`;
-  return (
-    <div class="menuBtnArea">
-      <button className={buttonClass}>{ttl}</button>
-    </div>
-  );
-}
-
-function EmptyArea() {
+/*추가할 항목들
+<Route path="/month" exact component={month} />
+<Route path="/detect" exact component={detect} />
+<Route path="/map" exact component={map} />
+<Route path="/dictionary" exact component={dictionary} />
+<Route path="/report" exact component={report} />
+*/
+function App() {
+  
   return(
-    <div className="empty-area">
-      
-    </div>
-  );
+    <Router>
+      <div className = "App">
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/month-page" element={<MonthPage />} />
+        </Routes>
+      </div>
+    </Router>
+  )
 }
 
-export { BigTitle, BigBtn, EmptyArea };
+export default App;
