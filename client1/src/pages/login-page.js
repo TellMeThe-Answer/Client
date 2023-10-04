@@ -42,6 +42,19 @@ function LoginInput({ type, label, value, onChange }) {
   );
 }
 
+function PasswordInput({ type, label, value, onChange }) {
+  return (
+    <div style={{ marginBottom: "10px" }}>
+      <div>
+        <label>{label}</label>
+      </div>
+      <div class="input-login-area">
+        <input class="input-login" type={type} value={value} onChange={onChange} required />
+      </div>
+    </div>
+  );
+}
+
 function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
