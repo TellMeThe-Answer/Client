@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import '../css/App.css'; // Adjust the path as per your project structure.
 import { BigTitle } from "../components/components";
+import { BottomNavbar } from '../components/components';
 const MapPage = () => {
   useEffect(() => {
     const script = document.createElement('script');
@@ -34,9 +35,12 @@ const MapPage = () => {
   }, []);
 
   return (
+    <div>
     <div style={{ padding: "40px" }}>
       <BigTitle ttl="병해 현황 지도" />
       <div id="map__kakao" style={{ width: '100%', height: '100vh' }}></div>
+    </div>
+    <BottomNavbar />
     </div>
   );
 };

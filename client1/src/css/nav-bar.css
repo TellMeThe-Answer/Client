@@ -5,6 +5,7 @@
   background-color: #f3f3f3;
   box-sizing: border-box;
   border-top: 1px solid rgba(96, 96, 96, 0.3);
+  z-index: 10000;
 }
 
 .nav-list {
