@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../App.css'; // Don't forget to create this file and add your styles
+import './css/App'; // Don't forget to create this file and add your styles
 
 const BottomNavBar = () => {
   const navigate = useNavigate();

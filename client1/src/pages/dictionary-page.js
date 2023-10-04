@@ -1,10 +1,14 @@
-// DetectionPage.js
-const DictionaryPage = () => {
+import { BigTitle, BottomNavbar } from "../components/components";
+
+const HistoryPage = () => {
   return (
     <div>
-      <h1>dictionary Page</h1>
+    <div style={{ padding: "40px" }}>
+      <BigTitle ttl="신고내역 조회" />
+    </div>
+    <BottomNavbar />
     </div>
   );
 };
 
-export default DictionaryPage;
+export default HistoryPage ;

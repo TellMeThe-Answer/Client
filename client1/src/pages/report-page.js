@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import '../App.css'; // Adjust the path as per your project structure.
-
-const MapPage = () => {
+import '../css/App.css'; // Adjust the path as per your project structure.
+import { BottomNavbar } from '../components/components';
+const ReportPage = () => {
   useEffect(() => {
     const script = document.createElement('script');
     script.type = 'text/javascript';
@@ -35,10 +35,13 @@ const MapPage = () => {
 
   return (
     <div>
+    <div style={{ padding: "40px" }}>
       <h1>Map Page</h1>
       <div id="map__kakao" style={{ width: '100%', height: '100vh' }}></div>
+    </div>
+    <BottomNavbar />
     </div>
   );
 };
 
-export default MapPage;
+export default ReportPage;
