@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import '../css/App.css';
-import { BottomNavbar } from '../components/components';
+import React, { useEffect, useState, useRef } from 'react';
 import Select from 'react-select';
+import Cropper from 'cropperjs';
+import 'cropperjs/dist/cropper.css';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { BottomNavbar } from '../components/components';
 
 const ReportPage = () => {
   const [userInput, setUserInput] = useState({
@@ -9,27 +11,43 @@ const ReportPage = () => {
     disease: null,
     symptoms: '',
   });
-
   const [diseaseOptions, setDiseaseOptions] = useState([]);
-
   const cropOptions = [
     { value: 'crop1', label: 'Crop 1' },
     { value: 'crop2', label: 'Crop 2' },
-    // Add other crops here...
   ];
-
   const allDiseaseOptions = {
     crop1: [
       { value: 'disease1', label: 'Disease 1 for Crop 1' },
       { value: 'disease2', label: 'Disease 2 for Crop 1' },
-      // Add other diseases here...
     ],
     crop2: [
       { value: 'disease3', label: 'Disease 1 for Crop 2' },
       { value: 'disease4', label: 'Disease 2 for Crop 2' },
-      // Add other diseases here...
     ],
   };
+
+  const [selectedImage, setSelectedImage] = useState(null);
+  const imageRef = useRef(null);
+  let cropper;
+
+  const navigate = useNavigate(); // Use the useNavigate hook
+
+  useEffect(() => {
+    if (selectedImage) {
+      cropper = new Cropper(imageRef.current, {
+        aspectRatio: 16 / 9,
+        crop(event) {
+          console.log(event.detail);
+        },
+      });
+    }
+    return () => {
+      if (cropper) {
+        cropper.destroy();
+      }
+    };
+  }, [selectedImage]);
 
   useEffect(() => {
     const script = document.createElement('script');
@@ -75,15 +93,40 @@ const ReportPage = () => {
   };
 
   const handleReportSubmit = () => {
-    // Handling the report submit. This can be sending the data to a server.
+    if (!selectedImage || !userInput.crop || !userInput.disease) {
+      alert("Please upload an image and select both crop and disease!");
+      return;
+    }
+
     alert("Report Submitted:\n" + JSON.stringify(userInput, null, 2));
+    navigate('/map-page'); // Navigate to the map page after submitting
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const imageDataUrl = e.target.result;
+        setSelectedImage(imageDataUrl);
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   return (
-    <div>
+    <div style={{ paddingBottom: '60px' }}>
       <div style={{ padding: "40px" }}>
         <h1>Report Page</h1>
-        <div style={{ marginBottom: '20px' }}>
+        <h2>Image Upload</h2>
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        {selectedImage && (
+          <div>
+            <h3>Selected Image:</h3>
+            <img ref={imageRef} src={selectedImage} alt="Selected" width="300" />
+          </div>
+        )}
+        <div style={{ marginTop: '20px', marginBottom: '20px' }}>
           <label>Crop: </label>
           <Select
             name="crop"
@@ -91,7 +134,7 @@ const ReportPage = () => {
             onChange={handleCropChange}
           />
         </div>
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginTop: '20px', marginBottom: '20px' }}>
           <label>Disease: </label>
           <Select
             name="disease"
@@ -100,21 +143,18 @@ const ReportPage = () => {
             isDisabled={!userInput.crop}
           />
         </div>
-        <div style={{ marginBottom: '20px' }}>
+        <div style={{ marginTop: '20px', marginBottom: '20px' }}>
           <label>Symptoms: </label>
           <textarea
             name="symptoms"
             value={userInput.symptoms}
             onChange={handleInputChange}
-          />
+            rows="4"
+            cols="50"
+          ></textarea>
         </div>
-        {/* Reduce the map size to 75% of the width and height */}
-        <div id="map__kakao" style={{ width: '75%', height: '35vh', margin: '0 auto' }}></div>
-        <div style={{ marginTop: '20px' }}>
-          <button onClick={() => alert('Report Submitted!')} style={{ padding: '10px 20px', fontSize: '16px' }}>
-            Report
-          </button>
-        </div>
+        <div id="map__kakao" style={{ width: '75%', height: '35vh', margin: '0 auto', marginTop: '20px' }}></div>
+        <button onClick={handleReportSubmit} style={{ marginTop: '20px' }}>Submit Report</button>
       </div>
       <BottomNavbar />
     </div>
