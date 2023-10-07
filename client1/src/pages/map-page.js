@@ -18,10 +18,12 @@ const MapPage = () => {
 
           const container = document.getElementById('map__kakao');
           const options = {
-            center: new window.kakao.maps.LatLng(userLat, userLng), // 지도의 중심을 사용자의 위치로 설정
+            center: new window.kakao.maps.LatLng(userLat, userLng), 
             level: 3,
+            draggable: true, // 지도 드래그 가능 여부
           };
           const map = new window.kakao.maps.Map(container, options);
+          
 
           // 마커 생성
           const markerPosition = new window.kakao.maps.LatLng(userLat, userLng);

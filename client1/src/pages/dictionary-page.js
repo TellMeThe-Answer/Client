@@ -4,7 +4,7 @@ const HistoryPage = () => {
   return (
     <div>
     <div style={{ padding: "40px" }}>
-      <BigTitle ttl="신고내역 조회" />
+      <BigTitle ttl="병해도감" />
     </div>
     <BottomNavbar />
     </div>
