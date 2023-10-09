@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css'; // CropperJS의 스타일을 임포트합니다.
-import { BottomNavbar } from '../components/components';
+import { BigTitle, BottomNavbar } from '../components/components';
 const DetectionPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const imageRef = useRef(null); // image element에 대한 참조를 생성합니다.
@@ -46,7 +46,7 @@ const DetectionPage = () => {
   return (
     <div>
     <div style={{ padding: "40px" }}>
-      <h1>Image Upload</h1>
+      <BigTitle ttl="병해 진단하기" />
       <input type="file" accept="image/*" onChange={handleImageChange} />
       {selectedImage && (
         <div>

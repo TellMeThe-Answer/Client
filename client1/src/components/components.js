@@ -4,15 +4,16 @@ import React from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStethoscope, faMapLocationDot, faHouse, faBook, faFlag, faClockRotateLeft } from "@fortawesome/free-solid-svg-icons"
+import Select, { StylesConfig } from 'react-select';
 
 function BigTitle({ ttl }) {
   return <h2>{ttl}</h2>;
 }
 
-function BigBtn({ ttl, type, onClick }) {
+function BigBtn({ ttl, type, onClick, style }) {
   return (
     <div class="bigBtnArea">
-      <button type={type} className="bigBtn" onClick={onClick}>{ttl}</button>
+      <button type={type} className="bigBtn" onClick={onClick} style={style}>{ttl}</button>
     </div>
   );
 }
@@ -72,5 +73,6 @@ function EmptyArea() {
     </div>
   );
 }
+
 
 export { BigTitle, BigBtn, EmptyArea, BottomNavbar };

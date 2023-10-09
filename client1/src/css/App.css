@@ -6,7 +6,11 @@ body {
 h2 {
   font-size: 42px;
   text-align: left;
-  padding-top: 40px;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 
 .input-login-area {
@@ -16,8 +20,10 @@ h2 {
 .input-login {
   width: 100%;
   border: 0.7px solid #33490B;
-  margin-top: 20px;
+  border-radius: 5px;
+  margin-top: 13px;
   height: 35px;
+  font-size: 25px;
 }
 
 .bigBtnArea {
@@ -75,3 +81,7 @@ h2 {
   height: 100px;
 }
 
+.an-simple-select__option.an-simple-select--is-selected {
+  background-color: #F68901;
+  color: white;
+}
