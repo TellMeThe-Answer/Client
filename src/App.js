@@ -1,9 +1,11 @@
 import './App.css';
 import NavBar from './components/common/footer'
+import JoinComponent from './components/JoinComponent'
+import LoginComponent from './components/LoginComponent'
 function App() {
   return (
-    <div className="App" >
-      <NavBar/>
+    <div className="App h-screen">
+      <JoinComponent/>
     </div>
   );
 }
