@@ -1,6 +1,8 @@
 import TopComponent from '../../components/MyPage/TopComponent'
 import CheckComponent from '../../components/MyPage/CheckComponent'
 import DiagnosisComponent from '../../components/MyPage/DiagnosisComponent'
+import AccountComponent from '../../components/MyPage/AccountComponent'
+import ServiceComponent from '../../components/MyPage/ServiceComponent'
 import FooterComponent from '../../components/common/footer'
 
 const MyPage = () => {
@@ -9,6 +11,8 @@ const MyPage = () => {
             <TopComponent/>
             <CheckComponent/>
             <DiagnosisComponent/>
+            <AccountComponent/>
+            <ServiceComponent/>
             <FooterComponent/>
         </div>
     )
