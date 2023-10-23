@@ -1,15 +1,24 @@
 import React, { useState, useEffect} from "react";
-import {plantState} from "../../config/atom";
+import {plantState, plantImage, plantDescription} from "../../config/atom";
 import {useRecoilState} from "recoil";
+import plantData from "../../config/plantInformation.json"
 import { Dropdown, initTE } from "tw-elements";
 initTE({ Dropdown });
 // Initialization for ES Users
 const DropDownComponent = () =>{
 
     const [plant, setPlant] = useRecoilState(plantState);
-
+    const [image, setImage] = useRecoilState(plantImage);
+    const [description, setDescription] = useRecoilState(plantDescription);
+    
     const selectOption = (option) => {
         setPlant(option);
+        plantData.map((elem, index)=>{
+            if(elem.plantName === option){
+                setImage(elem.plantImage);
+                setDescription(elem.disease);
+            }
+        })
       };
 
     const options = ['토마토', '딸기', '오이', '고추'];
