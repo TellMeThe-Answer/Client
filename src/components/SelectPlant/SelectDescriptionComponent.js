@@ -16,7 +16,7 @@ const SelectDescriptionComponent = () => {
 
     return(
         <>
-        <div className = "bg-white w-full h-2/5 rounded-xl pl-6 pr-6 pt-4 pb-3 drop-shadow-md ... flex flex-col justify-between">
+        <div className = "bg-white w-full h-2/5 pl-6 pr-6 pt-4 pb-3 drop-shadow-md ... flex flex-col justify-between">
             <div className = "w-full h-2/5 flex">
                 <div className = "text-xl font-bold w-3/4 h-full">
                     잠깐! 검사 전 병해충 정보를 <div>확인해보세요!</div>
