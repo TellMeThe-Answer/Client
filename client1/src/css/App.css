@@ -146,3 +146,20 @@ h2 {
   font-size: 30px;  /* increase the size as needed */
   color: black;  /* adjust if you prefer a different color for the checkmark */
 }
+.subwayButton {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #67BC45; /* Lighter Subway's green color */
+  border: none;
+  border-radius: 4px;
+  color: #FFFFFF; /* White text */
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
+
+.subwayButton:hover {
+  background-color: #55A536; /* A bit darker shade of the green on hover */
+}

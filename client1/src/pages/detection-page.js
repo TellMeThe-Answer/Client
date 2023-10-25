@@ -80,7 +80,17 @@ const DetectionPage = () => {
             </div>
           ))}
         </div>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
+        <label htmlFor="imageUpload" className="subwayButton">
+  Select Image
+  <input 
+    id="imageUpload" 
+    type="file" 
+    accept="image/*" 
+    onChange={handleImageChange} 
+    style={{ display: 'none' }}
+  />
+</label>
+
         {selectedImage && (
           <div>
             <h2>Selected Image:</h2>
