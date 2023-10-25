@@ -10,7 +10,14 @@ const DetectionPage = () => {
   const imageRef = useRef(null);
   let cropper;
   const [selectedCrop, setSelectedCrop] = useState(null);
-  const crops = ["Crop1", "Crop2", "Crop3", "Crop4"];
+  const crops = ["딸기", "토마토", "고추", "오이"];
+
+  const cropClassNames = [
+    "cropItemStrawberry",
+    "cropItemTomato",
+    "cropItemChili",
+    "cropItemCucumber"
+  ];
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -57,21 +64,16 @@ const DetectionPage = () => {
       </button>
       <div style={{ padding: "40px" }}>
         <h1>Image Upload</h1>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '20px 0' }}>
+        <div className="cropContainer">
           {crops.map((crop, index) => (
             <div 
               key={index} 
-              style={{
-                border: '1px solid black',
-                padding: '20px',
-                textAlign: 'center',
-                position: 'relative'
-              }}
+              className={`cropItem ${cropClassNames[index]}`}
               onClick={() => setSelectedCrop(index)}
             >
               {crop}
               {selectedCrop === index && (
-                <span style={{ position: 'absolute', top: '10px', right: '10px' }}>
+                <span className="selectedCropIcon">
                   ✔️
                 </span>
               )}
