@@ -71,7 +71,7 @@ const DetectionPage = () => {
               className={`cropItem ${cropClassNames[index]}`}
               onClick={() => setSelectedCrop(index)}
             >
-              {crop}
+              <span className="cropName">{crop}</span>
               {selectedCrop === index && (
                 <span className="selectedCropIcon">
                   ✔️
