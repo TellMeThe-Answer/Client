@@ -1,11 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import Cropper from 'cropperjs';
-import 'cropperjs/dist/cropper.css'; // CropperJS의 스타일을 임포트합니다.
-import { BottomNavbar } from '../components/components';
+import 'cropperjs/dist/cropper.css';
+import { FaArrowLeft } from 'react-icons/fa';
+
+import '../css/App.css'; 
+
 const DetectionPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
-  const imageRef = useRef(null); // image element에 대한 참조를 생성합니다.
+  const imageRef = useRef(null);
   let cropper;
+  const [selectedCrop, setSelectedCrop] = useState(null);
+  const crops = ["Crop1", "Crop2", "Crop3", "Crop4"];
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -21,7 +26,6 @@ const DetectionPage = () => {
 
   useEffect(() => {
     if (selectedImage) {
-      // 이미지가 선택되면 cropper 인스턴스를 생성합니다.
       cropper = new Cropper(imageRef.current, {
         aspectRatio: 16 / 9,
         crop(event) {
@@ -36,27 +40,52 @@ const DetectionPage = () => {
       });
     }
     return () => {
-      // 컴포넌트가 언마운트되면 cropper 인스턴스를 제거합니다.
       if (cropper) {
         cropper.destroy();
       }
     };
-  }, [selectedImage]); // selectedImage가 변경될 때마다 effect를 실행합니다.
+  }, [selectedImage]);
+
+  const goBack = () => {
+    window.history.back();
+  };
 
   return (
     <div>
-    <div style={{ padding: "40px" }}>
-      <h1>Image Upload</h1>
-      <input type="file" accept="image/*" onChange={handleImageChange} />
-      {selectedImage && (
-        <div>
-          <h2>Selected Image:</h2>
-          {/* 이미지 참조를 설정합니다. */}
-          <img ref={imageRef} src={selectedImage} alt="Selected" width="300" />
+      <button onClick={goBack} className="goBackButton">
+        <FaArrowLeft size={20} />
+      </button>
+      <div style={{ padding: "40px" }}>
+        <h1>Image Upload</h1>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', margin: '20px 0' }}>
+          {crops.map((crop, index) => (
+            <div 
+              key={index} 
+              style={{
+                border: '1px solid black',
+                padding: '20px',
+                textAlign: 'center',
+                position: 'relative'
+              }}
+              onClick={() => setSelectedCrop(index)}
+            >
+              {crop}
+              {selectedCrop === index && (
+                <span style={{ position: 'absolute', top: '10px', right: '10px' }}>
+                  ✔️
+                </span>
+              )}
+            </div>
+          ))}
         </div>
-      )}
-    </div>
-    <BottomNavbar />
+        <input type="file" accept="image/*" onChange={handleImageChange} />
+        {selectedImage && (
+          <div>
+            <h2>Selected Image:</h2>
+            <img ref={imageRef} src={selectedImage} alt="Selected" width="300" />
+          </div>
+        )}
+      </div>
     </div>
   );
 };

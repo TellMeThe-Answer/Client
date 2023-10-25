@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import LoginPage from './pages/login-page';
 import MonthPage from './pages/month-page';
@@ -7,15 +7,8 @@ import HistoryPage from './pages/history-page';
 import DictionaryPage from './pages/dictionary-page';
 import MapPage from './pages/map-page';
 import ReportPage from './pages/report-page';
-/*추가할 항목들
-
-
-<Route path="/map" exact component={map} />
-
-<Route path="/report" exact component={report} />
-*/
-function App() {
-  
+import MyPage from './pages/my-page';
+function App() {  
   return(
     <Router>
       <div className = "App">
@@ -27,6 +20,8 @@ function App() {
           <Route path="/dictionary-page" element = {<DictionaryPage />} />
           <Route path="/map-page" element = {<MapPage />} />
           <Route path="/report-page" element={<ReportPage />} />
+          <Route path="/my-page" element={<MyPage />} />
+         
         </Routes>
       </div>
     </Router>

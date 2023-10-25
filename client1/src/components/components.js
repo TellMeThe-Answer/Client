@@ -41,13 +41,9 @@ const BottomNavbar = () => {
           <FontAwesomeIcon icon={faBook} />
           </Link>
         </li>
+       
         <li>
-          <Link to="/report-page">
-          <FontAwesomeIcon icon={faFlag} />
-          </Link>
-        </li>
-        <li>
-          <Link to="/history-page">
+          <Link to="/my-page">
           <FontAwesomeIcon icon={faClockRotateLeft} />
           </Link>
         </li>
