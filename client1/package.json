@@ -46,5 +46,6 @@
   },
   "devDependencies": {
     "kakao.maps.d.ts": "^0.1.39"
-  }
+  },
+  "proxy": "http://localhost:3000/month-page"
 }
