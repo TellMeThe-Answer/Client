@@ -29,11 +29,8 @@ const users = [
 function LoginInput({ type, label, value, onChange }) {
   return (
     <div style={{ marginBottom: "10px" }}>
-      <div>
-        <label>{label}</label>
-      </div>
       <div class="input-login-area">
-        <input class="input-login" type={type} value={value} onChange={onChange} required />
+        <input placeholder={label} class="input-login" type={type} value={value} onChange={onChange} required />
       </div>
     </div>
   );
@@ -42,11 +39,9 @@ function LoginInput({ type, label, value, onChange }) {
 function PasswordInput({ label, value, onChange, isPasswordVisible, toggleVisibility }) {
   return (
     <div style={{ marginBottom: "10px" }}>
-      <div>
-        <label>{label}</label>
-      </div>
       <div className="input-login-area" style={{ position: 'relative' }}>
-        <input 
+        <input
+          placeholder={label} 
           className="input-login" 
           type={isPasswordVisible ? "text" : "password"} 
           value={value} 
@@ -134,6 +129,7 @@ function LoginPage() {
         <div style={modalStyle}>
           <div style={modalContentStyle}>
             <h2>회원가입</h2>
+            <EmptyArea />
             <form onSubmit={handleSignupSubmit}>
               <LoginInput type="email" label="이메일" value={signupEmail} onChange={(e) => setSignupEmail(e.target.value)} />
               <PasswordInput 
@@ -143,6 +139,8 @@ function LoginPage() {
                 isPasswordVisible={showSignupPassword}
                 toggleVisibility={() => setShowSignupPassword(!showSignupPassword)}
               />
+              <EmptyArea />
+              <EmptyArea />
               <BigBtn ttl="회원가입" type="submit" />
             </form>
             <BigBtn ttl="닫기" type="button" onClick={() => setIsSignupModalOpen(false)} />

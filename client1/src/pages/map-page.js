@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import '../css/App.css'; // Adjust the path as per your project structure.
+import '../css/App.css'; 
 import { BigTitle } from "../components/components";
-import { BottomNavbar, EmptyArea } from '../components/components';
+import { FaArrowLeft } from 'react-icons/fa';
+
 const MapPage = () => {
   useEffect(() => {
     const script = document.createElement('script');
@@ -18,8 +19,9 @@ const MapPage = () => {
 
           const container = document.getElementById('map__kakao');
           const options = {
-            center: new window.kakao.maps.LatLng(userLat, userLng), // 지도의 중심을 사용자의 위치로 설정
+            center: new window.kakao.maps.LatLng(userLat, userLng), 
             level: 3,
+            draggable: true, // 지도 드래그 가능 여부
           };
           const map = new window.kakao.maps.Map(container, options);
 
@@ -34,13 +36,19 @@ const MapPage = () => {
     };
   }, []);
 
+  const goBack = () => {
+    window.history.back(); // 브라우저의 뒤로 가기 기능 호출
+  }
+
   return (
     <div>
-    <div style={{ padding: "40px" }}>
-      <BigTitle ttl="병해 현황 지도" />
-      <div id="map__kakao" style={{ width: '100%', height: '600px' }}></div>
-    </div>
-    <BottomNavbar />
+      <div style={{ padding: "40px" }}>
+        <button onClick={goBack} className="goBackButton">
+            <FaArrowLeft size={20}/>
+        </button>
+        <BigTitle ttl="병해 현황 지도" />
+        <div id="map__kakao" style={{ width: '100%', height: '100vh' }}></div>
+      </div>
     </div>
   );
 };

@@ -1,13 +1,22 @@
-import { BigTitle, BottomNavbar } from "../components/components";
+import React from 'react';
+import { BigTitle } from "../components/components";
+import { FaArrowLeft } from 'react-icons/fa';
 
+import '../css/App.css'; 
 const DictionaryPage = () => {
+  const goBack = () => {
+      window.history.back(); 
+  }
+
   return (
-    <div>
-    <div style={{ padding: "40px" }}>
-      <BigTitle ttl="병해 도감" />
-    </div>
-    <BottomNavbar />
-    </div>
+      <div>
+          <button onClick={goBack} className="goBackButton">
+              <FaArrowLeft size={20}/>
+          </button>
+          <div className="container">
+              <BigTitle ttl="병해도감" />
+          </div>
+      </div>
   );
 };
 
