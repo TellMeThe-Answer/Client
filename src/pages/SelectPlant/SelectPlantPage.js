@@ -4,7 +4,7 @@ import SelectTopComponent from '../../components/SelectPlant/SelectTopComponent'
 
 const SelectPlantPage = () => {
     return(
-        <div className="w-full h-full bg-gray-100">
+        <div className="w-full bg-gray-100">
             <SelectTopComponent/>
             <SelectDescriptionComponent/>
             <SelectPlantComponent/>

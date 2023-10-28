@@ -2,8 +2,7 @@ import React, { useState, useEffect} from "react";
 import {plantState, plantImage, plantDescription} from "../../config/atom";
 import {useRecoilState} from "recoil";
 import plantData from "../../config/plantInformation.json"
-import { Dropdown, initTE } from "tw-elements";
-initTE({ Dropdown });
+
 // Initialization for ES Users
 const DropDownComponent = () =>{
 
