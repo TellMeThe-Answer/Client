@@ -4,7 +4,7 @@ import MyPage from './pages/Mypage/Mypage'
 import SelectPlantPage from './pages/SelectPlant/SelectPlantPage';
 import Login from './pages/LoginAndJoin/LoginPage'
 import { Routes, Route } from "react-router-dom";
-import DiagnosePage from './pages/Dignose/DignosePage';
+import DiagnosePage from './pages/Diagnose/DignosePage';
 
 function App() {
   return (

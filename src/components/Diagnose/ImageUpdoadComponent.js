@@ -22,12 +22,13 @@ const ImageUpdoadComponent = () =>{
     return(
         <>
             <div class="flex items-center justify-center w-full h-full">
+            {/** 이미지 업로드 */}
             {check === true ? 
             <label className = "w-full h-full">
             <img src = {preview} className = "w-full h-full"/>
             <input id="dropzone-file" type="file" class="hidden" onChange={setPreviewImg}/>
             </label>
-             : 
+             :
                     <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
@@ -39,8 +40,9 @@ const ImageUpdoadComponent = () =>{
                         <input id="dropzone-file" type="file" class="hidden" onChange={setPreviewImg}/>
                     </label>
             }
+            <div>토마토일 확률이 70%입니다.</div>
             </div> 
-
+            
         </>
     )
 }
