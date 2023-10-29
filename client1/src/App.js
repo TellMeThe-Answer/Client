@@ -1,36 +1,38 @@
-import React, {useState} from 'react';
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
-import LoginPage from './pages/login-page';
-import MonthPage from './pages/month-page';
-import DetectionPage from './pages/detection-page';
-import HistoryPage from './pages/history-page';
-import DictionaryPage from './pages/dictionary-page';
-import MapPage from './pages/map-page';
-import ReportPage from './pages/report-page';
-/*추가할 항목들
+import './App.css';
+import Footer from './components/common/footer'
+import MyPage from './pages/Mypage/Mypage'
+import SelectPlantPage from './pages/SelectPlant/SelectPlantPage';
+import Login from './pages/LoginAndJoin/LoginPage'
+import { Routes, Route } from "react-router-dom";
+import DiagnosePage from './pages/Diagnose/DiagnosePage';
 
-
-<Route path="/map" exact component={map} />
-
-<Route path="/report" exact component={report} />
-*/
 function App() {
-  
-  return(
-    <Router>
-      <div className = "App">
+  return (
+    <div className="App h-screen">
         <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/month-page" element={<MonthPage />} />
-          <Route path="/detection-page" element={<DetectionPage />} />
-          <Route path="/history-page" element = {<HistoryPage />} />
-          <Route path="/dictionary-page" element = {<DictionaryPage />} />
-          <Route path="/map-page" element = {<MapPage />} />
-          <Route path="/report-page" element={<ReportPage />} />
+          <Route
+          path="/"
+          element={
+            <>
+              <Login />
+              <Footer />
+            </>
+          }
+        />
+          <Route
+          path="/mypage"
+          element={
+            <>
+              <MyPage />
+              <Footer />
+            </>
+          }
+        />
+          <Route path = "/inspect" Component = {SelectPlantPage} />
+          <Route path = "/diagnose" Component = {DiagnosePage} />
         </Routes>
-      </div>
-    </Router>
-  )
+    </div>
+  );
 }
 
 export default App;
