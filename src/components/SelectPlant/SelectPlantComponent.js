@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import {plantState, plantImage, plantDescription} from "../../config/atom";
 import {useRecoilState} from "recoil";
+import {Link} from 'react-router-dom';
 import plantData from "../../config/plantInformation.json"
 
 const SelectPlantComponent = () => {
@@ -45,7 +46,7 @@ const SelectPlantComponent = () => {
             </div>
 
             <div className = "w-full h-16 hover:bg-black bg-[#10b981] flex justify-center items-center text-white font-semibold">
-                진단하기로 넘어가기
+            <Link to='/diagnose'>진단하기로 넘어가기</Link>
             </div>
 
             

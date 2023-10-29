@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import BackButton from "../common/BackButton";
 
-const SelectTopComponent = () => {
+const MoveBackComponent = () => {
 
     return(
         <>
@@ -13,4 +13,4 @@ const SelectTopComponent = () => {
         </>
     )
 }
-export default SelectTopComponent;
+export default MoveBackComponent;

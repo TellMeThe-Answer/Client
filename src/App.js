@@ -4,7 +4,7 @@ import MyPage from './pages/Mypage/Mypage'
 import SelectPlantPage from './pages/SelectPlant/SelectPlantPage';
 import Login from './pages/LoginAndJoin/LoginPage'
 import { Routes, Route } from "react-router-dom";
-import DictionaryPage from './pages/JoinPage'
+import DiagnosePage from './pages/Dignose/DignosePage';
 
 function App() {
   return (
@@ -12,6 +12,7 @@ function App() {
         <Routes>
           <Route path="/" Component={Login} />
           <Route path = "/mypage" Component = {SelectPlantPage} />
+          <Route path = "/diagnose" Component = {DiagnosePage} />
         </Routes>
         {/**<Footer/>*/}
     </div>
