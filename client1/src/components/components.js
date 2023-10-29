@@ -4,6 +4,7 @@ import React from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStethoscope, faMapLocationDot, faHouse, faBook, faFlag, faClockRotateLeft } from "@fortawesome/free-solid-svg-icons"
+import { FaArrowLeft } from 'react-icons/fa';
 
 function BigTitle({ ttl }) {
   return <h2>{ttl}</h2>;
@@ -68,5 +69,12 @@ function EmptyArea() {
     </div>
   );
 }
+function GoBackButton({ goBack }) {
+  return (
+      <button onClick={goBack} className="goBackButton">
+          <FaArrowLeft size={40} />
+      </button>
+  );
+}
 
-export { BigTitle, BigBtn, EmptyArea, BottomNavbar };
+export { BigTitle, BigBtn, EmptyArea, BottomNavbar, GoBackButton };

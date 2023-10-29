@@ -21,7 +21,7 @@ function App() {
           <Route path="/map-page" element = {<MapPage />} />
           <Route path="/report-page" element={<ReportPage />} />
           <Route path="/my-page" element={<MyPage />} />
-         
+          
         </Routes>
       </div>
     </Router>

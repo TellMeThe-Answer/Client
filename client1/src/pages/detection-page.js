@@ -2,9 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Cropper from 'cropperjs';
 import 'cropperjs/dist/cropper.css';
 import { FaArrowLeft } from 'react-icons/fa';
-
 import '../css/App.css'; 
-
+ 
 const DetectionPage = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const imageRef = useRef(null);
@@ -32,6 +31,7 @@ const DetectionPage = () => {
   };
 
   useEffect(() => {
+    console.log('asdasd')
     if (selectedImage) {
       cropper = new Cropper(imageRef.current, {
         aspectRatio: 16 / 9,
@@ -46,12 +46,8 @@ const DetectionPage = () => {
         },
       });
     }
-    return () => {
-      if (cropper) {
-        cropper.destroy();
-      }
-    };
-  }, [selectedImage]);
+   
+  }, );
 
   const goBack = () => {
     window.history.back();
@@ -60,7 +56,7 @@ const DetectionPage = () => {
   return (
     <div>
       <button onClick={goBack} className="goBackButton">
-        <FaArrowLeft size={20} />
+        <FaArrowLeft size={25} />
       </button>
       <div style={{ padding: "40px" }}>
         <h1>Image Upload</h1>
@@ -93,7 +89,7 @@ const DetectionPage = () => {
 
         {selectedImage && (
           <div>
-            <h2>Selected Image:</h2>
+            
             <img ref={imageRef} src={selectedImage} alt="Selected" width="300" />
           </div>
         )}
