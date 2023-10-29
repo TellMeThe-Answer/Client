@@ -10,11 +10,27 @@ function App() {
   return (
     <div className="App h-screen">
         <Routes>
-          <Route path="/" Component={Login} />
-          <Route path = "/mypage" Component = {SelectPlantPage} />
+          <Route
+          path="/"
+          element={
+            <>
+              <Login />
+              <Footer />
+            </>
+          }
+        />
+          <Route
+          path="/mypage"
+          element={
+            <>
+              <MyPage />
+              <Footer />
+            </>
+          }
+        />
+          <Route path = "/inspect" Component = {SelectPlantPage} />
           <Route path = "/diagnose" Component = {DiagnosePage} />
         </Routes>
-        {/**<Footer/>*/}
     </div>
   );
 }

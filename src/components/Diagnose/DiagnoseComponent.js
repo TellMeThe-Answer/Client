@@ -10,7 +10,7 @@ const DiagnoseComponent = () =>{
     return(
         <>
             <MoveBackComponent/>
-            <div className = "w-full h-96 bg-amber-200 p-10">
+            <div className = "w-full h-96 p-10">
                 <ImageUpdoadComponent/>
             </div>
         </>

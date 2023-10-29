@@ -23,7 +23,7 @@ const LoginPage = () => {
             <div
             data-te-modal-init
             className="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-hidden outline-none"
-            id="exampleFrameBottomModal3"
+            id="exampleFrameBottomModal4"
             tabindex="-1"
             aria-labelledby="exampleFrameBottomModalLabel"
             aria-hidden="true">
