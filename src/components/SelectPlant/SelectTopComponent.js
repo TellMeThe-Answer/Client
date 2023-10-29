@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackButton from "../common/BackButton";
-import DropDownComponent from "./DropDownComponent";
-// Initialization for ES Users
 
 const SelectTopComponent = () => {
     const navigate = useNavigate(); //변수 할당시켜서 사용

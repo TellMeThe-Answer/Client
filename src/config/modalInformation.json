@@ -1,0 +1,140 @@
+[
+    {
+        "plantName" : "딸기",
+        "information" : [
+            {
+                "plantDisease": "꽃노랑총채벌레",
+                "scientifiName" : "Frankliniella occidentalisi",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "잎과 꽃에 가해한다. 잎에는 은백색 반점이 많이 생기고 심하면 회색∼담갈색 얼룩이 생긴다. 글라디올러스 노지재배시 6∼8월에 흔히 볼 수 있고 그 피해 또한 크다.",
+                "treat" : "시설내에서는 망사 등을 씌워 외부에서의 유입을 차단시킨다. 또한 품종간 민감성 차이가 크므로 피해가 큰 지역에서는 민감한 프리실라 등의 품종을 재배하지 않도록 한다.",
+                "link" : "https://www.syngenta.co.kr/ggocnorangcongcaebeolrewestern-flower-thrips"
+            },
+            {
+                "plantDisease": "잿빛곰팡이병",
+                "scientifiName" : "Gray mold",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "처음에는 꽃잎에 침입하고 차차 수술, 암술, 꽃받침 및 수확기 과일에 발생하고 발생한 과일은 1-2일사이에 문드러지고 회색가루의 곰팡이가 생긴다.",
+                "treat" : "과다한 시비와 밀식을 피하고, 과번무가 되지 않도록 한다. 자주 환기하여 시설내 병원균의 밀도를 낮추는 것이 중요하다.",
+                "link" : "https://www.syngenta.co.kr/ddalgi-jaesbicgompangibyeong-gray-mold"
+            },
+            {
+                "plantDisease": "목화진딧물",
+                "scientifiName" : "Aphis gossypii",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "새싹, 잎뒷면에 군생하여 흡즙 가해를 받은 새잎은 생육이 부진하며, 대발생 할 경우 잎이 뒤로 말리며 배설물에 의한 그을음병 유발로 품질이 저하된다. 또한 바이러스를 매개하므로 피해가 크게된다.",
+                "treat" : "발생이 확인되면 잎 뒷면을 중심으로 약제를 살포한다.",
+                "link" : "https://www.syngenta.co.kr/moghwajindismul-cotton-aphid"
+            },
+            {
+                "plantDisease": "탄저병",
+                "scientifiName" : "Anthracnose",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "감염된 식물체의 관부는 적갈색내지 암갈색으로 변하여 썩고, 진전되면 관부의 내부까지 썩어 들어간다. 병든 식물체의 지상부는 감염된 쪽의 잎부터 말라죽고, 심하면 그루 전체가 말라죽는다. ",
+                "treat" : "건전 묘를 선택하여 재배하며 비배관리에 유의한다.",
+                "link" : "https://www.syngenta.co.kr/ddalgi-tanjeobyeong-powdery-mildew"
+            },
+            {
+                "plantDisease": "작은뿌리파리",
+                "scientifiName" : "Bradysia agrestis",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "작은 뿌리파리의 피해를 받은 모종은 뿌리가 썩기 시작하고 심하면 지상부가 쓰러져서 고사하는 증상을 보인다. 강낭콩의 경우 처음에는 뿌리를 가해하다가 나중에는 지상부의 줄기속까지 가해하였다.",
+                "treat" : "방제를 위해서는 씨뿌리기(파종), 아주심기(정식) 전에 약제를 토양 시용하고 생육 중 피해가 나타나면 유제 등을 뿌리에 포기별 물주기(관주)해야한다.  ",
+                "link" : "https://www.syngenta.co.kr/jageunbburipari"
+            },
+            {
+                "plantDisease": "흰가루병",
+                "scientifiName" : "Powdery mildew",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "잎, 과실, 과경에 발생하며 주로 과실에서 심하며 병징은 과실에 흰가루를 뿌려 놓은 것 같은 증상으로 나타난다. 어린 과실은 비대가 억제되고 경화되며, 착과기의 과실에 발생하면 상품가치가 떨어진다.",
+                "treat" : "저항성 품종을 재배하고 초세의 강화 및 환기에 유의한다.",
+                "link" : "https://www.syngenta.co.kr/ddalgi-hyingarubyeong-sphaerotheca-humuli"
+            },
+            {
+                "plantDisease": "점박이응애",
+                "scientifiName" : "Tetranychus urticae",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "잎의 엽록소와 수분을 흡즙하며 피해를 받은 잎은 바늘 자국같은 흰 점이 생성되어 그 피해를 판단할 수 있다. 피해가 심하면 낙엽이 지고, 영양상태가 악화되게 된다.",
+                "treat" : "3월 이전에는 기계유제를 이용하여 월동 응애를 방제해 주어야 한다. 5월경에 월동에서 깨어난 응애들이 좋아진 먹이 조건에 의해 밀도가 증가하므로 알이나 유충 등에 효과가 좋은 약제를 살포하여야 한다.",
+                "link" : "https://www.syngenta.co.kr/jeombagieungae-two-spotted-spider-mite"
+            },
+            {
+                "plantDisease": "파밤나방",
+                "scientifiName" : "Spodoptera exigua",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "유충은 잡식성이고 채소, 화훼류, 전특작물을 널리 가해하며 잡초류도 섭식한다.",
+                "treat" : "3령 이후의 유충은 방제가 어렵기 때문에 가급적 어린 유충시기에 방제를 해야 하며 발생이 많을 경우에는 여러 번에 걸쳐서 반복 살포해야 좋은 방제효과를 기대할 수 있다.",
+                "link" : "https://www.syngenta.co.kr/pabamnabangbeet-armyworm"
+            }
+        ]
+    },
+    {
+        "plantName" : "토마토",
+        "information" : [
+            {
+                "plantDisease": "꽃노랑총채벌레",
+                "scientifiName" : "Frankliniella occidentalisi",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "잎과 꽃에 가해한다. 잎에는 은백색 반점이 많이 생기고 심하면 회색∼담갈색 얼룩이 생긴다. 글라디올러스 노지재배시 6∼8월에 흔히 볼 수 있고 그 피해 또한 크다.",
+                "treat" : "시설내에서는 망사 등을 씌워 외부에서의 유입을 차단시킨다. 또한 품종간 민감성 차이가 크므로 피해가 큰 지역에서는 민감한 프리실라 등의 품종을 재배하지 않도록 한다.",
+                "link" : "https://www.syngenta.co.kr/ggocnorangcongcaebeolrewestern-flower-thrips"
+            },
+            {
+                "plantDisease": "딸기 잿빛곰팡이병",
+                "scientifiName" : "Gray mold",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "처음에는 꽃잎에 침입하고 차차 수술, 암술, 꽃받침 및 수확기 과일에 발생하고 발생한 과일은 1-2일사이에 문드러지고 회색가루의 곰팡이가 생긴다.",
+                "treat" : "과다한 시비와 밀식을 피하고, 과번무가 되지 않도록 한다. 자주 환기하여 시설내 병원균의 밀도를 낮추는 것이 중요하다.",
+                "link" : "https://www.syngenta.co.kr/ddalgi-jaesbicgompangibyeong-gray-mold"
+            },
+            {
+                "plantDisease": "목화진딧물",
+                "scientifiName" : "Aphis gossypii",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "새싹, 잎뒷면에 군생하여 흡즙 가해를 받은 새잎은 생육이 부진하며, 대발생 할 경우 잎이 뒤로 말리며 배설물에 의한 그을음병 유발로 품질이 저하된다. 또한 바이러스를 매개하므로 피해가 크게된다.",
+                "treat" : "발생이 확인되면 잎 뒷면을 중심으로 약제를 살포한다.",
+                "link" : "https://www.syngenta.co.kr/moghwajindismul-cotton-aphid"
+            },
+            {
+                "plantDisease": "탄저병",
+                "scientifiName" : "Anthracnose",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "감염된 식물체의 관부는 적갈색내지 암갈색으로 변하여 썩고, 진전되면 관부의 내부까지 썩어 들어간다. 병든 식물체의 지상부는 감염된 쪽의 잎부터 말라죽고, 심하면 그루 전체가 말라죽는다. ",
+                "treat" : "건전 묘를 선택하여 재배하며 비배관리에 유의한다.",
+                "link" : "https://www.syngenta.co.kr/ddalgi-tanjeobyeong-powdery-mildew"
+            },
+            {
+                "plantDisease": "작은뿌리파리",
+                "scientifiName" : "Bradysia agrestis",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "작은 뿌리파리의 피해를 받은 모종은 뿌리가 썩기 시작하고 심하면 지상부가 쓰러져서 고사하는 증상을 보인다. 강낭콩의 경우 처음에는 뿌리를 가해하다가 나중에는 지상부의 줄기속까지 가해하였다.",
+                "treat" : "방제를 위해서는 씨뿌리기(파종), 아주심기(정식) 전에 약제를 토양 시용하고 생육 중 피해가 나타나면 유제 등을 뿌리에 포기별 물주기(관주)해야한다.  ",
+                "link" : "https://www.syngenta.co.kr/jageunbburipari"
+            },
+            {
+                "plantDisease": "딸기 흰가루병",
+                "scientifiName" : "Powdery mildew",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "잎, 과실, 과경에 발생하며 주로 과실에서 심하며 병징은 과실에 흰가루를 뿌려 놓은 것 같은 증상으로 나타난다. 어린 과실은 비대가 억제되고 경화되며, 착과기의 과실에 발생하면 상품가치가 떨어진다.",
+                "treat" : "저항성 품종을 재배하고 초세의 강화 및 환기에 유의한다.",
+                "link" : "https://www.syngenta.co.kr/ddalgi-hyingarubyeong-sphaerotheca-humuli"
+            },
+            {
+                "plantDisease": "점박이응애",
+                "scientifiName" : "Tetranychus urticae",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "잎의 엽록소와 수분을 흡즙하며 피해를 받은 잎은 바늘 자국같은 흰 점이 생성되어 그 피해를 판단할 수 있다. 피해가 심하면 낙엽이 지고, 영양상태가 악화되게 된다.",
+                "treat" : "3월 이전에는 기계유제를 이용하여 월동 응애를 방제해 주어야 한다. 5월경에 월동에서 깨어난 응애들이 좋아진 먹이 조건에 의해 밀도가 증가하므로 알이나 유충 등에 효과가 좋은 약제를 살포하여야 한다.",
+                "link" : "https://www.syngenta.co.kr/jeombagieungae-two-spotted-spider-mite"
+            },
+            {
+                "plantDisease": "파밤나방",
+                "scientifiName" : "Spodoptera exigua",
+                "plantImage": "https://cdn-icons-png.flaticon.com/128/877/877712.png",
+                "damage" : "유충은 잡식성이고 채소, 화훼류, 전특작물을 널리 가해하며 잡초류도 섭식한다.",
+                "treat" : "3령 이후의 유충은 방제가 어렵기 때문에 가급적 어린 유충시기에 방제를 해야 하며 발생이 많을 경우에는 여러 번에 걸쳐서 반복 살포해야 좋은 방제효과를 기대할 수 있다.",
+                "link" : "https://www.syngenta.co.kr/pabamnabangbeet-armyworm"
+            }
+        ]
+    }
+]

@@ -21,7 +21,6 @@ const SelectPlantComponent = () => {
         setPlant(buttonName.name);
         plantData.map((elem, index)=>{
             if(elem.plantName === buttonName.name){
-                console.log(elem.plantImage)
                 setImage(elem.plantImage);
                 setDescription(elem.disease);
             }
@@ -48,6 +47,8 @@ const SelectPlantComponent = () => {
             <div className = "w-full h-16 hover:bg-black bg-[#10b981] flex justify-center items-center text-white font-semibold">
                 진단하기로 넘어가기
             </div>
+
+            
         </div>
         </>
     )
