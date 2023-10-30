@@ -88,7 +88,7 @@ const CropListPage = () => {
             {diseaseList.map((disease, index) => (
               <div key={index} className="disease-item" onClick={() => openModal(disease)}>
                 <img src={disease.thumbImg} alt={`${disease.sickNameKor} thumbnail`} />
-                <h3>{disease.sickNameKor} ({disease.sickNameEng})</h3>
+                <h3>{disease.sickNameKor} </h3>
               </div>
             ))}
           </div>

@@ -153,10 +153,8 @@ h2 {
   padding: 20px;
 }
 
-.checkbox-container {
-  margin-bottom: 20px;
-}
 
+/*병해도감 식물리스트 와 식물병해도감 */
 .disease-list {
   display: flex;
   flex-wrap: wrap;
@@ -174,11 +172,11 @@ h2 {
 }
 
 .disease-item img {
-  width: 100%;
-  height: auto;
-  border-bottom: 1px solid #eee;
+  width: 100px;   /* 이미지 너비 */
+  height: 100px;  /* 이미지 높이 */
+  object-fit: cover;  /* 이미지 비율을 유지하면서 요소의 콘텐츠 박스를 채우기 */
+  border-radius: 8px;  /* 이미지 모서리 둥글게 */
 }
-
 .disease-item h3 {
   margin: 10px;
   font-size: 16px;
