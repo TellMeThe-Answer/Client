@@ -1,37 +1,55 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import UploadData from "../../config/diagnoseInformation.json";
-
+import Cropper from 'cropperjs';
+import 'cropperjs/dist/cropper.css';
 import { Dropdown, initTE } from "tw-elements";
+//import 'tw-elements/dist/tw-elements.css';
 initTE({ Dropdown });
 // Initialization for ES Users
 
 
-const ImageUploadComponent = () =>{
-    const [check, setCheck] = useState(false);
+const ImageUpdoadComponent = () =>{
+    const [uploaded, setUploaded] = useState(false);
+    const [sent, setSent] = useState(false);
     const [preview, serPreview] = useState();
+    const imageRef = useRef(null);
+    let cropper;
 
     const setPreviewImg = (event) => {
 
         var reader = new FileReader();
         reader.onload = function(event) {
             serPreview(event.target.result);
-            setCheck(true);
+            setUploaded(true);
         };
 
         reader.readAsDataURL(event.target.files[0]);
     }
 
+    const submitImg = (event) => {
+        setSent(true);
+    }
+    
+    useEffect(() => {
+        if (uploaded) {
+          cropper = new Cropper(imageRef.current, {
+          aspectRatio: 16 / 9, // Adjust the aspect ratio as needed
+          // You can customize other Cropper options here
+          });
+        }
+      }, [uploaded]);
+
     useEffect(()=>{
         console.log(UploadData.contents);
-        setCheck(false);
+        setUploaded(false);
     }, [])
     return(
         <>
             <div class="flex items-center justify-center w-full h-full mb-2">
             {/** 이미지 업로드 */}
-            {check === true ? 
+            {uploaded === true ? 
             <label className = "w-full h-full rounded-xl">
-            <img src = {preview} className = "w-full h-full rounded-xl"/>
+            <img src = {preview} className = "w-full h-full rounded-xl"alt="Croppable" ref={imageRef}/>
             <input id="dropzone-file" type="file" class="hidden" onChange={setPreviewImg}/>
             </label>
              :
@@ -47,7 +65,7 @@ const ImageUploadComponent = () =>{
                     </label>
             }
             </div> 
-            {check === true ? 
+            {sent === true ? 
             <div className = "w-full h-20 flex flex-col items-center justify-center bg-white rounded-lg text-sm font-semibold shadow-md ... p-4">
                 <div className = "mb-2 text-md font-bold">분석결과</div>
                 <div className = "text-red-500">분석 결과는 참고용으로만 확인해주시길 바랍니다.</div>
@@ -60,7 +78,7 @@ const ImageUploadComponent = () =>{
             }
 
             {/** 진단결과 */}
-            {check === true ? 
+            {sent === true ? 
             <>
                 <div className = "w-full flex justify-end text-gray-400 text-sm mt-4">단위(%)</div>
                 <div className = "w-full flex flex-col items-center justify-center bg-white rounded-lg text-sm font-semibold shadow-md ... p-4">
@@ -84,6 +102,7 @@ const ImageUploadComponent = () =>{
             {/** 버튼 */}
             <div className = "w-full flex justify-center fixed bottom-0 left-0 mb-7">
                 <button
+                    onClick={submitImg}
                     type="button"
                     className="w-full h-14 inline-block rounded-xl bg-[#10b981] mx-10 pb-1.5 pt-2 text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
                     바로 병해 진단하기
@@ -142,4 +161,4 @@ const ImageUploadComponent = () =>{
         </>
     )
 }
-export default ImageUploadComponent;
+export default ImageUpdoadComponent;

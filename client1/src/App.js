@@ -5,6 +5,9 @@ import SelectPlantPage from './pages/SelectPlant/SelectPlantPage';
 import Login from './pages/LoginAndJoin/LoginPage'
 import { Routes, Route } from "react-router-dom";
 import DiagnosePage from './pages/Diagnose/DiagnosePage';
+import DictionaryPage from './pages/Dictionary/DictionaryPage';
+import MonthPage from './pages/Month/MonthPage';
+import MapPage from './pages/Map/MapPage';
 
 function App() {
   return (
@@ -30,6 +33,9 @@ function App() {
         />
           <Route path = "/inspect" Component = {SelectPlantPage} />
           <Route path = "/diagnose" Component = {DiagnosePage} />
+          <Route path = "/dictionary" Component = {DictionaryPage} />
+          <Route path = "/home" Component = {MonthPage} />
+          <Route path = "/map" Component = {MapPage} />
         </Routes>
     </div>
   );
