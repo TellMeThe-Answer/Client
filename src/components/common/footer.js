@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import './footer.css'
-import { Link } from "react-router-dom";
-import SelectPlantPage from "../../pages/SelectPlant/SelectPlantPage";
-import { Routes, Route, useNavigate, NavLink, useLocation } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 
 const NavBar = () => {
 
@@ -31,7 +29,7 @@ const NavBar = () => {
                 </button>
                 
 
-                <NavLink to={"/"}
+                <NavLink to={"/inspect"}
                     className = "inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group"
                     style={({ isActive }) => {
                         if (isActive) {

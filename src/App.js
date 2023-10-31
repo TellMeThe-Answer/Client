@@ -5,6 +5,9 @@ import SelectPlantPage from './pages/SelectPlant/SelectPlantPage';
 import Login from './pages/LoginAndJoin/LoginPage'
 import { Routes, Route } from "react-router-dom";
 import DiagnosePage from './pages/Diagnose/DignosePage';
+import DeclarationComponent from './components/Declaration/DeclarationComponent';
+import DeclarationPage from './pages/Declaration/DeclarationPage';
+
 
 function App() {
   return (
@@ -30,6 +33,7 @@ function App() {
         />
           <Route path = "/inspect" Component = {SelectPlantPage} />
           <Route path = "/diagnose" Component = {DiagnosePage} />
+          <Route path = "/declaration" Component = {DeclarationPage} />
         </Routes>
     </div>
   );

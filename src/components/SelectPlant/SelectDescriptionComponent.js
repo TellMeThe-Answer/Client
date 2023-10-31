@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import {useRecoilValue} from "recoil";
-import {useRecoilState} from "recoil";
 import { plantDescription, plantState, plantImage} from "../../config/atom";
 import diseaseData from "../../config/modalInformation.json";
 
