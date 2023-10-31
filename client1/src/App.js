@@ -8,7 +8,7 @@ import DiagnosePage from './pages/Diagnose/DiagnosePage';
 import DictionaryPage from './pages/Dictionary/DictionaryPage';
 import MonthPage from './pages/Month/MonthPage';
 import MapPage from './pages/Map/MapPage';
-
+import CropListPage from './pages/Dictionary/CropListPage';
 function App() {
   return (
     <div className="App h-screen">
@@ -36,6 +36,7 @@ function App() {
           <Route path = "/dictionary" Component = {DictionaryPage} />
           <Route path = "/home" Component = {MonthPage} />
           <Route path = "/map" Component = {MapPage} />
+          <Route path="/croplist/:cropName" element={<CropListPage />} />
         </Routes>
     </div>
   );

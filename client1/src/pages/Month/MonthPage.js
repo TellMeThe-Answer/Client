@@ -2,34 +2,26 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import MoveBackComponent from '../../components/common/MoveBackComponent';
 
-const MonthPage = () => {
 
-  const [data,setData] = useState([]);
+const MonthPage = () => {
+  /*
+  const scrapeData = async () => {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://ncpms.rda.go.kr/npms/NewIndcUserListR.np')
+    
+    const links = await page.$$eval('td.ce > a',anchors => anchors.map(anchor => anchor.href));
+    
+    console.log(links);
+    await browser.close();
+
+    useEffect(() => {
+      // Call the scraping function when the component mounts
+      scrapeData();
+    }, []);
   
-  useEffect(()=>{
-    const fetchForecastData = async (crop) => {
-      try{
-        const params = {
-          apiKey: '202389033d01e9a4d596531416fc83c32132',
-          serviceCode: 'SVC51',
-          serviceType: 'AA003',
-        };
-        const response = await axios.get('/npmsAPI/service',{params});
-        if (response.data && response.data.service && Array.isArray(response.data.service.list)) {
-          console.log(response['data']['service']['list']);
-          setData(response['data']['service']['list'])
-          return response.data.service.list;
-        } else {
-          console.error("Invalid data structure for", crop);
-          return [];
-        }
-      } catch (err) {
-        console.error("Error fetching data for", crop);
-        return [];
-    }
-  };
-  fetchForecastData();
-},[])
+  }
+  */
   return(
     <div>
       <MoveBackComponent />
