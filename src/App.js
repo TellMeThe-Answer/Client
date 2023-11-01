@@ -5,9 +5,11 @@ import SelectPlantPage from './pages/SelectPlant/SelectPlantPage';
 import Login from './pages/LoginAndJoin/LoginPage'
 import { Routes, Route } from "react-router-dom";
 import DiagnosePage from './pages/Diagnose/DignosePage';
-import DeclarationComponent from './components/Declaration/DeclarationComponent';
+import LoginComponent from './components/LoginAndJoin/LoginComponent'
 import DeclarationPage from './pages/Declaration/DeclarationPage';
-
+import LocationSettingComponent from './components/Declaration/LocationSettingComponent';
+import CurrentLocation from './components/Declaration/CurrentLocation';
+import SearchLocation from './components/Declaration/SearchLocation';
 
 function App() {
   return (
@@ -17,7 +19,7 @@ function App() {
           path="/"
           element={
             <>
-              <Login />
+              <LoginComponent />
               <Footer />
             </>
           }
@@ -34,6 +36,7 @@ function App() {
           <Route path = "/inspect" Component = {SelectPlantPage} />
           <Route path = "/diagnose" Component = {DiagnosePage} />
           <Route path = "/declaration" Component = {DeclarationPage} />
+          <Route path = "/location" Component = {LocationSettingComponent} />
         </Routes>
     </div>
   );
