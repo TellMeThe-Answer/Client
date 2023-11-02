@@ -14,7 +14,7 @@ const Modal = ({ isOpen, onClose, disease }) => {
         <h2>{disease.sickNameKor} ({disease.sickNameEng})</h2>
         <p>작물명: {disease.cropName}</p>
         <p>병 한글명: {disease.sickNameKor}</p>
-        {/* 여기에 더 많은 정보를 추가할 수 있습니다. */}
+        <article></article>
       </div>
     </div>
   );
@@ -28,6 +28,8 @@ const CropListPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDisease, setSelectedDisease] = useState(null);
 
+  var details = {};
+
   useEffect(() => {
     const fetchDiseaseData = async () => {
       try {
@@ -40,12 +42,27 @@ const CropListPage = () => {
           startPoint: 1
         };
         const response = await axios.get('/npmsAPI/service', { params });
+
         if (response.data && response.data.service && Array.isArray(response.data.service.list)) {
           setDiseaseList(response.data.service.list);
+          console.log(diseaseList);
+          for(var i=0;i<diseaseList.length;i++){
+            const params2 = {
+              serviceCode: 'SVC05',
+              apiKey: '202389033d01e9a4d596531416fc83c32132',
+              sickKey: diseaseList[i].sickKey
+            };
+            console.log(diseaseList[i].sickKey)
+            const detail = await axios.get('/npmsAPI/service', { params2 });
+            details[params.sickKey] = detail
+          }
+          console.log(details);
+
         } else {
           console.error("Invalid data structure for", cropName);
           setDiseaseList([]);
         }
+
       } catch (err) {
         console.error("Error fetching data for", cropName);
         setError(err);
