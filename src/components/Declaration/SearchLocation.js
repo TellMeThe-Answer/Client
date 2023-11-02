@@ -21,7 +21,7 @@ const SearchLocation = () => {
     }
   return (
     <>
-      <div>
+        <div>
             <button onClick={handle.clickButton}>toggle</button>
 
             {openPostcode && 
