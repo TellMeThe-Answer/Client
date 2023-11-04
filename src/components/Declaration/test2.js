@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 
-const CurrentLocation = () => {
+const ReportAdressPage = () => {
   const navigate = useNavigate();
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
@@ -111,4 +112,4 @@ const CurrentLocation = () => {
 );
 };
 
-export default CurrentLocation;
+export default ReportAdressPage;

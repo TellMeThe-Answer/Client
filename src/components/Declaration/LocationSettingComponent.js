@@ -1,20 +1,26 @@
 import React, { useState } from "react";
 import MoveBackComponent from "../common/MoveBackComponent";
 import DaumPostcode from 'react-daum-postcode';
+import CurrentLocation from "./CurrentLocation";
+import HashLoader from "react-spinners/HashLoader";
 import {Link} from 'react-router-dom';
 
 const LocationSettingComponent = () => {
 
+    const [loading, setLoading] = useState(true);
+    const [color, setColor] = useState("#10b981");
+
     const [openPostcode, setOpenPostcode] = useState(false);
     const [address, setAddress] = useState();
     const [zonecode, setZoneCode] = useState();
-    const [check, setCheck] = useState(false);
+    const [searchAddress, setSearchAddress] = useState(false);
+    const [currentAddress, setCurrentAddress] = useState(false);
 
     const handle = {
         // 버튼 클릭 이벤트
         clickButton: () => {
             setOpenPostcode(current => !current);
-            setCheck(false);
+            setSearchAddress(false);
         },
 
         // 주소 선택 이벤트
@@ -25,15 +31,80 @@ const LocationSettingComponent = () => {
             setAddress(data.address);
             setZoneCode(data.zonecode);
             setOpenPostcode(false);
-            setCheck(true);
+            setSearchAddress(true);
         },
+    }
+
+    const map = () =>{
+        if(currentAddress){
+            return (
+                <CurrentLocation/>
+            )
+        }
+        if(searchAddress){
+            return (
+                <>
+                <div className = "w-full h-60 bg-white">
+                    <div className = "w-full h-full p-5">
+                        <div className = "text-xl font-semibold mb-1">{address}</div>
+                        <div><span className = "text-gray-500 bg-gray-200 rounded-xl text-xs p-1">우편번호</span> : {zonecode}</div>
+        
+                        <div class="relative mt-6 border rounded-lg border-black">
+                        <input 
+                            type="text" 
+                            id="floating_outlined" 
+                            class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-500 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
+                            placeholder=""
+                            value={inputValue} 
+                            onChange={handleInputChange}
+                        />
+                            <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-0 bg-white px-2 peer-focus:px-2 peer-focus:text-gray-400 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">상세 주소 입력</label>
+                        </div>
+                    </div>
+                </div> 
+        
+                {/** 버튼 */}
+                <Link to='/declaration'  className = "w-full flex justify-center fixed bottom-0 left-0 mb-4">
+                    <button
+                        type="button"
+                        className="w-full h-14 inline-block rounded-xl bg-[#10b981] mx-10 pb-1.5 pt-2 text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+                        주소 등록
+                    </button>
+                </Link>
+                </>
+            )
+        }
+        else{
+            <div className = "w-full h-full bg-gray-100 py-10 px-5 z-0">
+                <div className = "font-bold text-lg mb-2">이렇게 검색해 보세요</div>
+
+                <div className = "h-14">
+                    <div>도로명 + 건물번호</div>
+                    <div className = "text-gray-400">군자로 12길 3</div>
+                </div>
+
+                <div className = "h-14">
+                    <div>지역명 + 번지</div>
+                    <div className = "text-gray-400">군자동 12-3</div>
+                </div>
+
+                <div className = "h-14">
+                    <div>건물명, 아파트명</div>
+                    <div className = "text-gray-400">레미안 101동</div>
+                </div>
+            </div>
+        }
+    }
+
+
+    const openMap = () =>{
+        setCurrentAddress(true)
     }
 
     const [inputValue, setInputValue] = useState(''); // 초기값은 빈 문자열
 
     const handleInputChange = (e) => {
         setInputValue(e.target.value); // 입력 값이 변경될 때마다 상태 업데이트
-        console.log(inputValue)
     }
 
     return(
@@ -60,7 +131,7 @@ const LocationSettingComponent = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                 </svg>
-                <div className = "pl-1 pt-1">현재 위치로 설정</div>
+                <div className = "pl-1 pt-1" onClick={openMap}>현재 위치로 설정</div>
             </div>
         </div>
 
@@ -73,58 +144,17 @@ const LocationSettingComponent = () => {
             />}
         </div>
 
+        {/** 
+        <HashLoader
+        color={color}
+        loading={loading}
+        size={150}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+        />
+        */}
 
-        {check ? 
-        <>
-        <div className = "w-full h-60 bg-white">
-            <div className = "w-full h-full p-5">
-                <div className = "text-xl font-semibold mb-1">{address}</div>
-                <div><span className = "text-gray-500 bg-gray-200 rounded-xl text-xs p-1">우편번호</span> : {zonecode}</div>
-
-                <div class="relative mt-6 border rounded-lg border-black">
-                <input 
-                    type="text" 
-                    id="floating_outlined" 
-                    class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-500 appearance-none focus:outline-none focus:ring-0 focus:border-blue-600 peer"
-                    placeholder=""
-                    value={inputValue} 
-                    onChange={handleInputChange}
-                />
-                    <label for="floating_outlined" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-0 bg-white px-2 peer-focus:px-2 peer-focus:text-gray-400 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">상세 주소 입력</label>
-                </div>
-            </div>
-        </div> 
-        {/** 버튼 */}
-        <Link to='/declaration'  className = "w-full flex justify-center fixed bottom-0 left-0 mb-4">
-            <button
-                type="button"
-                className="w-full h-14 inline-block rounded-xl bg-[#10b981] mx-10 pb-1.5 pt-2 text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-                주소 등록
-            </button>
-        </Link>
-        </>
-        
-        : 
-        <div className = "w-full h-full bg-gray-100 py-10 px-5 z-0">
-                <div className = "font-bold text-lg mb-2">이렇게 검색해 보세요</div>
-
-                <div className = "h-14">
-                    <div>도로명 + 건물번호</div>
-                    <div className = "text-gray-400">군자로 12길 3</div>
-                </div>
-
-                <div className = "h-14">
-                    <div>지역명 + 번지</div>
-                    <div className = "text-gray-400">군자동 12-3</div>
-                </div>
-
-                <div className = "h-14">
-                    <div>건물명, 아파트명</div>
-                    <div className = "text-gray-400">레미안 101동</div>
-                </div>
-            </div>
-            
-            }
+        {map()}
         </>
     )
 }
