@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-
+//마커찍기 
 const MapPage = () => {
   const navigate = useNavigate();
   const location = useLocation();

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { BottomNavbar } from '../components/components';
-
+//submit report누를시 map-page에 마커생성
 const ReportPage = () => {
   const [currentAddress, setCurrentAddress] = useState('');
   const [latLng, setLatLng] = useState({ lat: null, lng: null });

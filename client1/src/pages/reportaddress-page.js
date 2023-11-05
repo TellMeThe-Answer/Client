@@ -3,7 +3,7 @@ import '../css/App.css';
 import { BigTitle } from "../components/components";
 import { FaArrowLeft } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
-
+//주소 reportpage로 보내줌
 const ReportAddressPage = () => {
   const navigate = useNavigate();
   const [map, setMap] = useState(null);
