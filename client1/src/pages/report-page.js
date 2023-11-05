@@ -1,80 +1,48 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Select from 'react-select';
-import Cropper from 'cropperjs';
-import 'cropperjs/dist/cropper.css';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { useNavigate, useLocation } from 'react-router-dom';
 import { BottomNavbar } from '../components/components';
 
 const ReportPage = () => {
+  const [currentAddress, setCurrentAddress] = useState('');
+  const [latLng, setLatLng] = useState({ lat: null, lng: null });
   const [userInput, setUserInput] = useState({
     crop: null,
     disease: null,
     symptoms: '',
   });
-  const [diseaseOptions, setDiseaseOptions] = useState([]);
+
   const cropOptions = [
-    { value: 'crop1', label: 'Crop 1' },
-    { value: 'crop2', label: 'Crop 2' },
+    { value: 'crop1', label: '작물 1' },
+    { value: 'crop2', label: '작물 2' },
+    // 여기에 더 많은 작물 옵션을 추가할 수 있습니다.
   ];
+
+  // 여러 작물에 대한 질병 옵션을 여기에 설정합니다.
   const allDiseaseOptions = {
     crop1: [
-      { value: 'disease1', label: 'Disease 1 for Crop 1' },
-      { value: 'disease2', label: 'Disease 2 for Crop 1' },
+      { value: 'disease1', label: '작물 1의 질병 1' },
+      { value: 'disease2', label: '작물 1의 질병 2' },
     ],
     crop2: [
-      { value: 'disease3', label: 'Disease 1 for Crop 2' },
-      { value: 'disease4', label: 'Disease 2 for Crop 2' },
+      { value: 'disease3', label: '작물 2의 질병 1' },
+      { value: 'disease4', label: '작물 2의 질병 2' },
     ],
+    // 여기에 더 많은 질병 옵션을 추가할 수 있습니다.
   };
 
-  const [selectedImage, setSelectedImage] = useState(null);
-  const imageRef = useRef(null);
-  let cropper;
+  const [diseaseOptions, setDiseaseOptions] = useState([]);
 
-  const navigate = useNavigate(); // Use the useNavigate hook
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
-    if (selectedImage) {
-      cropper = new Cropper(imageRef.current, {
-        aspectRatio: 16 / 9,
-        crop(event) {
-          console.log(event.detail);
-        },
-      });
+    // 만약 위치 상태에 주소가 있다면, 현재 주소와 좌표를 업데이트합니다.
+    if (location.state && location.state.address) {
+      setCurrentAddress(location.state.address);
+      setLatLng({ lat: location.state.lat, lng: location.state.lng });
     }
-    return () => {
-      if (cropper) {
-        cropper.destroy();
-      }
-    };
-  }, [selectedImage]);
-
-  useEffect(() => {
-    const script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_API_KEY}&autoload=false`;
-    document.head.appendChild(script);
-
-    script.onload = () => {
-      window.kakao.maps.load(() => {
-        navigator.geolocation.getCurrentPosition((position) => {
-          const userLat = position.coords.latitude;
-          const userLng = position.coords.longitude;
-          const container = document.getElementById('map__kakao');
-          const options = {
-            center: new window.kakao.maps.LatLng(userLat, userLng),
-            level: 3,
-          };
-          const map = new window.kakao.maps.Map(container, options);
-
-          const markerPosition = new window.kakao.maps.LatLng(userLat, userLng);
-          const marker = new window.kakao.maps.Marker({ position: markerPosition });
-
-          marker.setMap(map);
-        });
-      });
-    };
-  }, []);
+  }, [location]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -93,58 +61,58 @@ const ReportPage = () => {
   };
 
   const handleReportSubmit = () => {
-    if (!selectedImage || !userInput.crop || !userInput.disease) {
-      alert("Please upload an image and select both crop and disease!");
+    // 사용자 입력 유효성 검사
+    if (!userInput.crop || !userInput.disease || !currentAddress) {
+      alert('작물, 질병 및 주소를 모두 선택해주세요!');
       return;
     }
 
-    alert("Report Submitted:\n" + JSON.stringify(userInput, null, 2));
-    navigate('/map-page'); // Navigate to the map page after submitting
-  };
+    // 신고 데이터에 현재 주소와 좌표 추가
+    const reportData = {
+      ...userInput,
+      address: currentAddress,
+      lat: latLng.lat,
+      lng: latLng.lng,
+    };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const imageDataUrl = e.target.result;
-        setSelectedImage(imageDataUrl);
-      };
-      reader.readAsDataURL(file);
-    }
+    // 기존 신고 가져오기, 새로운 신고 추가, 로컬 스토리지에 저장
+    const existingReports = JSON.parse(localStorage.getItem('reports')) || [];
+    localStorage.setItem('reports', JSON.stringify([...existingReports, reportData]));
+
+    // 사용자에게 신고가 제출되었다고 알림
+    alert('신고가 제출되었습니다:\n' + JSON.stringify(reportData, null, 2));
+
+    // 제출 후 사용자를 map-page로 이동
+    navigate('/map-page', { state: { newReport: reportData } });
   };
 
   return (
     <div style={{ paddingBottom: '60px' }}>
       <div style={{ padding: "40px" }}>
-        <h1>Report Page</h1>
-        <h2>Image Upload</h2>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-        {selectedImage && (
-          <div>
-            <h3>Selected Image:</h3>
-            <img ref={imageRef} src={selectedImage} alt="Selected" width="300" />
-          </div>
-        )}
+        <h1>신고 페이지</h1>
+        <div>선택된 주소: {currentAddress}</div>
+        <button onClick={() => navigate('/reportaddress-page')}>주소 설정</button>
         <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-          <label>Crop: </label>
+          <label>작물: </label>
           <Select
             name="crop"
             options={cropOptions}
             onChange={handleCropChange}
+            value={cropOptions.find(option => option.value === userInput.crop)}
           />
         </div>
         <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-          <label>Disease: </label>
+          <label>질병: </label>
           <Select
             name="disease"
             options={diseaseOptions}
             onChange={handleDiseaseChange}
+            value={diseaseOptions.find(option => option.value === userInput.disease)}
             isDisabled={!userInput.crop}
           />
         </div>
         <div style={{ marginTop: '20px', marginBottom: '20px' }}>
-          <label>Symptoms: </label>
+          <label>증상: </label>
           <textarea
             name="symptoms"
             value={userInput.symptoms}
@@ -153,8 +121,7 @@ const ReportPage = () => {
             cols="50"
           ></textarea>
         </div>
-        <div id="map__kakao" style={{ width: '75%', height: '35vh', margin: '0 auto', marginTop: '20px' }}></div>
-        <button onClick={handleReportSubmit} style={{ marginTop: '20px' }}>Submit Report</button>
+        <button onClick={handleReportSubmit} style={{ marginTop: '20px' }}>신고 제출</button>
       </div>
       <BottomNavbar />
     </div>
