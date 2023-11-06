@@ -4,10 +4,10 @@ import DaumPostcode from 'react-daum-postcode';
 import CurrentLocation from "./CurrentLocation";
 import HashLoader from "react-spinners/HashLoader";
 import {Link} from 'react-router-dom';
+import {mapLocation} from "../../config/atom";
+import {useRecoilState} from "recoil";
 
 const LocationSettingComponent = () => {
-
-    const [loading, setLoading] = useState(true);
     const [color, setColor] = useState("#10b981");
 
     const [openPostcode, setOpenPostcode] = useState(false);
@@ -16,11 +16,18 @@ const LocationSettingComponent = () => {
     const [searchAddress, setSearchAddress] = useState(false);
     const [currentAddress, setCurrentAddress] = useState(false);
 
+    const [mapAddress, setMapAddress] = useRecoilState(mapLocation);
+    
+
     const handle = {
         // 버튼 클릭 이벤트
         clickButton: () => {
             setOpenPostcode(current => !current);
+
+            {/**상세 주소 입력 */}
             setSearchAddress(false);
+            {/**지도 닫기 */}
+            setCurrentAddress(false)
         },
 
         // 주소 선택 이벤트
@@ -30,15 +37,56 @@ const LocationSettingComponent = () => {
                 우편번호: ${data.zonecode}`)
             setAddress(data.address);
             setZoneCode(data.zonecode);
+            
+            {/**검색해서 주소 설정 닫기 */}
             setOpenPostcode(false);
+            {/**지도 닫기 */}
+            setCurrentAddress(false);
+            {/**상세 주소 입력 */}
             setSearchAddress(true);
+            {/**주소 저장 */}
+            setMapAddress(data.address)
         },
+    }
+
+    const openMap = () =>{
+        {/**상세 주소 입력 */}
+        setSearchAddress(false);
+        {/**지도 열기*/}
+        setCurrentAddress(true)
+        {/**검색해서 주소 설정 닫기 */}
+        setOpenPostcode(false);
+    }
+
+    const [inputValue, setInputValue] = useState(''); // 초기값은 빈 문자열
+
+    const handleInputChange = (e) => {
+        setInputValue(e.target.value); // 입력 값이 변경될 때마다 상태 업데이트
+    }
+
+    const setMapLocation = () =>{
+        {/**주소 저장 */}
+        setAddress(mapAddress)
+        {/**상세 주소 입력 */}
+        setSearchAddress(true);
+        {/**지도 닫기 */}
+        setCurrentAddress(false);
     }
 
     const map = () =>{
         if(currentAddress){
             return (
+                <>
                 <CurrentLocation/>
+                    <div className = "w-full flex justify-center fixed bottom-0 left-0 mb-4 z-10">
+                        <button
+                            onClick={setMapLocation}
+                            type="button"
+                            className="w-full h-14 inline-block rounded-xl bg-[#10b981] mx-10 pb-1.5 pt-2 text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+                            이 위치로 주소 설정
+                        </button>
+                    </div>
+                </>  
             )
         }
         if(searchAddress){
@@ -94,17 +142,6 @@ const LocationSettingComponent = () => {
                 </div>
             </div>
         }
-    }
-
-
-    const openMap = () =>{
-        setCurrentAddress(true)
-    }
-
-    const [inputValue, setInputValue] = useState(''); // 초기값은 빈 문자열
-
-    const handleInputChange = (e) => {
-        setInputValue(e.target.value); // 입력 값이 변경될 때마다 상태 업데이트
     }
 
     return(

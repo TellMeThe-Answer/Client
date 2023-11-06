@@ -1,8 +1,18 @@
 
 import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
+import {mapLocation} from "../../config/atom";
+import {useRecoilState} from "recoil";
+import Modal from './Modal';
 
 const DeclarationComponent = () =>{
+
+    const [mapAddress, setMapAddress] = useRecoilState(mapLocation);
+    const [ popup, setPopup ] = useState(false); 
+
+    const setModal = () =>{
+        setPopup(current => !current);
+    }
 
     return(
         <>
@@ -38,7 +48,7 @@ const DeclarationComponent = () =>{
                         </div>
                         
                         <Link to='/location' className = "w-4/5 h-full rounded-lg p-2.5 flex justify-between">
-                            <div className = "text-gray-700">위치 설정하러가기</div>
+                            <div className = "text-gray-700">{mapAddress}</div>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="3" stroke="currentColor" class="w-6 h-6 text-gray-300">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
                             </svg>
@@ -91,12 +101,14 @@ const DeclarationComponent = () =>{
                     {/** 버튼 */}
                     <div className = "w-full flex justify-center fixed bottom-0 left-0 mb-4">
                         <button
+                            onClick={setModal}
                             type="button"
                             className="w-full h-14 inline-block rounded-xl bg-[#10b981] mx-10 pb-1.5 pt-2 text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
                             신고하기
                         </button>
                     </div>
                 </form>
+                {popup ? <Modal onClose={setPopup} /> : null}
             </div>
         </>
     )

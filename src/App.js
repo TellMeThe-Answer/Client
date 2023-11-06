@@ -10,8 +10,7 @@ import DeclarationPage from './pages/Declaration/DeclarationPage';
 import LocationSettingComponent from './components/Declaration/LocationSettingComponent';
 import CurrentLocation from './components/Declaration/CurrentLocation';
 import SearchLocation from './components/Declaration/SearchLocation';
-import ReportAdressPage from './components/Declaration/test2'
-import ReportPage from './components/Declaration/test1'
+import Modal from './components/Declaration/Modal';
 
 function App() {
   return (
@@ -39,8 +38,6 @@ function App() {
           <Route path = "/diagnose" Component = {DiagnosePage} />
           <Route path = "/declaration" Component = {DeclarationPage} />
           <Route path = "/location" Component = {LocationSettingComponent} />
-          <Route path = "/map" Component = {ReportAdressPage} />
-          <Route path = "/test" Component = {ReportPage} />
         </Routes>
     </div>
   );

@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-
+import {mapLocation} from "../../config/atom";
+import {useRecoilState} from "recoil";
 
 const CurrentLocation = () => {
   const navigate = useNavigate();
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
-  const [address, setAddress] = useState('위치를 불러오는 중...');
+  const [address, setAddress] = useRecoilState(mapLocation);
   const [infoWindow, setInfoWindow] = useState(null);
 
   useEffect(() => {
+
     const script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=b2bdb158d7882941fc4f09c8bf916c6c&libraries=services&autoload=false`;

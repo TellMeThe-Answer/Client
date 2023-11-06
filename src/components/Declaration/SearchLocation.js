@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import DaumPostcode from 'react-daum-postcode';
+import {mapLocation} from "../../config/atom";
+import {useRecoilState} from "recoil";
 
 const SearchLocation = () => {
 
     const [openPostcode, setOpenPostcode] = useState(false);
+    const [mapAddress, setMapAddress] = useRecoilState(mapLocation);
+
     const handle = {
         // 버튼 클릭 이벤트
         clickButton: () => {
@@ -17,6 +21,8 @@ const SearchLocation = () => {
                 우편번호: ${data.zonecode}
             `)
             setOpenPostcode(false);
+            setMapAddress(data.address);
+            console.log(data.address);
         },
     }
   return (
