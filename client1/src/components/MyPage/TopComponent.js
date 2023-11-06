@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import Footer from "../common/footer"
-
 
 const TopComponent = () => {
     return(

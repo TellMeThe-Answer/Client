@@ -23,3 +23,8 @@ export const plantDescription = atom({
     "파밤나방"
   ]
 });
+
+export const mapLocation = atom({
+  key: 'mapLocation',
+  default: '위치 설정하러 가기',
+});

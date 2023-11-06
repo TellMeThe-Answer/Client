@@ -1,22 +1,22 @@
 {
-  "contents": [
-      {
-          "disease": "파프리카흰가루병",
-          "percentage": 0.74
-      },
-      {
-          "disease": "토마토잿빛곰파이병",
-          "percentage": 0.49
-      },
-      {
-          "disease": "오이흰가루병",
-          "percentage": 0.27
-      },
-      {
-          "disease": "다량원소결핍 (N)",
-          "percentage": 0.01
-      }
-  ],
-  "image_path": "20231029174401123test3.jpeg",
-  "result": true
+    "contents": [
+        {
+            "disease": "파프리카흰가루병",
+            "percentage": 0.74
+        },
+        {
+            "disease": "토마토잿빛곰파이병",
+            "percentage": 0.49
+        },
+        {
+            "disease": "오이흰가루병",
+            "percentage": 0.27
+        },
+        {
+            "disease": "다량원소결핍 (N)",
+            "percentage": 0.01
+        }
+    ],
+    "image_path": "20231029174401123test3.jpeg",
+    "result": true
 }

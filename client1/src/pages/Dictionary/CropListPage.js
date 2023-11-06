@@ -3,22 +3,75 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import MoveBackComponent from '../../components/common/MoveBackComponent';
 import '../../components/CropList/cropList.css'
+import xml2js from 'xml2js';
 
 const Modal = ({ isOpen, onClose, disease }) => {
-  if (!isOpen) return null;
+  const [diseaseDetail, setDiseaseDetail] = useState(null);
 
+  useEffect(() => {
+    const fetchDiseaseDetail = async () => {
+      if (!disease || !isOpen) return;
+
+      try {
+        const params = {
+          serviceCode: 'SVC05',
+          apiKey: '202389033d01e9a4d596531416fc83c32132',
+          sickKey: disease.sickKey,
+        };
+        const response = await axios.get('/npmsAPI/service', { params });
+        if (response.data) {
+          //setDiseaseDetail(response.data);
+          console.log(diseaseDetail);
+          xml2js.parseString(response.data, (err, result) => {
+            if (!err) {
+              setDiseaseDetail(result);
+            } else {
+              console.error('Error parsing XML:', err);
+              setDiseaseDetail(null);
+            }
+          });
+        } else {
+          console.error("Invalid data structure for disease with sickKey:", disease.sickKey);
+          setDiseaseDetail(null);
+        }
+      } catch (err) {
+        console.error("Error fetching detail for disease", disease);
+        // 여기에서 에러 상태를 설정할 수도 있습니다.
+      }
+    };
+
+    fetchDiseaseDetail();
+  }, [disease, isOpen]); // 의존성 배열에 disease와 isOpen 추가
+
+  if (!isOpen) return null;
+  //console.log(diseaseDetail.cropName);
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <button onClick={onClose} className="modal-close-button">X</button>
-        <h2>{disease.sickNameKor} ({disease.sickNameEng})</h2>
-        <p>작물명: {disease.cropName}</p>
-        <p>병 한글명: {disease.sickNameKor}</p>
-        <article></article>
+        {diseaseDetail ? (
+          <>
+            <h2>{diseaseDetail.service.sickNameKor} ({diseaseDetail.service.sickNameEng})</h2>
+            <p>작물명: {diseaseDetail.service.cropName}</p>
+            <p>병 한글명: {diseaseDetail.service.sickNameKor}</p>
+            <p>병 한문명: {diseaseDetail.service.sickNameChn}</p>
+            <p>병 영문명: {diseaseDetail.service.sickNameEng}</p>
+            <p>전염경로: {diseaseDetail.service.infectionRoute}</p>
+            <p>발생생태: {diseaseDetail.service.developmentCondition}</p>
+            <p>병 증상: {diseaseDetail.service.symptoms}</p>
+            <p>방제방법: {diseaseDetail.service.preventionMethod}</p>
+            <p>생물학적방제방법: {diseaseDetail.service.biologyPrvnbeMth}</p>
+            <p>화학적방제방법: {diseaseDetail.service.chemicalPrvnbeMth}</p>
+          </>
+        ) : (
+          <p>병 상세 정보를 불러오는 중...</p>
+        )}
       </div>
     </div>
   );
 };
+
+
 
 const CropListPage = () => {
   const { cropName } = useParams();
@@ -27,8 +80,6 @@ const CropListPage = () => {
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedDisease, setSelectedDisease] = useState(null);
-
-  var details = {};
 
   useEffect(() => {
     const fetchDiseaseData = async () => {
@@ -42,27 +93,12 @@ const CropListPage = () => {
           startPoint: 1
         };
         const response = await axios.get('/npmsAPI/service', { params });
-
         if (response.data && response.data.service && Array.isArray(response.data.service.list)) {
           setDiseaseList(response.data.service.list);
-          console.log(diseaseList);
-          for(var i=0;i<diseaseList.length;i++){
-            const params2 = {
-              serviceCode: 'SVC05',
-              apiKey: '202389033d01e9a4d596531416fc83c32132',
-              sickKey: diseaseList[i].sickKey
-            };
-            console.log(diseaseList[i].sickKey)
-            const detail = await axios.get('/npmsAPI/service', { params2 });
-            details[params.sickKey] = detail
-          }
-          console.log(details);
-
         } else {
           console.error("Invalid data structure for", cropName);
           setDiseaseList([]);
         }
-
       } catch (err) {
         console.error("Error fetching data for", cropName);
         setError(err);
@@ -115,4 +151,4 @@ const CropListPage = () => {
   );
 };
 
-export default CropListPage;
+export default CropListPage; 

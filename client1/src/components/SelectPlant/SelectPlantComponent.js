@@ -45,11 +45,8 @@ const SelectPlantComponent = () => {
                 </div>
             </div>
 
-            <div className = "w-full h-16 hover:bg-black bg-[#10b981] flex justify-center items-center text-white font-semibold">
-            <Link to='/diagnose'>진단하기로 넘어가기</Link>
-            </div>
-
             
+            <Link to='/diagnose' className = "w-full h-16 hover:bg-[#91f5d4] bg-[#10b981] flex justify-center items-center text-white font-semibold">진단하기로 넘어가기</Link>
         </div>
         </>
     )

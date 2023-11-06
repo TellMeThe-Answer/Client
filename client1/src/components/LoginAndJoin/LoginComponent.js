@@ -29,7 +29,7 @@ const LoginComponent = () => {
                         <div class="flex items-center justify-between">
                             <a href="#" class="text-sm font-medium text-black hover:underline">비밀번호를 잊으셨나요?</a>
                         </div>
-                        <button type="submit" class="w-full text-black bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">로그인</button>
+                        <button type="submit" class="w-full text-black hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">로그인</button>
                         <p class="text-sm font-light text-gray-600">
                             아직 계정이 없으신가요? 
                             <a href="#" class="font-medium text-[#10b981] hover:underline ml-1">회원가입</a>
