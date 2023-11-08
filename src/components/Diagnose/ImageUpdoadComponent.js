@@ -1,6 +1,8 @@
 import React, {useState, useEffect} from 'react';
 import UploadData from "../../config/diagnoseInformation.json";
-
+import axios from 'axios';
+import {useRecoilState} from "recoil";
+import {plantState} from "../../config/atom";
 import { Dropdown, initTE } from "tw-elements";
 initTE({ Dropdown });
 // Initialization for ES Users
@@ -8,10 +10,22 @@ initTE({ Dropdown });
 
 const ImageUpdoadComponent = () =>{
     const [check, setCheck] = useState(false);
+    {/** 미리보기 이미지 저장 */}
     const [preview, serPreview] = useState();
+    {/** 이미지 저장 */}
+    const [selectedFile, setSelectedFile] = useState(null);
+    {/**선택한 작물 */}
+    const [plant, setPlant] = useRecoilState(plantState);
+    {/**판별 후 이미지 */}
+    const [uploadData, setUpdateData] = useState();
 
     const setPreviewImg = (event) => {
 
+        {/** 이미지 보내기 위해 임시저장 */}
+        const file = event.target.files[0];
+        setSelectedFile(file);
+
+        {/** 미리보기 이미지 저장 */}
         var reader = new FileReader();
         reader.onload = function(event) {
             serPreview(event.target.result);
@@ -20,11 +34,71 @@ const ImageUpdoadComponent = () =>{
 
         reader.readAsDataURL(event.target.files[0]);
     }
+    
+    const encodeFileToBase64 = (fileBlob) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(fileBlob);
+        return new Promise((resolve) => {
+          reader.onload = () => {
+            serPreview(reader.result);
+            resolve();
+          };
+        });
+      };
+    
+      {/**판별한 이미지 받아오는 코드 */}
+    const updateThumnail = async(image) =>{
+
+        const requestData = {
+            image_name: image
+          };
+        console.log(image)
+          axios.get('http://rong5026.iptime.org:5000/predict', 
+            {
+            responseType: 'arraybuffer',
+            params: requestData, // 파라미터를 이렇게 전달해야 합니다.
+        })
+            
+          .then(response => {
+            // 받아온 데이터를 Blob으로 변환
+            const blob = new Blob([response.data], { type: 'image/jpeg' });
+      
+            // Blob을 이용하여 이미지 파일 생성
+            const imageFile = new File([blob], 'image.jpg', { type: 'image/jpeg' });
+            encodeFileToBase64(imageFile);
+          })
+          .catch(error => {
+            console.error('이미지를 받아오는 중 에러 발생:', error);
+          });
+          
+    }
+    
+    {/** 처음 이미지 판별위해 보내는 코드 */}
+    const handleUpload = async () => {
+    if (selectedFile) {
+        const formData = new FormData();
+        formData.append('image_file', selectedFile);
+        formData.append('crop_type', plant)
+
+        try {
+        const response = await axios.post('http://rong5026.iptime.org:5000/predict', formData, {
+            headers: {
+            'Content-Type': 'multipart/form-data',
+            },
+        });
+        console.log('이미지 업로드 성공:', response.data);
+        updateThumnail(response.data.image_path);
+        setUpdateData(response.data.contents)
+        } catch (error) {
+        console.error('이미지 업로드 실패:', error);
+        }
+    }
+    };
 
     useEffect(()=>{
-        console.log(UploadData.contents);
         setCheck(false);
     }, [])
+
     return(
         <>
             <div class="flex items-center justify-center w-full h-full mb-2">
@@ -38,7 +112,7 @@ const ImageUpdoadComponent = () =>{
                     <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-white">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                                <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
                             </svg>
                             <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span></p>
                             <p class="text-xs text-gray-500">SVG, PNG, JPG (MAX. 800x400px)</p>
@@ -64,7 +138,7 @@ const ImageUpdoadComponent = () =>{
             <>
                 <div className = "w-full flex justify-end text-gray-400 text-sm mt-4">단위(%)</div>
                 <div className = "w-full flex flex-col items-center justify-center bg-white rounded-lg text-sm font-semibold shadow-md ... p-4">
-                    {UploadData.contents.map((data) => (
+                    {uploadData != null ? uploadData.map((data) => (
                             <div className = "w-full flex justify-between">
                                 <div>{data.disease}</div>
                                 <div className = "flex">
@@ -76,7 +150,9 @@ const ImageUpdoadComponent = () =>{
                                     data-te-ripple-color="light">상세보기</div>
                                 </div>
                             </div>
-                        ))}
+                        )) :
+                        <div></div>
+                        }
                 </div>
             </> :
             <></>}
@@ -85,6 +161,7 @@ const ImageUpdoadComponent = () =>{
             <div className = "w-full flex justify-center fixed bottom-0 left-0 mb-7">
                 <button
                     type="button"
+                    onClick={handleUpload}
                     className="w-full h-14 inline-block rounded-xl bg-[#10b981] mx-10 pb-1.5 pt-2 text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
                     바로 병해 진단하기
                 </button>
@@ -103,8 +180,8 @@ const ImageUpdoadComponent = () =>{
                 <div className="relative h-full p-5" data-te-modal-body-ref>
 
                 {/** x svg 이미지 */}
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" data-te-modal-dismiss>
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6" data-te-modal-dismiss>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                 </svg>
 
                 {/** 사진, 작물명, 병해충명, 학명 */}

@@ -2,25 +2,33 @@ import './App.css';
 import Footer from './components/common/footer'
 import MyPage from './pages/Mypage/Mypage'
 import SelectPlantPage from './pages/SelectPlant/SelectPlantPage';
-import Login from './pages/LoginAndJoin/LoginPage'
 import { Routes, Route } from "react-router-dom";
 import DiagnosePage from './pages/Diagnose/DignosePage';
-import LoginComponent from './components/LoginAndJoin/LoginComponent'
 import DeclarationPage from './pages/Declaration/DeclarationPage';
 import LocationSettingComponent from './components/Declaration/LocationSettingComponent';
-import CurrentLocation from './components/Declaration/CurrentLocation';
-import SearchLocation from './components/Declaration/SearchLocation';
-import Modal from './components/Declaration/Modal';
+import FirstPage from './pages/BeforeLogin/FirstPage';
+import LoginPage from './pages/LoginAndJoin/LoginPage';
+import JoinPage from './pages/LoginAndJoin/JoinPage';
+import TestPage from './pages/testPage';
 
 function App() {
   return (
     <div className="App h-screen">
         <Routes>
           <Route
-          path="/"
+          path="/login"
           element={
             <>
-              <LoginComponent />
+              <LoginPage />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/join"
+          element={
+            <>
+              <JoinPage />
               <Footer />
             </>
           }
@@ -34,10 +42,12 @@ function App() {
             </>
           }
         />
+          <Route path = "/" Component = {FirstPage} />
           <Route path = "/inspect" Component = {SelectPlantPage} />
           <Route path = "/diagnose" Component = {DiagnosePage} />
           <Route path = "/declaration" Component = {DeclarationPage} />
           <Route path = "/location" Component = {LocationSettingComponent} />
+          <Route path = "/test" Component = {TestPage} />
         </Routes>
     </div>
   );

@@ -29,9 +29,9 @@ const SelectDescriptionComponent = () => {
     const [link, setLink] = useState();
     
 
-    const setInformation = (disease) =>{
-        modalData.map((data, index)=>{
-            if(data.plantDisease === disease){
+    const setInformation = async(disease) =>{
+        await modalData.map((data, index)=>{
+            if(data.plantDisease == disease){
                 setDiseaseName(disease);
                 setModalImage(data.plantImage);
                 setScientifiName(data.scientifiName);
@@ -42,12 +42,11 @@ const SelectDescriptionComponent = () => {
         })
     }
 
-    const getInformation = (disease) =>{
-        diseaseData.map((plant, index) => {
+    const getInformation = async (disease) => {
+        await diseaseData.map((plant, index) => {
             if(plant.plantName === selectPlant){
                 setModalData(plant.information);
             }
-            console.log(modalData);
         })
         setInformation(disease);
     }
@@ -124,8 +123,8 @@ const SelectDescriptionComponent = () => {
                                     <div className="relative h-full p-5" data-te-modal-body-ref>
 
                                     {/** x svg 이미지 */}
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6" data-te-modal-dismiss>
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6" data-te-modal-dismiss>
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
 
                                     {/** 사진, 작물명, 병해충명, 학명 */}
