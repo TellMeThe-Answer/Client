@@ -13,20 +13,32 @@ const ReportPage = () => {
   });
 
   const cropOptions = [
-    { value: 'crop1', label: '작물 1' },
-    { value: 'crop2', label: '작물 2' },
-    // 여기에 더 많은 작물 옵션을 추가할 수 있습니다.
+    { value: 'tomato', label: '토마토' },
+    { value: 'cucumber', label: '오이' },
+    { value: 'pepper', label: '고추' },
+    { value: 'strawberry', label: '딸기' },
   ];
-
   // 여러 작물에 대한 질병 옵션을 여기에 설정합니다.
   const allDiseaseOptions = {
-    crop1: [
-      { value: 'disease1', label: '작물 1의 질병 1' },
-      { value: 'disease2', label: '작물 1의 질병 2' },
+    tomato: [
+      { value: 'disease1', label: '토마토의 질병 1' },
+      { value: 'disease2', label: '토마토의 질병 2' },
+      // 토마토의 추가 질병 옵션
     ],
-    crop2: [
-      { value: 'disease3', label: '작물 2의 질병 1' },
-      { value: 'disease4', label: '작물 2의 질병 2' },
+    cucumber: [
+      { value: 'disease3', label: '오이의 질병 1' },
+      { value: 'disease4', label: '오이의 질병 2' },
+      // 오이의 추가 질병 옵션
+    ],
+    pepper: [
+      { value: 'disease3', label: '고추의 질병 1' },
+      { value: 'disease4', label: '고추의 질병 2' },
+      // 오이의 추가 질병 옵션
+    ],
+    strawberry: [
+      { value: 'disease3', label: '딸기의 질병 1' },
+      { value: 'disease4', label: '딸기의 질병 2' },
+      // 오이의 추가 질병 옵션
     ],
     // 여기에 더 많은 질병 옵션을 추가할 수 있습니다.
   };
@@ -69,10 +81,13 @@ const ReportPage = () => {
 
     // 신고 데이터에 현재 주소와 좌표 추가
     const reportData = {
-      ...userInput,
-      address: currentAddress,
-      lat: latLng.lat,
-      lng: latLng.lng,
+      
+      crop: userInput.crop, // 작물 정보
+    disease: userInput.disease,
+    symptoms: userInput.symptoms,
+    address: currentAddress,
+    lat: latLng.lat,
+    lng: latLng.lng,
     };
 
     // 기존 신고 가져오기, 새로운 신고 추가, 로컬 스토리지에 저장

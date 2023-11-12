@@ -2,7 +2,7 @@
   "name": "client1",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://ncpms.rda.go.kr",
+  
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.2",
     "@fortawesome/free-regular-svg-icons": "^6.4.2",
@@ -52,6 +52,7 @@
     ]
   },
   "devDependencies": {
+    "http-proxy-middleware": "^2.0.6",
     "kakao.maps.d.ts": "^0.1.39"
   }
 }

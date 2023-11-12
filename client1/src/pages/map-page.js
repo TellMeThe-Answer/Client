@@ -1,15 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-//마커찍기 
+
 const MapPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [map, setMap] = useState(null);
-  const deleteAllMarkers = () => {
-    localStorage.removeItem('markers');
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const Modal = ({ message, onClose }) => {
+    // 모달 바깥 부분을 클릭했을 때 닫기
+    const handleOutsideClick = (e) => {
+      if (e.target.className === 'modal') {
+        onClose();
+      }
+    };
+  
+    return (
+      <div className="modal" onClick={handleOutsideClick}>
+        <div className="modal-content">
+          
+          <p>{message}</p>
+        </div>
+      </div>
+    );
   };
-  // 지도 스크립트를 로드하는 함수
+  
+  // 작물별 마커 이미지 경로
+  const cropMarkerImages = {
+    'tomato': 'https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14_2-1024.png',
+    'cucumber': 'https://cdn3.iconfinder.com/data/icons/flat-pro-basic-set-1-1/32/location-green-1024.png',
+    'pepper': 'https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14-1024.png',
+    'strawberry': 'https://cdn1.iconfinder.com/data/icons/black-bold-style-1/3/14-1024.png',
+  };
+
   const loadMapScript = () => {
     return new Promise((resolve) => {
       const script = document.createElement('script');
@@ -21,6 +45,48 @@ const MapPage = () => {
     });
   };
 
+  const initializeMap = (latitude, longitude) => {
+    const container = document.getElementById('map');
+    const options = {
+      center: new window.kakao.maps.LatLng(latitude, longitude),
+      level: 3, // 적절한 확대 레벨 설정
+    };
+    const createdMap = new window.kakao.maps.Map(container, options);
+    setMap(createdMap);
+
+    const locPosition = new window.kakao.maps.LatLng(latitude, longitude);
+    const currentMarker = new window.kakao.maps.Marker({
+      position: locPosition,
+      map: createdMap,
+      title: '현재 위치',
+    });
+
+    const infowindow = new window.kakao.maps.InfoWindow({
+      content: '<div style="padding:5px;">현재 위치</div>',
+    });
+    infowindow.open(createdMap, currentMarker);
+
+    // 저장된 마커 로드 (예시)
+    const storedMarkers = JSON.parse(localStorage.getItem('reports')) || [];
+    storedMarkers.forEach((m) => {
+      const position = new window.kakao.maps.LatLng(m.lat, m.lng);
+      const imageSrc = cropMarkerImages[m.crop] || 'default_marker_image.png';
+      const markerImage = new window.kakao.maps.MarkerImage(imageSrc, new window.kakao.maps.Size(40, 40));
+      const marker = new window.kakao.maps.Marker({
+        position: position,
+        map: createdMap,
+        title: '신고된 위치',
+        image: markerImage,
+      });
+
+      window.kakao.maps.event.addListener(marker, 'click', () => {
+        const message = `Marker Details:\nLatitude: ${m.lat}\nLongitude: ${m.lng}\nDate: ${m.date}`;
+        setModalMessage(message);
+        setModalVisible(true);
+      });
+    });
+  };
+
   useEffect(() => {
     let isCancelled = false;
 
@@ -29,61 +95,7 @@ const MapPage = () => {
 
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
-        const container = document.getElementById('map');
-        const options = {
-          center: new window.kakao.maps.LatLng(latitude, longitude),
-          level: 3,
-        };
-        const createdMap = new window.kakao.maps.Map(container, options);
-        if (!isCancelled) setMap(createdMap);
-
-        const locPosition = new window.kakao.maps.LatLng(latitude, longitude);
-        const currentMarker = new window.kakao.maps.Marker({
-          position: locPosition,
-          map: createdMap,
-          title: '현재 위치',
-        });
-
-        // 현재 위치에 대한 인포윈도우를 생성하고 마커에 연결합니다.
-        const infowindow = new window.kakao.maps.InfoWindow({
-          content: '<div style="padding:5px;">현재 위치</div>',
-        });
-        infowindow.open(createdMap, currentMarker);
-
-        // 로컬 스토리지에 저장된 마커를 불러오고, 신고 위치에 마커를 추가합니다.
-        const storedMarkers = JSON.parse(localStorage.getItem('markers')) || [];
-        if (location.state && location.state.newReport) {
-          const newReportWithDate = {
-            ...location.state.newReport,
-            date: new Date().toISOString().slice(0, 10), // 현재 날짜 추가
-          };
-          storedMarkers.push(newReportWithDate);
-          localStorage.setItem('markers', JSON.stringify(storedMarkers));
-        }
-
-        storedMarkers.forEach((m) => {
-          const position = new window.kakao.maps.LatLng(m.lat, m.lng);
-          const marker = new window.kakao.maps.Marker({
-            position: position,
-            map: createdMap,
-            title: '신고된 위치',
-          });
-
-          // 마커 클릭 시 이벤트 리스너를 추가합니다.
-          window.kakao.maps.event.addListener(marker, 'click', () => {
-            alert(`Marker Details:\nLatitude: ${m.lat}\nLongitude: ${m.lng}\nDate: ${m.date}`);
-          });
-        });
-
-        // 지도를 마커 기준으로 중앙 정렬합니다.
-        if (storedMarkers.length > 0) {
-          const bounds = new window.kakao.maps.LatLngBounds();
-          storedMarkers.forEach((m) => {
-            bounds.extend(new window.kakao.maps.LatLng(m.lat, m.lng));
-          });
-          bounds.extend(locPosition);
-          createdMap.setBounds(bounds);
-        }
+        if (!isCancelled) initializeMap(latitude, longitude);
       });
     });
 
@@ -92,13 +104,40 @@ const MapPage = () => {
     };
   }, [location.state]);
 
-  // 뒤로 가기 버튼 함수
   const goBack = () => {
     navigate(-1);
   };
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
+      {modalVisible && <Modal message={modalMessage} onClose={() => setModalVisible(false)} />}
+      <div style={{ 
+          position: 'absolute', 
+          top: '20px', 
+          right: '20px', 
+          zIndex: 5, 
+          backgroundColor: 'white', 
+          padding: '10px', 
+          borderRadius: '8px', 
+          boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+        }}>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+          <div style={{ width: '20px', height: '20px', backgroundColor: 'red', marginRight: '10px' }}></div>
+          <div>토마토</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+          <div style={{ width: '20px', height: '20px', backgroundColor: 'green', marginRight: '10px' }}></div>
+          <div>오이</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
+          <div style={{ width: '20px', height: '20px', backgroundColor: 'skyblue', marginRight: '10px' }}></div>
+          <div>고추</div>
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <div style={{ width: '20px', height: '20px', backgroundColor: 'black', marginRight: '10px' }}></div>
+          <div>딸기</div>
+        </div>
+      </div>
       <button onClick={goBack} style={{
           position: 'absolute',
           top: '20px',
@@ -107,11 +146,10 @@ const MapPage = () => {
       }}>
         <FaArrowLeft size={20} />
       </button>
-      {/*<button onClick={deleteAllMarkers}>모든 마커 삭제</button> */}
-
       <div id="map" style={{ width: '100%', height: '100%' }}></div>
     </div>
   );
 };
 
 export default MapPage;
+
