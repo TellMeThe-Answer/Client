@@ -76,7 +76,7 @@ const Modal = ({ isOpen, onClose, disease }) => {
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className=" w-96 h-96 p-10 bg-white rounded-xl overflow-auto" onClick={(e) => e.stopPropagation()}>
         {diseaseDetail ? (
           <>
             <h2 style={{
