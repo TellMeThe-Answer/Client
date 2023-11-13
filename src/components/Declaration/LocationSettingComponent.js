@@ -92,7 +92,7 @@ const LocationSettingComponent = () => {
         if(searchAddress){
             return (
                 <>
-                <div className = "w-full h-60 bg-white">
+                <div className = "w-full h-60 bg-gray-50">
                     <div className = "w-full h-full p-5">
                         <div className = "text-xl font-semibold mb-1">{address}</div>
                         <div><span className = "text-gray-500 bg-gray-200 rounded-xl text-xs p-1">우편번호</span> : {zonecode}</div>
@@ -123,24 +123,28 @@ const LocationSettingComponent = () => {
             )
         }
         else{
-            <div className = "w-full h-full bg-gray-100 py-10 px-5 z-0">
-                <div className = "font-bold text-lg mb-2">이렇게 검색해 보세요</div>
+            return(
+                <>
+                <div className = "w-full h-full bg-gray-50 py-10 px-5 z-0">
+                    <div className = "font-bold text-lg mb-2">이렇게 검색해 보세요</div>
 
-                <div className = "h-14">
-                    <div>도로명 + 건물번호</div>
-                    <div className = "text-gray-400">군자로 12길 3</div>
-                </div>
+                    <div className = "h-14">
+                        <div>도로명 + 건물번호</div>
+                        <div className = "text-gray-400">군자로 12길 3</div>
+                    </div>
 
-                <div className = "h-14">
-                    <div>지역명 + 번지</div>
-                    <div className = "text-gray-400">군자동 12-3</div>
-                </div>
+                    <div className = "h-14">
+                        <div>지역명 + 번지</div>
+                        <div className = "text-gray-400">군자동 12-3</div>
+                    </div>
 
-                <div className = "h-14">
-                    <div>건물명, 아파트명</div>
-                    <div className = "text-gray-400">레미안 101동</div>
+                    <div className = "h-14">
+                        <div>건물명, 아파트명</div>
+                        <div className = "text-gray-400">레미안 101동</div>
+                    </div>
                 </div>
-            </div>
+                </>
+            )
         }
     }
 

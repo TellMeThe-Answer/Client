@@ -9,11 +9,13 @@ import LocationSettingComponent from './components/Declaration/LocationSettingCo
 import FirstPage from './pages/BeforeLogin/FirstPage';
 import LoginPage from './pages/LoginAndJoin/LoginPage';
 import JoinPage from './pages/LoginAndJoin/JoinPage';
+import DictionaryComponent from './components/Dictionary/DictionaryComponent';
+import CropListComponent from './components/Dictionary/CropListComponent';
 import TestPage from './pages/testPage';
 
 function App() {
   return (
-    <div className="App h-screen">
+    <div className="App h-screen bg-gray-50">
         <Routes>
           <Route
           path="/login"
@@ -42,6 +44,16 @@ function App() {
             </>
           }
         />
+        <Route
+          path="/information"
+          element={
+            <>
+              <CropListComponent />
+              <Footer />
+            </>
+          }
+        />
+          <Route path="/croplist/:cropName" element={<DictionaryComponent />} />
           <Route path = "/" Component = {FirstPage} />
           <Route path = "/inspect" Component = {SelectPlantPage} />
           <Route path = "/diagnose" Component = {DiagnosePage} />

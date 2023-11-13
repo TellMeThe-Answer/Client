@@ -3,6 +3,9 @@ import UploadData from "../../config/diagnoseInformation.json";
 import axios from 'axios';
 import {useRecoilState} from "recoil";
 import {plantState} from "../../config/atom";
+import {Link} from 'react-router-dom';
+import Modal from './Modal';
+
 import { Dropdown, initTE } from "tw-elements";
 initTE({ Dropdown });
 // Initialization for ES Users
@@ -18,6 +21,8 @@ const ImageUpdoadComponent = () =>{
     const [plant, setPlant] = useRecoilState(plantState);
     {/**판별 후 이미지 */}
     const [uploadData, setUpdateData] = useState();
+    {/**신고하기 버튼 */}
+    const [declare, setDclare] = useState(true);
 
     const setPreviewImg = (event) => {
 
@@ -52,7 +57,7 @@ const ImageUpdoadComponent = () =>{
         const requestData = {
             image_name: image
           };
-        console.log(image)
+          
           axios.get('http://rong5026.iptime.org:5000/predict', 
             {
             responseType: 'arraybuffer',
@@ -75,24 +80,30 @@ const ImageUpdoadComponent = () =>{
     
     {/** 처음 이미지 판별위해 보내는 코드 */}
     const handleUpload = async () => {
-    if (selectedFile) {
-        const formData = new FormData();
-        formData.append('image_file', selectedFile);
-        formData.append('crop_type', plant)
+        if (selectedFile) {
+            const formData = new FormData();
+            formData.append('image_file', selectedFile);
+            formData.append('crop_type', plant)
 
-        try {
-        const response = await axios.post('http://rong5026.iptime.org:5000/predict', formData, {
-            headers: {
-            'Content-Type': 'multipart/form-data',
-            },
-        });
-        console.log('이미지 업로드 성공:', response.data);
-        updateThumnail(response.data.image_path);
-        setUpdateData(response.data.contents)
-        } catch (error) {
-        console.error('이미지 업로드 실패:', error);
+            try {
+            const response = await axios.post('http://rong5026.iptime.org:5000/predict', formData, {
+                headers: {
+                'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log('이미지 업로드 성공:', response.data);
+            updateThumnail(response.data.image_path);
+            setUpdateData(response.data.contents)
+            } catch (error) {
+            console.error('이미지 업로드 실패:', error);
+            }
         }
-    }
+        if(check){
+            setDclare(false);
+        }
+        else{
+            return(<Modal/>);
+        }
     };
 
     useEffect(()=>{
@@ -109,7 +120,7 @@ const ImageUpdoadComponent = () =>{
             <input id="dropzone-file" type="file" class="hidden" onChange={setPreviewImg}/>
             </label>
              :
-                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-white">
+                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-gray-50">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
@@ -122,22 +133,25 @@ const ImageUpdoadComponent = () =>{
             }
             </div> 
             {check === true ? 
-            <div className = "w-full h-20 flex flex-col items-center justify-center bg-white rounded-lg text-sm font-semibold shadow-md ... p-4">
+            <div className = "w-full h-20 flex flex-col items-center justify-center bg-gray-50 rounded-lg text-sm font-semibold shadow-md ... p-4">
                 <div className = "mb-2 text-md font-bold">분석결과</div>
                 <div className = "text-red-500">분석 결과는 참고용으로만 확인해주시길 바랍니다.</div>
             </div>
             :
+            <></>
+            }
+            {/** 토마토인지 아닌지 확인하는 코드
             <div className = "w-full h-20 flex flex-col justify-center bg-white rounded-lg text-sm font-semibold shadow-md ... p-4">
                 <div>토마토일 확률이 70%입니다.</div>
                 <div>병해를 측정하려면 진단하기 버튼을 눌러주세요.</div>
             </div>
-            }
+             */}
 
             {/** 진단결과 */}
             {check === true ? 
             <>
                 <div className = "w-full flex justify-end text-gray-400 text-sm mt-4">단위(%)</div>
-                <div className = "w-full flex flex-col items-center justify-center bg-white rounded-lg text-sm font-semibold shadow-md ... p-4">
+                <div className = "w-full flex flex-col items-center justify-center bg-gray-50 rounded-lg text-sm font-semibold shadow-md ... p-4">
                     {uploadData != null ? uploadData.map((data) => (
                             <div className = "w-full flex justify-between">
                                 <div>{data.disease}</div>
@@ -155,9 +169,11 @@ const ImageUpdoadComponent = () =>{
                         }
                 </div>
             </> :
-            <></>}
+            <></>
+            }
 
             {/** 버튼 */}
+            {declare ? 
             <div className = "w-full flex justify-center fixed bottom-0 left-0 mb-7">
                 <button
                     type="button"
@@ -166,6 +182,13 @@ const ImageUpdoadComponent = () =>{
                     바로 병해 진단하기
                 </button>
             </div>
+            :
+            <div className = "w-full flex justify-center fixed bottom-0 left-0 mb-7">
+                <Link to='/declaration' className="w-full h-14 flex justify-center items-center rounded-xl bg-[#10b981] mx-10 pb-1.5 pt-2 text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+                    병해 신고하기
+                </Link>
+            </div>
+            }
 
             {/** 모달 창 */}
             <div

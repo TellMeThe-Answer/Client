@@ -4,7 +4,7 @@ import MoveBackComponent from '../../components/common/MoveBackComponent'
 
 const SelectPlantPage = () => {
     return(
-        <div className="w-full bg-gray-100">
+        <div className="w-full bg-gray-50">
             <MoveBackComponent/>
             <SelectDescriptionComponent/>
             <SelectPlantComponent/>

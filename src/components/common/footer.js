@@ -57,18 +57,42 @@ const NavBar = () => {
                         }
                 </NavLink>
 
-                <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
-                    <svg className = "w-6 h-6 text-gray-500 group-hover:text-lime-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                    </svg>
-                    <span class="text-sm text-black group-hover:text-lime-400 mt-1.5">Information</span>
-                </button>
-                
+
+                <NavLink to={"/information"}
+                    className = "inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group"
+                    style={({ isActive }) => {
+                        if (isActive) {
+                            setCheck(false);
+                            setMypage(false);
+                            setInformation(true);
+                        } else {
+                            setInformation(false);
+                        }
+                      }}
+                    >
+                    {
+                        information === true ? <>
+                        <svg className = "w-6 h-6 text-lime-400 active-link" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
+                        <span class="text-sm text-lime-400 mt-1.5">Information</span>
+                        </>
+                        :
+                        <>
+                        <svg className = "w-6 h-6 text-gray-500 active-link" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                        </svg>
+                        <span class="text-sm text-black mt-1.5">Information</span>
+                        </>
+                    }
+                </NavLink>
+
                 <NavLink to={"/mypage"}
                     className = "inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group"
                     style={({ isActive }) => {
                         if (isActive) {
                             setCheck(false);
+                            setInformation(false);
                             setMypage(true);
                         } else {
                             setMypage(false);

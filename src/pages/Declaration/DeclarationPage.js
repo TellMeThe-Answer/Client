@@ -7,7 +7,7 @@ const DeclarationPage = () =>{
 
     return(
         <>
-            <div className="w-full h-full bg-white">
+            <div className="w-full h-full bg-gray-50">
                 <MoveBackComponent/>
                 <DeclarationComponent/>
             </div>

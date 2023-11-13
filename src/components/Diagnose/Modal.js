@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
             
-const Modal = (props) =>{
+const modal = (props) =>{
 
     const { onClose } = props;
 
@@ -38,4 +38,4 @@ const Modal = (props) =>{
         </>
     )
 }
-export default Modal;
+export default modal;

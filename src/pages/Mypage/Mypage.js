@@ -6,7 +6,7 @@ import ServiceComponent from '../../components/MyPage/ServiceComponent'
 
 const MyPage = () => {
     return(
-        <div className="w-full h-full bg-gray-100 pl-4 pr-4">
+        <div className="w-full h-full bg-gray-50 pl-4 pr-4">
             <TopComponent/>
             <CheckComponent/>
             <DiagnosisComponent/>

@@ -31,10 +31,10 @@ const SelectPlantComponent = () => {
     return(
         <>
         <div className = "h-full w-full">
-            <div className = " h-12 w-full flex items-center justify-center bg-white pt-5 text-base font-bold">
+            <div className = " h-12 w-full flex items-center justify-center bg-gray-50 pt-5 text-base font-bold">
                 확인하고 싶은 작물을 선택해주세요
             </div>
-            <div className = "flex justify-center items-center bg-white w-full h-96 drop-shadow-md ...">
+            <div className = "flex justify-center items-center bg-gray-50 w-full h-96 drop-shadow-md ...">
                 <div className = "w-4/5 h-4/5 grid grid-cols-2 items-center justify-items-center">
                     {data.map((button) => (
                         <button key={button.id} onClick={() => handleButtonClick(button)} className = "flex flex-col items-center justify-between h-36 w-24">
