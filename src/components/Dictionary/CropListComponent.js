@@ -1,7 +1,7 @@
 
 import { Link, useNavigate } from 'react-router-dom';
 import React, { useState } from 'react';
-import './dictionary.css'
+import '../common/common.css'
 import MoveBackComponent from '../common/MoveBackComponent';
 
 const CropListComponent = () => {

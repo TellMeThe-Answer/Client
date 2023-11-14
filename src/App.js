@@ -11,6 +11,7 @@ import LoginPage from './pages/LoginAndJoin/LoginPage';
 import JoinPage from './pages/LoginAndJoin/JoinPage';
 import DictionaryComponent from './components/Dictionary/DictionaryComponent';
 import CropListComponent from './components/Dictionary/CropListComponent';
+import MapComponent from './components/Map/MapComponent';
 import TestPage from './pages/testPage';
 
 function App() {
@@ -49,6 +50,15 @@ function App() {
           element={
             <>
               <CropListComponent />
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/map"
+          element={
+            <>
+              <MapComponent />
               <Footer />
             </>
           }

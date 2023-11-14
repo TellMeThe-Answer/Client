@@ -146,10 +146,6 @@ const DictionaryComponent = () => {
     }
   }, [cropName]);
 
-  const goBack = () => {
-    window.history.back();
-  };
-
   const openModal = (disease) => {
     setSelectedDisease(disease);
     setIsModalOpen(true);
