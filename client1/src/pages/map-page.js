@@ -53,22 +53,23 @@ const MapPage = () => {
     };
     const createdMap = new window.kakao.maps.Map(container, options);
     setMap(createdMap);
-
+      // 현재 위치에 마커 추가
     const locPosition = new window.kakao.maps.LatLng(latitude, longitude);
     const currentMarker = new window.kakao.maps.Marker({
       position: locPosition,
       map: createdMap,
       title: '현재 위치',
     });
-
+   // 인포윈도우 생성 및 표시
     const infowindow = new window.kakao.maps.InfoWindow({
       content: '<div style="padding:5px;">현재 위치</div>',
     });
     infowindow.open(createdMap, currentMarker);
 
-    // 저장된 마커 로드 (예시)
+    // 저장된 마커 로드 
     const storedMarkers = JSON.parse(localStorage.getItem('reports')) || [];
     storedMarkers.forEach((m) => {
+      // 마커 생성
       const position = new window.kakao.maps.LatLng(m.lat, m.lng);
       const imageSrc = cropMarkerImages[m.crop] || 'default_marker_image.png';
       const markerImage = new window.kakao.maps.MarkerImage(imageSrc, new window.kakao.maps.Size(40, 40));
@@ -78,15 +79,16 @@ const MapPage = () => {
         title: '신고된 위치',
         image: markerImage,
       });
-
+        // 마커 클릭 이벤트 리스너 설정
       window.kakao.maps.event.addListener(marker, 'click', () => {
         const message = `Marker Details:\nLatitude: ${m.lat}\nLongitude: ${m.lng}\nDate: ${m.date}`;
         setModalMessage(message);
         setModalVisible(true);
+        
       });
     });
   };
-
+    // 컴포넌트 마운트 시 지도 로드
   useEffect(() => {
     let isCancelled = false;
 

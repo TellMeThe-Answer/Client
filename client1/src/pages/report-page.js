@@ -78,7 +78,13 @@ const ReportPage = () => {
       alert('작물, 질병 및 주소를 모두 선택해주세요!');
       return;
     }
-
+    const getCurrentDate = () => {
+      const today = new Date();
+      const year = today.getFullYear();
+      const month = String(today.getMonth() + 1).padStart(2, '0'); // 월은 0부터 시작하므로 1을 더해줍니다.
+      const day = String(today.getDate()).padStart(2, '0');
+      return `${year}-${month}-${day}`;
+    };
     // 신고 데이터에 현재 주소와 좌표 추가
     const reportData = {
       
@@ -88,6 +94,7 @@ const ReportPage = () => {
     address: currentAddress,
     lat: latLng.lat,
     lng: latLng.lng,
+    date: getCurrentDate(),
     };
 
     // 기존 신고 가져오기, 새로운 신고 추가, 로컬 스토리지에 저장
@@ -97,8 +104,7 @@ const ReportPage = () => {
     // 사용자에게 신고가 제출되었다고 알림
     alert('신고가 제출되었습니다:\n' + JSON.stringify(reportData, null, 2));
 
-    // 제출 후 사용자를 map-page로 이동
-    navigate('/map-page', { state: { newReport: reportData } });
+   
   };
 
   return (
