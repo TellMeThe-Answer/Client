@@ -69,7 +69,7 @@ const MapComponent = () => {
     });
 
     const infowindow = new window.kakao.maps.InfoWindow({
-      content: '<div style="padding:5px;">현재 위치</div>',
+      content: '<div style="padding-left:42px;">현재 위치</div>',
     });
     infowindow.open(createdMap, currentMarker);
 

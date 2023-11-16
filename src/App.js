@@ -12,6 +12,7 @@ import JoinPage from './pages/LoginAndJoin/JoinPage';
 import DictionaryComponent from './components/Dictionary/DictionaryComponent';
 import CropListComponent from './components/Dictionary/CropListComponent';
 import MapComponent from './components/Map/MapComponent';
+import ForcastPage from './pages/Forcast/ForcastPage';
 import TestPage from './pages/testPage';
 
 function App() {
@@ -70,6 +71,7 @@ function App() {
           <Route path = "/declaration" Component = {DeclarationPage} />
           <Route path = "/location" Component = {LocationSettingComponent} />
           <Route path = "/test" Component = {TestPage} />
+          <Route path = "/forcast" Component = {ForcastPage} />
         </Routes>
     </div>
   );
