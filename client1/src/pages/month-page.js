@@ -1,68 +1,45 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import xml2js from 'xml2js';
-import '../css/App.css';
+import React, { useState } from 'react';
 
-// HTML 문자열을 React 컴포넌트로 변환하는 함수
-const renderHTML = (rawHTML) => React.createElement("div", {
-  dangerouslySetInnerHTML: { __html: rawHTML }
-});
+// JSON 데이터를 가져오는 가정
+import data from './jsonlist.json';
 
-function MonthPage() {
-  const [yearData, setYearData] = useState([]);
+const MonthPage = () => {
+  const [selectedMonth, setSelectedMonth] = useState(null);
+  const [crops, setCrops] = useState([]);
 
-  useEffect(() => {
-    const fetchYearData = async () => {
-      try {
-        const response = await axios.get('service/dbyhsCccrrncInfo/dbyhsCccrrncInfoList', {
-          params: {
-            apiKey: '20231101TLPE50JSLOMU7F7GTWATA',
-            // 추가 파라미터가 필요하다면 여기에 추가하세요.
-          },
-          responseType: 'text'
-        });
-
-        xml2js.parseString(response.data, { explicitArray: false }, (err, result) => {
-          if (!err) {
-            const items = result.response.body.items.item;
-            setYearData(Array.isArray(items) ? items : [items]); // 항상 배열로 처리합니다.
-          } else {
-            console.error('XML parsing error:', err);
-          }
-        });
-        
-      } catch (error) {
-        // 에러 처리를 여기서 합니다.
-      }
-    };
-
-    fetchYearData();
-  }, []);
+  const handleMonthClick = (month) => {
+    // 해당 월의 작물 데이터를 설정
+    setSelectedMonth(month);
+    const monthData = data[month];
+    setCrops(monthData.Forecast);
+  };
 
   return (
-    <div>
-      <h1>연도별 발생 정보</h1>
-      <ul>
-      {yearData.map((item, index) => (
-  <li key={index}>
-    <p>컨텐츠 번호: {item.cntntsNo}</p>
-    <p>년도: {item.pblicteYear}</p>
-    <p>컨텐츠 제목: {item.cntntsSj}</p>
-    <p>담당자 명: {item.cntntsChargerEsntlNm}</p>
-    <p>등록 일시: {item.registDt}</p>
-    <p>조회수: {item.cntntsRdcnt}</p>
-    <p>파일명: {item.rtnOrginlFileNm}</p>
-    <p>파일경로: {item.downFile}</p>
-    <p>서비스 등록 일시: {item.svcDtx}</p>
-    <p>서비스 등록일: {item.svcDt}</p>
-    <p>등록자: {item.updusrEsntlNm}</p>
-  </li>
-))}
-
-        
-      </ul>
+    <div className="calendar">
+      {['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'].map((month) => (
+        <button key={month} onClick={() => handleMonthClick(month)}>
+          {month}
+        </button>
+      ))}
+      {selectedMonth && <h1>{selectedMonth}의 작물</h1>}
+      <div className="crops-list">
+        {crops.map((crop) => (
+          <div key={crop.Crop}>
+            <h2>{crop.Crop}</h2>
+            {crop.disease.map((disease) => (
+              <p key={disease}>
+                <span className={`circle ${disease.type === 'Advisory' ? 'yellow' : 'green'}`}></span>
+                {disease.name}
+              </p>
+            ))}
+          </div>
+        ))}
+      </div>
     </div>
   );
-}
+};
+
+
+
 
 export default MonthPage;
