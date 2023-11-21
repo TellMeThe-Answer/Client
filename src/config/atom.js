@@ -28,3 +28,8 @@ export const mapLocation = atom({
   key: 'mapLocation',
   default: '위치 설정하러 가기',
 });
+
+export const previewImage = atom({
+  key : 'preview',
+  default : null,
+})

@@ -6,7 +6,7 @@ const NavBar = () => {
 
     const [check, setCheck] = useState(false);
     const [map, setMap] = useState(false);
-    const [inspect, setInsepect] = useState(false);
+    const [forcast, setForcast] = useState(false);
     const [information, setInformation] = useState(false);
     const [mypage, setMypage] = useState(false);
     
@@ -14,12 +14,32 @@ const NavBar = () => {
         <div class="fixed bottom-0 left-0 z-50 w-full h-16 bg-white border-t border-lime-500">
             <div class="grid h-full max-w-lg grid-cols-5 mx-auto font-medium">
 
-                <button type="button" class="inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group">
-                    <svg className = "w-6 h-6 text-gray-500 group-hover:text-lime-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
-                    </svg>
-                    <span class="text-sm text-black mt-1.5 group-hover:text-lime-400">Home</span>
-                </button>   
+                <NavLink to={"/forcast"}
+                    className = "inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group"
+                    style={({ isActive }) => {
+                        if (isActive) {
+                            setForcast(true);
+                        } else {
+                            setForcast(false);
+                        }
+                      }}
+                    >
+                        {
+                            forcast === true ? <>
+                            <svg className = "w-6 h-6 text-lime-400 group-hover:text-lime-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg>
+                            <span class="text-sm text-lime-400 mt-1.5 group-hover:text-lime-400">Forecast</span>
+                            </>
+                            :
+                            <>
+                            <svg className = "w-6 h-6 text-gray-500 group-hover:text-lime-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25" />
+                            </svg>
+                            <span class="text-sm text-black mt-1.5 group-hover:text-lime-400">Forecast</span>
+                            </>
+                        }
+                </NavLink>
 
                 <NavLink to={"/map"}
                     className = "inline-flex flex-col items-center justify-center px-5 hover:bg-gray-50 group"

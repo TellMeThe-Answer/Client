@@ -64,6 +64,15 @@ function App() {
             </>
           }
         />
+        <Route
+          path="/forcast"
+          element={
+            <>
+              <ForcastPage />
+              <Footer />
+            </>
+          }
+        />
           <Route path="/croplist/:cropName" element={<DictionaryComponent />} />
           <Route path = "/" Component = {FirstPage} />
           <Route path = "/inspect" Component = {SelectPlantPage} />
@@ -71,7 +80,6 @@ function App() {
           <Route path = "/declaration" Component = {DeclarationPage} />
           <Route path = "/location" Component = {LocationSettingComponent} />
           <Route path = "/test" Component = {TestPage} />
-          <Route path = "/forcast" Component = {ForcastPage} />
         </Routes>
     </div>
   );

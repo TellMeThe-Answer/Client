@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react';
-import UploadData from "../../config/diagnoseInformation.json";
 import axios from 'axios';
 import {useRecoilState} from "recoil";
 import {plantState} from "../../config/atom";
 import {Link} from 'react-router-dom';
+import { previewImage } from '../../config/atom';
 import Modal from './Modal';
 
 import { Dropdown, initTE } from "tw-elements";
@@ -12,9 +12,10 @@ initTE({ Dropdown });
 
 
 const ImageUpdoadComponent = () =>{
+
     const [check, setCheck] = useState(false);
     {/** 미리보기 이미지 저장 */}
-    const [preview, serPreview] = useState();
+    const [preview, serPreview] = useRecoilState(previewImage);
     {/** 이미지 저장 */}
     const [selectedFile, setSelectedFile] = useState(null);
     {/**선택한 작물 */}
@@ -35,6 +36,7 @@ const ImageUpdoadComponent = () =>{
         reader.onload = function(event) {
             serPreview(event.target.result);
             setCheck(true);
+            setDclare(true);
         };
 
         reader.readAsDataURL(event.target.files[0]);
@@ -71,6 +73,7 @@ const ImageUpdoadComponent = () =>{
             // Blob을 이용하여 이미지 파일 생성
             const imageFile = new File([blob], 'image.jpg', { type: 'image/jpeg' });
             encodeFileToBase64(imageFile);
+            console.log(imageFile);
           })
           .catch(error => {
             console.error('이미지를 받아오는 중 에러 발생:', error);
@@ -92,6 +95,7 @@ const ImageUpdoadComponent = () =>{
                 },
             });
             console.log('이미지 업로드 성공:', response.data);
+            console.log('널 값 확인할 데이터:', response.data.contents);
             updateThumnail(response.data.image_path);
             setUpdateData(response.data.contents)
             } catch (error) {
@@ -120,7 +124,7 @@ const ImageUpdoadComponent = () =>{
             <input id="dropzone-file" type="file" class="hidden" onChange={setPreviewImg}/>
             </label>
              :
-                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-gray-50">
+                    <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-white">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
                             <svg class="w-8 h-8 mb-4 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
                                 <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
@@ -133,39 +137,43 @@ const ImageUpdoadComponent = () =>{
             }
             </div> 
             {check === true ? 
-            <div className = "w-full h-20 flex flex-col items-center justify-center bg-gray-50 rounded-lg text-sm font-semibold shadow-md ... p-4">
+            <div className = "w-full h-20 flex flex-col items-center justify-center bg-white rounded-lg text-sm font-semibold shadow-md ... p-4">
                 <div className = "mb-2 text-md font-bold">분석결과</div>
                 <div className = "text-red-500">분석 결과는 참고용으로만 확인해주시길 바랍니다.</div>
             </div>
             :
             <></>
             }
-            {/** 토마토인지 아닌지 확인하는 코드
-            <div className = "w-full h-20 flex flex-col justify-center bg-white rounded-lg text-sm font-semibold shadow-md ... p-4">
-                <div>토마토일 확률이 70%입니다.</div>
-                <div>병해를 측정하려면 진단하기 버튼을 눌러주세요.</div>
-            </div>
-             */}
 
             {/** 진단결과 */}
             {check === true ? 
             <>
                 <div className = "w-full flex justify-end text-gray-400 text-sm mt-4">단위(%)</div>
-                <div className = "w-full flex flex-col items-center justify-center bg-gray-50 rounded-lg text-sm font-semibold shadow-md ... p-4">
+                <div className = "w-full flex flex-col items-center justify-center bg-white rounded-lg text-sm font-semibold shadow-md ... p-4">
                     {uploadData != null ? uploadData.map((data) => (
                             <div className = "w-full flex justify-between">
-                                <div>{data.disease}</div>
-                                <div className = "flex">
-                                    <div className = "text-sm mr-1 mb-0.5">{data.percentage}%</div>
-                                    <div className = "text-sm hover:text-[#10b981]"
-                                    data-te-toggle="modal"
-                                    data-te-target="#detailBottomModal"
-                                    data-te-ripple-init
-                                    data-te-ripple-color="light">상세보기</div>
-                                </div>
+                                {data == null ? 
+                                <div>
+                                    <div>병해가 발견되지 않았습니다.</div>
+                                </div> 
+                                : 
+                                <>
+                                    <div>{data.disease}</div>
+                                    <div className = "flex">
+                                        <div className = "text-sm mr-1 mb-0.5">{data.percentage}%</div>
+
+                                        <a href = {data.disease_url} target="_blank" className = "text-sm hover:text-[#10b981]"
+                                        data-te-toggle="modal"
+                                        data-te-target="#detailBottomModal"
+                                        data-te-ripple-init
+                                        data-te-ripple-color="light">상세보기</a>
+                                    </div>
+                                </>
+                                }
                             </div>
                         )) :
-                        <div></div>
+                        <div>
+                        </div>
                         }
                 </div>
             </> :

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {useRecoilValue} from "recoil";
+import React, { useState} from "react";
+import {useRecoilState} from "recoil";
 import { plantDescription, plantState, plantImage} from "../../config/atom";
 import diseaseData from "../../config/modalInformation.json";
 
@@ -8,11 +8,11 @@ initTE({ Dropdown });
 // Initialization for ES Users
 
 const SelectDescriptionComponent = () => {
+    const [selectPlant, setPlant] = useRecoilState(plantState);
+    const [selectPlantImage, setSelectImage] = useRecoilState(plantImage);
+    const [selectPlantDisease, setDescription] = useRecoilState(plantDescription);
 
-    const selectPlant = useRecoilValue(plantState);
-    const selectPlantImage = useRecoilValue(plantImage);
-    const selectPlantDisease = useRecoilValue(plantDescription);
-
+    const [image, setImage] = useRecoilState(plantImage);
     {/**선택한 데이터 배열 */}
     const [modalData, setModalData] = useState();
     {/**선택한 병해명 */}
@@ -29,8 +29,8 @@ const SelectDescriptionComponent = () => {
     const [link, setLink] = useState();
     
 
-    const setInformation = async(disease) =>{
-        await modalData.map((data, index)=>{
+    const setInformation = (disease, information) =>{
+        information.map((data, index)=>{
             if(data.plantDisease == disease){
                 setDiseaseName(disease);
                 setModalImage(data.plantImage);
@@ -42,13 +42,14 @@ const SelectDescriptionComponent = () => {
         })
     }
 
-    const getInformation = async (disease) => {
-        await diseaseData.map((plant, index) => {
+    const getInformation = (disease) => {
+        diseaseData.map((plant, index) => {
             if(plant.plantName === selectPlant){
+                console.log(plant.plantName, selectPlant);
                 setModalData(plant.information);
+                setInformation(disease, plant.information);
             }
         })
-        setInformation(disease);
     }
 
 
@@ -70,7 +71,7 @@ const SelectDescriptionComponent = () => {
                 <div className = "w-full h-4/5 flex justify-between">
 
                     <div className = "h-1/2 w-24">
-                        <img src = {modalImage}/>
+                        <img src = {image}/>
                     </div>
 
                     <div className = "flex flex-col h-1/2">
@@ -132,7 +133,6 @@ const SelectDescriptionComponent = () => {
 
                                         <div className = "h-24 w-24">
                                             <img src = {modalImage}/>
-                                            {/**<img src = "https://cdn-icons-png.flaticon.com/128/877/877712.png"/>*/}
                                         </div>
 
                                         <div className = "flex flex-col justify-evenly ml-4">

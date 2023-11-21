@@ -3,11 +3,13 @@ import React, {useEffect, useState} from 'react';
 import {Link} from 'react-router-dom';
 import {mapLocation} from "../../config/atom";
 import {useRecoilState} from "recoil";
+import { previewImage } from '../../config/atom';
 import Modal from './Modal';
 
 const DeclarationComponent = () =>{
 
     const [mapAddress, setMapAddress] = useRecoilState(mapLocation);
+    const [preview, setPreview] = useRecoilState(previewImage)
     const [ popup, setPopup ] = useState(false); 
 
     const setModal = () =>{
@@ -85,7 +87,7 @@ const DeclarationComponent = () =>{
 
                     {/**피해사진 */}
                     <div className = "w-full h-40 px-20 mt-4 mb-4">
-                        <img className = "w-full h-full flex justify-center items-center" src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1sd29FwXqcd-wSqA4MDg3VuCcnzwCrTdGogAL1GXGkp1XfZMtS4ELjoS4pJqXOwl54ds&usqp=CAU"/>
+                        <img className = "w-full h-full flex justify-center items-center" src = {preview}/>
                     </div>
 
                     <div className = "w-full h-11 flex items-center">

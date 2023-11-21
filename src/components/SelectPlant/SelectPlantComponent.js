@@ -18,8 +18,8 @@ const SelectPlantComponent = () => {
         { id: 3, image: "https://cdn-icons-png.flaticon.com/128/284/284834.png", name: "고추" },
       ];
 
-    const handleButtonClick = (buttonName) => {
-        setPlant(buttonName.name);
+    const handleButtonClick = async(buttonName) => {
+        await setPlant(buttonName.name);
         plantData.map((elem, index)=>{
             if(elem.plantName === buttonName.name){
                 setImage(elem.plantImage);
