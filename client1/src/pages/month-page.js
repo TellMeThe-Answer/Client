@@ -1,45 +1,66 @@
 import React, { useState } from 'react';
-
-// JSON 데이터를 가져오는 가정
-import data from './jsonlist.json';
+import data from '../jsonlist.json';
+import '../css/App.css';
 
 const MonthPage = () => {
   const [selectedMonth, setSelectedMonth] = useState(null);
-  const [crops, setCrops] = useState([]);
+  const [crops, setCrops] = useState({});
+  const [openDiseaseIndex, setOpenDiseaseIndex] = useState(null); // To track which crop's diseases are displayed
 
   const handleMonthClick = (month) => {
-    // 해당 월의 작물 데이터를 설정
     setSelectedMonth(month);
     const monthData = data[month];
-    setCrops(monthData.Forecast);
+    const combinedCrops = {
+      ...monthData.예보.reduce((acc, crop) => ({ ...acc, [crop.작물]: { ...crop, type: '예보' } }), {}),
+      ...monthData.주의보.reduce((acc, crop) => ({ ...acc, [crop.작물]: { ...crop, type: '주의보' } }), {})
+    };
+    setCrops(combinedCrops);
+    setOpenDiseaseIndex(null); // Reset the open diseases
+  };
+
+  const handleCropClick = (index) => {
+    // Toggle the display of the diseases for the selected crop
+    setOpenDiseaseIndex(openDiseaseIndex === index ? null : index);
   };
 
   return (
-    <div className="calendar">
-      {['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'].map((month) => (
-        <button key={month} onClick={() => handleMonthClick(month)}>
-          {month}
-        </button>
-      ))}
+    <div className="month-page">
+      <div className="calendar-grid">
+        {Object.keys(data).map((month, index) => (
+          <button
+            key={index}
+            onClick={() => handleMonthClick(month)}
+            className={selectedMonth === month ? 'selected' : ''}
+          >
+            {month}
+          </button>
+        ))}
+      </div>
       {selectedMonth && <h1>{selectedMonth}의 작물</h1>}
       <div className="crops-list">
-        {crops.map((crop) => (
-          <div key={crop.Crop}>
-            <h2>{crop.Crop}</h2>
-            {crop.disease.map((disease) => (
-              <p key={disease}>
-                <span className={`circle ${disease.type === 'Advisory' ? 'yellow' : 'green'}`}></span>
-                {disease.name}
-              </p>
-            ))}
-          </div>
+        {Object.entries(crops).map(([cropName, cropDetails], index) => (
+          <React.Fragment key={index}>
+            <button
+              onClick={() => handleCropClick(index)}
+              className="crop-button"
+            >
+              {cropName}
+            </button>
+            {openDiseaseIndex === index && (
+              <div className="diseases-list">
+                {cropDetails.질병.map((disease, diseaseIndex) => (
+                 <button key={diseaseIndex} className="disease-button">
+                 <span className={`circle ${cropDetails.type === '예보' ? 'advisory' : 'warning'}`}></span>
+                 {disease}
+               </button>
+                ))}
+              </div>
+            )}
+          </React.Fragment>
         ))}
       </div>
     </div>
   );
 };
-
-
-
 
 export default MonthPage;
