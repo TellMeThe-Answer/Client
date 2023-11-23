@@ -100,7 +100,7 @@ const ReportPage = () => {
     // 기존 신고 가져오기, 새로운 신고 추가, 로컬 스토리지에 저장
     const existingReports = JSON.parse(localStorage.getItem('reports')) || [];
     localStorage.setItem('reports', JSON.stringify([...existingReports, reportData]));
-
+    
     // 사용자에게 신고가 제출되었다고 알림
     alert('신고가 제출되었습니다:\n' + JSON.stringify(reportData, null, 2));
 

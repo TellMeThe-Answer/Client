@@ -7,12 +7,13 @@ import { useNavigate } from 'react-router-dom';
 // 병해 현황을 신고하는 페이지 컴포넌트
 const ReportAddressPage = () => {
   const navigate = useNavigate();
+  
   // 지도, 마커, 인포윈도우, 주소 상태를 관리
   const [map, setMap] = useState(null);
   const [marker, setMarker] = useState(null);
   const [infowindow, setInfowindow] = useState(null);
   const [address, setAddress] = useState('위치를 불러오는 중...');
-
+  
   // 컴포넌트가 마운트될 때 실행되는 useEffect
   useEffect(() => {
     // 카카오 지도 스크립트를 동적으로 로드
@@ -24,6 +25,7 @@ const ReportAddressPage = () => {
     // 스크립트 로드 완료 시
     script.onload = () => {
       window.kakao.maps.load(() => {
+        let initialLat, initialLng;
         // 사용자의 현재 위치를 가져오기
         navigator.geolocation.getCurrentPosition((position) => {
           const userLat = position.coords.latitude;
