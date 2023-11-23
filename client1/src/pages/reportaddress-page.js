@@ -127,7 +127,7 @@ const ReportAddressPage = () => {
           </button>
           <p>{address}</p>
         </div>
-      </div>
+      </div> 
     </div>
   );
 };
