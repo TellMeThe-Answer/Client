@@ -60,7 +60,7 @@ const CalendarComponent = () =>{
                 </div>
                 
                 <div className = "flex ml-2">
-                <img src = "https://cdn-icons-png.flaticon.com/128/3239/3239337.png" className = "w-7 h-7"/>
+                {selectedMonth && <img src = "https://cdn-icons-png.flaticon.com/128/3239/3239337.png" className = "w-7 h-7"/>}
                 {selectedMonth && <h1 className = "font-semibold text-lg text-warning-900 ml-2 mb-2">{selectedMonth} 작물</h1>}
                 </div>
 
