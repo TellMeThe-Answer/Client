@@ -1,15 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+// Confirmation Modal Component
+const ConfirmationModal = ({ isOpen, onClose, onConfirm }) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="modal">
+      <div className="modal-content">
+        <p>정말 신고내역을 삭제하시겠습니까?</p>
+        <button onClick={onConfirm}>네</button>
+        <button onClick={onClose}>아니요</button>
+      </div>
+    </div>
+  );
+};
+
 const ReportDetailpage = () => {
   const [reports, setReports] = useState([]);
   const [editIndex, setEditIndex] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [deletingIndex, setDeletingIndex] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
     const loadedReports = JSON.parse(localStorage.getItem('reports')) || [];
     setReports(loadedReports);
   }, []);
+
+  const openDeleteModal = (index) => {
+    setIsModalOpen(true);
+    setDeletingIndex(index);
+  };
+
+  const closeDeleteModal = () => {
+    setIsModalOpen(false);
+    setDeletingIndex(null);
+  };
+
+  const confirmDelete = () => {
+    deleteReport(deletingIndex);
+    closeDeleteModal();
+  };
 
   const deleteReport = (indexToDelete) => {
     const updatedReports = reports.filter((_, index) => index !== indexToDelete);
@@ -24,11 +56,10 @@ const ReportDetailpage = () => {
         reportIndex: index, 
         reportLat: report.lat, 
         reportLng: report.lng,
-        cropType: report.crop // Assuming the crop type is stored in report.crop
+        cropType: report.crop 
       } 
     });
   };
-  
 
   const handleSymptomsChange = (e, index) => {
     const updatedReports = [...reports];
@@ -50,7 +81,7 @@ const ReportDetailpage = () => {
       <h1>Report List</h1>
       {reports.map((report, index) => (
         <div key={index} style={{ marginBottom: '20px', borderBottom: '1px solid #ccc', paddingBottom: '10px' }}>
-          <button onClick={() => deleteReport(index)} style={{ float: 'right' }}>X</button>
+          <button onClick={() => openDeleteModal(index)} style={{ float: 'right' }}>X</button>
           <h2>Report {index + 1}</h2>
           <div><strong>Crop:</strong> {report.crop}</div>
           <div><strong>Disease:</strong> {report.disease}</div>
@@ -70,6 +101,11 @@ const ReportDetailpage = () => {
           {editIndex === index && <button onClick={saveEditedReport}>저장하기</button>}
         </div>
       ))}
+      <ConfirmationModal 
+        isOpen={isModalOpen} 
+        onClose={closeDeleteModal} 
+        onConfirm={confirmDelete} 
+      />
     </div>
   );
 };
