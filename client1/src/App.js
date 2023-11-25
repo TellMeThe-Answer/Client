@@ -10,8 +10,8 @@ import ReportPage from './pages/report-page';
 import MyPage from './pages/my-page';
 import CropListPage from './pages/CropListPage';
 import ReportAddressPage from './pages/reportaddress-page';
-import SingoPage from './pages/singo-page';
-
+import ReportDetailpage from './pages/reportdetail-page';
+import  MarkerFixPage from  './pages/markerfix-page';
 function App() {
   const [address, setAddress] = useState('');
 
@@ -29,7 +29,8 @@ function App() {
                   <Route path="/my-page" element={<MyPage />} />
                   <Route path="/croplist/:cropName" element={<CropListPage />} />
                   <Route path="/reportaddress-page" element={<ReportAddressPage />} />
-                  <Route path="/singo-page" element={<SingoPage />} /> {/* SingoPage 라우트 설정 */}
+                  <Route path="/reportdetail-page" element={<ReportDetailpage />} /> {/* SingoPage 라우트 설정 */}
+                  <Route path="/markerfix-page" element={<MarkerFixPage />} />
               </Routes>
           </Router>
       

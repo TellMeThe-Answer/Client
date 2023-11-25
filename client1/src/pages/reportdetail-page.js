@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const SingoPage = () => {
+const ReportDetailpage = () => {
   const [reports, setReports] = useState([]);
-  const [editIndex, setEditIndex] = useState(null); // Index of the report being edited
+  const [editIndex, setEditIndex] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -19,8 +19,17 @@ const SingoPage = () => {
 
   const handleEditLocation = (index) => {
     const report = reports[index];
-    navigate('/reportaddress-page', { state: { reportLat: report.lat, reportLng: report.lng } });
+    navigate('/markerfix-page', { 
+      state: { 
+        reportIndex: index, 
+        reportLat: report.lat, 
+        reportLng: report.lng,
+        cropType: report.crop // Assuming the crop type is stored in report.crop
+      } 
+    });
   };
+  
+
   const handleSymptomsChange = (e, index) => {
     const updatedReports = [...reports];
     updatedReports[index].symptoms = e.target.value;
@@ -29,7 +38,7 @@ const SingoPage = () => {
 
   const saveEditedReport = () => {
     localStorage.setItem('reports', JSON.stringify(reports));
-    setEditIndex(null); // Exit edit mode
+    setEditIndex(null);
   };
 
   if (reports.length === 0) {
@@ -45,7 +54,6 @@ const SingoPage = () => {
           <h2>Report {index + 1}</h2>
           <div><strong>Crop:</strong> {report.crop}</div>
           <div><strong>Disease:</strong> {report.disease}</div>
-
           {editIndex === index ? (
             <input 
               type="text" 
@@ -55,7 +63,6 @@ const SingoPage = () => {
           ) : (
             <div><strong>Symptoms:</strong> {report.symptoms}</div>
           )}
-
           <div><strong>Address:</strong> {report.address}</div>
           <div><strong>Date:</strong> {report.date}</div>
           <button onClick={() => handleEditLocation(index)}>위치 수정하기</button>
@@ -67,4 +74,4 @@ const SingoPage = () => {
   );
 };
 
-export default SingoPage;
+export default ReportDetailpage;
