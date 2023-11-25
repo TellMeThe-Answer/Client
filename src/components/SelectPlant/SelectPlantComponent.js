@@ -13,7 +13,7 @@ const SelectPlantComponent = () => {
     // 버튼 정보 배열
     const data = [
         { id: 0, image: "https://cdn-icons-png.flaticon.com/128/877/877712.png", name: "토마토" },
-        { id: 1, image: "https://cdn-icons-png.flaticon.com/128/2753/2753932.png", name: "딸기" },
+        { id: 1, image: "https://cdn-icons-png.flaticon.com/128/1652/1652128.png", name: "딸기" },
         { id: 2, image: "https://cdn-icons-png.flaticon.com/128/7758/7758758.png", name: "오이" },
         { id: 3, image: "https://cdn-icons-png.flaticon.com/128/284/284834.png", name: "고추" },
       ];

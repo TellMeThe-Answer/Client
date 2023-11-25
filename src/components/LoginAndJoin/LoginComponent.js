@@ -1,25 +1,39 @@
 import React, { useState } from "react";
 import Footer from "../common/footer"
 import {Link} from 'react-router-dom';
+import axios from 'axios';
+import config from "../../config/config";
 
 const LoginComponent = () => {
 
     const [formData, setFormData] = useState({
         email: '',
-        password: '',
+        password: null,
       });
 
     const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+        const { name, value } = e.target;
+        setFormData({ ...formData, [name]: name === 'password' ? parseInt(value, 10) : value });
+        console.log(formData)
     };
 
     const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('폼 데이터:', formData);
-    localStorage.setItem("email", "iopp3423@gmail.com");
-    localStorage.setItem("password", "test1234");
-    };  
+        e.preventDefault();
+        // 서버 URL을 여러분의 실제 서버 주소로 바꿔주세요.
+        const loginUrl = `${config.baseURL}/member/login`;
+        console.log(formData)
+        axios.post(loginUrl, formData)
+        .then(response => {
+            console.log('POST 요청 성공:', response.data);
+            // 서버 응답에 대한 처리를 여기에 추가하세요.
+        })
+        .catch(error => {
+            console.error('POST 요청 실패:', error);
+        });
+
+            //localStorage.setItem("email", "iopp3423@gmail.com");
+            //localStorage.setItem("password", "test1234");
+        };
 
 
     return(

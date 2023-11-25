@@ -69,7 +69,7 @@ const CalendarComponent = () =>{
                     <React.Fragment key={index}>
                         <button
                         onClick={() => handleCropClick(index, cropName)}
-                        className={state === cropName ? "w-full h-12 bg-violet-300 rounded-xl flex justify-start items-center pl-5 mt-1" : "w-full h-12 border-2 border-violet-300 rounded-xl flex justify-start items-center pl-5 mt-1"}
+                        className={state === cropName ? "w-full h-12 bg-violet-300 rounded-xl flex justify-start items-center pl-5 mt-1 transition-all duration-300" : "w-full h-12 border-2 border-violet-300 rounded-xl flex justify-start items-center pl-5 mt-1 transition-all duration-300"}
                         >
                         {cropName}
                         </button>
@@ -84,7 +84,7 @@ const CalendarComponent = () =>{
 
                             {cropDetails.type === '예보' ? 
                             <div className = "flex h-5 items-center mr-2">
-                                <div className = "bg-red-500 w-3 h-3 rounded-full "/>
+                                <div className = "bg-green-400 w-3 h-3 rounded-full "/>
                                 <div className="mr-2"/>{disease}
                             </div>
                             :

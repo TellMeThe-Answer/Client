@@ -83,7 +83,7 @@ const SelectDescriptionComponent = () => {
                                         return (
                                                 <div key = {index} onClick={() => getInformation(description)}
                                                 data-te-toggle="modal"
-                                                data-te-target="#exampleFrameBottomModal1"
+                                                data-te-target="#exampleFrameBottomModal"
                                                 data-te-ripple-init
                                                 data-te-ripple-color="light">
                                                 <div>{description}</div>
@@ -98,7 +98,7 @@ const SelectDescriptionComponent = () => {
                                         return (
                                                 <div key = {index} onClick={() => getInformation(description)}
                                                 data-te-toggle="modal"
-                                                data-te-target="#exampleFrameBottomModal1"
+                                                data-te-target="#exampleFrameBottomModal"
                                                 data-te-ripple-init
                                                 data-te-ripple-color="light">
                                                     <div>{description}</div>
@@ -115,7 +115,7 @@ const SelectDescriptionComponent = () => {
                                 <div
                                 data-te-modal-init
                                 className="fixed left-0 top-0 z-[1055] hidden h-full w-full overflow-hidden outline-none"
-                                id="exampleFrameBottomModal1"
+                                id="exampleFrameBottomModal"
                                 tabindex="-1"
                                 aria-labelledby="exampleFrameBottomModalLabel"
                                 aria-hidden="true">
@@ -132,7 +132,7 @@ const SelectDescriptionComponent = () => {
                                     <div className = "w-full flex mb-4">
 
                                         <div className = "h-24 w-24">
-                                            <img src = {modalImage}/>
+                                            <img src = {modalImage} className = "w-24 h-24 rounded-xl"/>
                                         </div>
 
                                         <div className = "flex flex-col justify-evenly ml-4">
