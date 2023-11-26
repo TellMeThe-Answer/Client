@@ -1,13 +1,14 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import "./FirstPage.css"
 
 const FirstPage = () =>{
     return (
         <>
-        <div className="w-full h-full bg-white flex justify-center items-center">
+        <div className="w-full h-full flex justify-center items-center firstpage-container">
             <div className = "w-full justify-center items-center">
                 <div className = "flex justify-center w-full">
-                    <img src = "https://cdn-icons-png.flaticon.com/128/5269/5269534.png"/>
+                    <img src = "/images/005.png"/>
                 </div>
                 <div className = "text-2xl font-semibold flex justify-center mt-10">로그인 후 이용해주세요.</div>
                 <div className = "flex justify-center w-full">
