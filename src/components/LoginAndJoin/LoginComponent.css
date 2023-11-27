@@ -1,0 +1,117 @@
+#loginform{
+	width: 90%;
+	height: 90%;
+	margin: 100px auto;
+	/* border-radius: 25px; */
+	
+}
+
+#login-logo {
+	width: 100%;
+	display: flex;
+	text-align: center;
+	justify-content: center; /* 수평 중앙 정렬 */
+	/* background-color: #FFD3A5; */
+	padding: 4px;
+}
+
+.login-image-container {
+	box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 50px;
+	/* box-shadow: rgba(17, 17, 26, 0.05) 0px 4px 16px, rgba(17, 17, 26, 0.05) 0px 8px 32px; */
+	border-radius: 50px; /* 테두리를 부드럽게 만듭니다. */
+}
+
+.login-logo-image {
+	
+	width: 160px;
+	height: auto;
+}
+.row{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 2rem;
+	font-size: 2rem;
+	max-width: 100%;
+	
+}
+  
+  
+.row input{
+width: 80%;
+box-sizing: border-box;
+	border: none;
+font-size: 1.3rem;
+padding-left: 1.5rem;
+padding-bottom: 1rem;
+box-shadow: inset 0px -3px 0px 0px rgba(187,187,187,0.3);
+transition: box-shadow 0.2s ease-in;
+}
+  
+.row input::placeholder {
+color: rgb(188, 188, 188);
+font-size: 18px;
+}
+  
+.row input:focus{
+	box-shadow: inset 0px -3px 0px 0px #ffbccc;
+	outline: none;
+}
+
+.row input::-webkit-input-placeholder{
+opacity: 1;
+transition: opacity 0.25s ease-out;
+}
+
+.row input:hover::-webkit-input-placeholder,
+.row input:focus::-webkit-input-placeholder{
+opacity: 0; 
+}
+
+.row label{
+	align-self: start;
+	padding-left: 3.5rem;
+	padding-bottom: 0.5rem;
+	color: rgba(79, 77, 77, 0.9);
+}
+
+.row button{
+	border-radius: 25px;
+	width: 80%;
+	height: 40px;
+	font-size: 1.9rem;
+	font-family: 'Dongle', sans-serif;
+	color: white;
+	font-weight: 700;
+	background: rgb(34,193,195);
+	background: linear-gradient(135deg,#FD6585 0%,    #FFD3A5 100%);
+	/* background: linear-gradient(90deg, rgba(34,193,195,1) 0%,     rgba(253,187,45,1) 100%); */
+	border: 0px;
+	cursor: pointer;
+	transition: opacity 0.25s ease-out;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+
+}
+
+.row button:hover{
+	opacity: 0.8;
+}
+
+#login-button{
+	padding-bottom: 1.5rem;
+	display: flex;
+	text-align: center;
+
+}
+
+#login-button{
+	padding-bottom: 1.5rem;
+	display: flex;
+	text-align: center;
+  
+  }
+  .button-link {
+	width: 100%;
+  }
+  

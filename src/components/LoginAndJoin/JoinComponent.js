@@ -55,7 +55,6 @@ const JoinComponent = () => {
                 </div>
             </div>
         </div>
-        <Footer/>
         </section>
     )
 }
