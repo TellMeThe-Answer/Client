@@ -27,17 +27,16 @@ const LoginComponent = () => {
 
     return(
         <section class="bg-white h-full flex items-center">
-            <div id="loginform">
-                <div id="login-logo">
-                    <div className="login-image-container">
-                        <img className='login-logo-image' 
-                            src="/images/logo_rev.png" alt='로고사진'/>
-                    </div>
-                   
+            <div id="loginform">    
+                <div className="login-sub-icon-container">
+                    <img className="login-sub-icon" src="/images/loginicon.png" alt="식물아이콘"></img>
+                </div>
+                <div className="login-title">
+                    로그인
                 </div>
                 <div>
                     <div className="row">
-                        <label>User Name</label>
+                        <label>Email</label>
                         <input
                             type="email"
                             name="email"
@@ -47,7 +46,7 @@ const LoginComponent = () => {
                         />
                     </div>
                     <div className="row">
-                        <label>Phone Number</label>
+                        <label>Password</label>
                         <input
                             type="password"
                             name="password"
@@ -55,8 +54,37 @@ const LoginComponent = () => {
                             onChange={handleChange} 
                             id="password"/>
                     </div>
-                    <div id="login-button" className="row">
-                        <button className='login-button'  type="submit" onClick={handleSubmit}>미팅 참여</button>
+
+                    <div className="login-forgot">
+                        <span className="login-forgot-text">Forgot password?</span>
+                    </div>
+                    <div className="login-button-container">
+                        <button
+                            type="button"
+                            className="w-full h-14 rounded-xl bg-[#10b981] text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+                            로그인
+                        </button>
+                    </div>
+            
+                    <div className="or-login-with-container">
+                        <span className="or-login-with">Or Login with</span>
+                    </div>
+                   
+                    <div className="oauth">
+                        <button className="oauth-button">
+                            <img src="./images/facebook.png" alt="facebook" />
+                        </button>
+                        <button className="oauth-button">
+                            <img src="./images/google.png" alt="google" />
+                        </button>
+                        <button className="oauth-button">
+                            <img src="./images/apple.png" alt="google" />
+                        </button>
+                    </div>
+
+                    <div className=" w-full flex justify-center fixed bottom-0 left-0 mb-7 suggest_signup">
+                        <span className="mr-2"> Don’t have an account? </span>
+                        <a><strong>Sign up</strong></a>
                     </div>
                 </div>
             </div>
