@@ -132,19 +132,19 @@ const MapComponent = () => {
           boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
         }}>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: 'red', marginRight: '10px' }}></div>
+          <div style={{ width: '20px', height: '20px', backgroundColor: '#FF6347', marginRight: '10px' }}></div>
           <div>토마토</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: 'green', marginRight: '10px' }}></div>
+          <div style={{ width: '20px', height: '20px', backgroundColor: '#10A24D', marginRight: '10px' }}></div>
           <div>오이</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: 'skyblue', marginRight: '10px' }}></div>
+          <div style={{ width: '20px', height: '20px', backgroundColor: 'blue', marginRight: '10px' }}></div>
           <div>고추</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: 'black', marginRight: '10px' }}></div>
+          <div style={{ width: '20px', height: '20px', backgroundColor: 'red', marginRight: '10px' }}></div>
           <div>딸기</div>
         </div>
       </div>
