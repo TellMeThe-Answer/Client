@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 import "./LoginAndJoin.css"
 import axios from "axios";
     
 
 const LoginComponent = () => {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -34,6 +36,7 @@ const LoginComponent = () => {
         .then(response => {
             console.log('POST 요청 성공:', response.data);
             localStorage.setItem("memberId", response.data.memberId);
+            navigate('/forcast');
         })
         .catch(error => {
             console.error('POST 요청 실패:', error.response.data.message);

@@ -23,7 +23,7 @@ const JoinModal = (props) =>{
                         <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
                         <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">회원가입 성공! 🎉</h3>
                         <div class="mt-2">
-                            <p class="text-sm text-gray-500">로그인하기 버튼을 눌러 로그인해주세요.</p>
+                            <p class="text-sm text-gray-500">로그인 버튼을 눌러 로그인해주세요.</p>
                         </div>
                         </div>
                     </div>

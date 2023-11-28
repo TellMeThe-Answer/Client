@@ -42,7 +42,7 @@ const JoinComponent = () => {
         })
         .then(response => {
             console.log('POST 요청 성공:', response.data);
-            // setModalShow(true)
+            setModalShow(true)
         })
         .catch(error => {
             console.error('POST 요청 실패:', error.response.data.message);
@@ -85,7 +85,7 @@ const JoinComponent = () => {
                     <div className="row">
                         <label>Confirm password</label>
                         <input
-                            type="rePassword"
+                            type="password"
                             name="rePassword"
                             placeholder="ex) **********"
                             onChange={handleChange} 
@@ -97,8 +97,7 @@ const JoinComponent = () => {
                         <button
                             type="button"
                             className="w-full h-14 rounded-xl bg-[#10b981] text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                            // onClick={onClickRegister}
-                            onClick={() => setModalShow(true)}
+                            onClick={onClickRegister}
                             >
                             가입하기
                         </button>
