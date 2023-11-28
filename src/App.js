@@ -25,7 +25,6 @@ function App() {
           element={
             <>
               <LoginPage />
-              <Footer />
             </>
           }
         />
@@ -34,7 +33,6 @@ function App() {
           element={
             <>
               <JoinPage />
-              <Footer />
             </>
           }
         />

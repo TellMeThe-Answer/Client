@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import Footer from "../common/footer"
-import {Link} from 'react-router-dom';
-import axios from 'axios';
-import config from "../../config/config";
+
+import {Link, useNavigate} from 'react-router-dom';
+import "./LoginAndJoin.css"
+import axios from "axios";
+    
 
 const LoginComponent = () => {
+
+    const navigate = useNavigate();
 
     const [formData, setFormData] = useState({
         email: '',
@@ -17,62 +20,98 @@ const LoginComponent = () => {
         console.log(formData)
     };
 
-    const handleSubmit = (e) => {
+
+    const onClickLogin = async (e) => {
         e.preventDefault();
-        // 서버 URL을 여러분의 실제 서버 주소로 바꿔주세요.
-        const loginUrl = `${config.baseURL}/member/login`;
-        console.log(formData)
-        axios.post(loginUrl, formData)
+
+        const data = {
+            email: formData.email,
+            password: formData.password
+        };
+        
+        
+        await axios.post('member/login', data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
         .then(response => {
             console.log('POST 요청 성공:', response.data);
-            // 서버 응답에 대한 처리를 여기에 추가하세요.
+            localStorage.setItem("memberId", response.data.memberId);
+            navigate('/forcast');
         })
         .catch(error => {
-            console.error('POST 요청 실패:', error);
+            console.error('POST 요청 실패:', error.response.data.message);
         });
+    }
 
-            //localStorage.setItem("email", "iopp3423@gmail.com");
-            //localStorage.setItem("password", "test1234");
-        };
 
 
     return(
-        <section class="bg-gray-50 h-full flex items-center">
-        <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
-            <div class="flex items-center mb-6 text-2xl font-semibold text-black">
-                <img class="w-8 h-8 mr-2" src="https://cdn-icons-png.flaticon.com/128/1892/1892751.png" alt="logo"/>
-                병해 분류   
-            </div>
-            <div class="w-full bg-white rounded-lg shadow border border-x-emerald-300 md:mt-0 sm:max-w-md xl:p-0">
-                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl">
-                        로그인
-                    </h1>
-                    <form class="space-y-2 md:space-y-6" action="#">
-                        <div className = "mt-6">
-                            <label for="email" class="block mb-2 text-sm font-medium text-gray-900">이메일</label>
-                            <input type="email" name="email" onChange={handleChange} id="email" className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-[#10b981] focus:outline-none transition delay-100 block w-full p-2.5 peer ..." placeholder="example@email.com"/>
-                            <p class="mt-1 invisible peer-invalid:visible text-[#10b981] text-sm">
-                                이메일 형식을 맞춰주세요.
-                            </p>
-                        </div>
-                        <div>
-                            <label for="password" class="block mb-2 text-sm font-medium text-gray-900">비밀번호</label>
-                            <input type="password" name="password" onChange={handleChange} id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:border-[#10b981] focus:outline-none transition delay-100 block w-full p-2.5" required=""/>
-                        </div>
-                        <div class="flex items-center justify-between">
-                            <a href="#" class="text-sm font-medium text-black hover:underline">비밀번호를 잊으셨나요?</a>
-                        </div>
-                        <button type="submit" onClick={handleSubmit} className="w-full text-black focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">로그인</button>
-                        <p class="text-sm font-light text-gray-600">
-                            아직 계정이 없으신가요? 
-                            <Link to='/join' class="font-medium text-[#10b981] hover:underline ml-1">회원가입</Link>
-                        </p>
-                    </form>
+        <section className="bg-white h-full flex items-center">
+            <div id="loginform">    
+                <div className="login-sub-icon-container">
+                    <img className="login-sub-icon" src="/images/loginicon.png" alt="식물아이콘"></img>
+                </div>
+                <div className="login-title">
+                    로그인
+                </div>
+                <div>
+                    <div className="row">
+                        <label>Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            placeholder="ex) abcd@naver.com"
+                            onChange={handleChange} 
+                            id="email"
+                        />
+                    </div>
+                    <div className="row">
+                        <label>Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            placeholder="ex) 01012345678"
+                            onChange={handleChange} 
+                            id="password"/>
+                    </div>
+
+                    <div className="login-forgot">
+                        <Link to='/login' class="font-medium text-[#0f9d6ef9] hover:underline h-100 top-0 right-0 absolute">Forgot password?</Link>
+
+                    </div>
+                    <div className="login-button-container">
+                        <button
+                            type="button"
+                            className="w-full h-14 rounded-xl bg-[#10b981] text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                            onClick={onClickLogin}>
+                            로그인
+                        </button>
+                    </div>
+            
+                    <div className="or-login-with-container">
+                        <span className="or-login-with">Or Login with</span>
+                    </div>
+                   
+                    <div className="oauth">
+                        <button className="oauth-button">
+                            <img src="./images/facebook.png" alt="facebook" />
+                        </button>
+                        <button className="oauth-button">
+                            <img src="./images/google.png" alt="google" />
+                        </button>
+                        <button className="oauth-button">
+                            <img src="./images/apple.png" alt="google" />
+                        </button>
+                    </div>
+
+                    <div className=" w-full flex justify-center fixed bottom-0 left-0 mb-7 suggest_signup">
+                        <span className="mr-2"> Don’t have an account?</span>
+                        <Link to='/join' class="font-medium text-[#10b981] hover:underline"><strong>Join</strong></Link>
+                    </div>
                 </div>
             </div>
-        </div>
-        <Footer/>
         </section>
     )
 }
