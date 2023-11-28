@@ -1,11 +1,20 @@
 import React, { useState } from "react";
-import Footer from "../common/footer"
 import {Link, useNavigate} from 'react-router-dom';
 import axios from "axios";
+import "./LoginAndJoin.css"
+import JoinModal from "./JoinModal.js"
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
+
 
 const JoinComponent = () => {
 
     const navigate = useNavigate();
+
+    // 모달창
+    const [modalShow, setModalShow] = useState(false);
+
+    // 입력폼 
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -33,7 +42,7 @@ const JoinComponent = () => {
         })
         .then(response => {
             console.log('POST 요청 성공:', response.data);
-            navigate('/login')
+            // setModalShow(true)
         })
         .catch(error => {
             console.error('POST 요청 실패:', error.response.data.message);
@@ -43,7 +52,9 @@ const JoinComponent = () => {
 
 
     return(
-        <section class="bg-white h-full flex items-center">
+        <section className="bg-white h-full flex items-center">
+             {modalShow ? <JoinModal onClose={setModalShow} /> : null}
+
             <div id="loginform">    
                 <div className="login-sub-icon-container">
                     <img className="login-sub-icon" src="/images/loginicon.png" alt="식물아이콘"></img>
@@ -86,7 +97,9 @@ const JoinComponent = () => {
                         <button
                             type="button"
                             className="w-full h-14 rounded-xl bg-[#10b981] text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
-                            onClick={onClickRegister}>
+                            // onClick={onClickRegister}
+                            onClick={() => setModalShow(true)}
+                            >
                             가입하기
                         </button>
                     </div>

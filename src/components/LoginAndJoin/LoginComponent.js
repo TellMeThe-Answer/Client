@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import {Link} from 'react-router-dom';
-import "./LoginComponent.css"
+import "./LoginAndJoin.css"
 import axios from "axios";
     
 
@@ -43,7 +43,7 @@ const LoginComponent = () => {
 
 
     return(
-        <section class="bg-white h-full flex items-center">
+        <section className="bg-white h-full flex items-center">
             <div id="loginform">    
                 <div className="login-sub-icon-container">
                     <img className="login-sub-icon" src="/images/loginicon.png" alt="식물아이콘"></img>
