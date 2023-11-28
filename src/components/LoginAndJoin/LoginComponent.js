@@ -16,7 +16,6 @@ const LoginComponent = () => {
     setFormData({ ...formData, [name]: value });
     };
 
-    // ${process.env.REACT_APP_KAKAO_API_KEY}
     
     const onClickLogin = async (e) => {
         e.preventDefault();
@@ -33,13 +32,12 @@ const LoginComponent = () => {
             }
         })
         .then(response => {
-            console.log('POST 요청 성공:', response.data.memberId);
+            console.log('POST 요청 성공:', response.data);
             localStorage.setItem("memberId", response.data.memberId);
         })
         .catch(error => {
-            console.error('POST 요청 실패:', error);
+            console.error('POST 요청 실패:', error.response.data.message);
         });
-
     }
 
 

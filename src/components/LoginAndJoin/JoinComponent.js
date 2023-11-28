@@ -1,24 +1,45 @@
 import React, { useState } from "react";
 import Footer from "../common/footer"
-import {Link} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
+import axios from "axios";
 
 const JoinComponent = () => {
 
+    const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: '',
         password: '',
+        rePassword: '',
       });
 
     const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     };      
-    const handleSubmit = (e) => {
+ 
+        
+    const onClickRegister = async (e) => {
         e.preventDefault();
-        console.log('폼 데이터:', formData);
-        localStorage.setItem("email", "iopp3423@gmail.com");
-        localStorage.setItem("password", "test1234");
-    };  
+
+        const data = {
+            email: formData.email,
+            password: formData.password
+        };
+        
+        await axios.post('member/signup', data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('POST 요청 성공:', response.data);
+            navigate('/login')
+        })
+        .catch(error => {
+            console.error('POST 요청 실패:', error.response.data.message);
+        });
+    }
+
 
 
     return(
@@ -53,18 +74,19 @@ const JoinComponent = () => {
                     <div className="row">
                         <label>Confirm password</label>
                         <input
-                            type="password"
-                            name="password"
+                            type="rePassword"
+                            name="rePassword"
                             placeholder="ex) **********"
                             onChange={handleChange} 
-                            id="password"/>
+                            id="rePassword"/>
                     </div>
                     <div className="mt-10"></div>
                   
                     <div className="login-button-container">
                         <button
                             type="button"
-                            className="w-full h-14 rounded-xl bg-[#10b981] text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+                            className="w-full h-14 rounded-xl bg-[#10b981] text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                            onClick={onClickRegister}>
                             가입하기
                         </button>
                     </div>
