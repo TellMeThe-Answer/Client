@@ -29,7 +29,7 @@ const CalendarComponent = () =>{
     return(
         <>
             <div className = "h-72 mt-4 p-4">
-                <div className = "text-3xl font-semibold mb-3 pl-2">이달의 병해충 예보</div>
+                <div className = "text-3xl font-semibold mb-4 pl-2">이달의 병해충 예보</div>
                 <div className = "text-lg font-semibold text-gray-400 mb-2 pl-2">최근 1년 이내의 병해충 정보를 조회합니다.</div>
 
                 <div className="flex flex-wrap">
@@ -60,8 +60,8 @@ const CalendarComponent = () =>{
                 </div>
                 
                 <div className = "flex ml-2">
-                {selectedMonth && <img src = "https://cdn-icons-png.flaticon.com/128/3239/3239337.png" className = "w-7 h-7"/>}
-                {selectedMonth && <h1 className = "font-semibold text-lg text-warning-900 ml-2 mb-2">{selectedMonth} 작물</h1>}
+                    {selectedMonth && <img src = "https://cdn-icons-png.flaticon.com/128/3239/3239337.png" className = "w-7 h-7"/>}
+                    {selectedMonth && <h1 className = "font-semibold text-lg text-warning-900 ml-2 mb-2">{selectedMonth} 작물</h1>}
                 </div>
 
                 <div className="w-full flex flex-col items-start">
