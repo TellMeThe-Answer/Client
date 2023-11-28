@@ -18,7 +18,6 @@ const LoginComponent = () => {
     setFormData({ ...formData, [name]: value });
     };
 
-    
     const onClickLogin = async (e) => {
         e.preventDefault();
 
