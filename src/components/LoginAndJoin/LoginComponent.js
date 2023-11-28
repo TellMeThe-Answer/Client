@@ -56,7 +56,8 @@ const LoginComponent = () => {
                     </div>
 
                     <div className="login-forgot">
-                        <span className="login-forgot-text">Forgot password?</span>
+                        <Link to='/login' class="font-medium text-[#0f9d6ef9] hover:underline h-100 top-0 right-0 absolute">Forgot password?</Link>
+
                     </div>
                     <div className="login-button-container">
                         <button
@@ -83,8 +84,8 @@ const LoginComponent = () => {
                     </div>
 
                     <div className=" w-full flex justify-center fixed bottom-0 left-0 mb-7 suggest_signup">
-                        <span className="mr-2"> Don’t have an account? </span>
-                        <a><strong>Sign up</strong></a>
+                        <span className="mr-2"> Don’t have an account?</span>
+                        <Link to='/join' class="font-medium text-[#10b981] hover:underline"><strong>Join</strong></Link>
                     </div>
                 </div>
             </div>

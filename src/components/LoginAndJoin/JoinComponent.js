@@ -47,7 +47,7 @@ const JoinComponent = () => {
                         <input
                             type="password"
                             name="password"
-                            placeholder="ex) 01012345678"
+                            placeholder="ex) **********"
                             onChange={handleChange} 
                             id="password"/>
                     </div>
@@ -56,7 +56,7 @@ const JoinComponent = () => {
                         <input
                             type="password"
                             name="password"
-                            placeholder="ex) 01012345678"
+                            placeholder="ex) **********"
                             onChange={handleChange} 
                             id="password"/>
                     </div>
@@ -88,7 +88,7 @@ const JoinComponent = () => {
 
                     <div className=" w-full flex justify-center fixed bottom-0 left-0 mb-7 suggest_signup">
                         <span className="mr-2"> Already have an account? </span>
-                        <a><strong> Log in</strong></a>
+                        <Link to='/login' class="font-medium text-[#10b981] hover:underline"><strong>Log in</strong></Link>
                     </div>
                 </div>
             </div>
