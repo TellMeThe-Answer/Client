@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import Footer from "../common/footer"
 import {Link} from 'react-router-dom';
 import "./LoginComponent.css"
-
+import axios from "axios";
     
 
 const LoginComponent = () => {
@@ -17,12 +16,32 @@ const LoginComponent = () => {
     setFormData({ ...formData, [name]: value });
     };
 
-    const handleSubmit = (e) => {
+    // ${process.env.REACT_APP_KAKAO_API_KEY}
+    
+    const onClickLogin = async (e) => {
         e.preventDefault();
-        console.log('폼 데이터:', formData);
-        localStorage.setItem("email", "iopp3423@gmail.com");
-        localStorage.setItem("password", "test1234");
-    };  
+
+        const data = {
+            email: formData.email,
+            password: formData.password
+        };
+        
+        
+        await axios.post('member/login', data, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => {
+            console.log('POST 요청 성공:', response.data.memberId);
+            localStorage.setItem("memberId", response.data.memberId);
+        })
+        .catch(error => {
+            console.error('POST 요청 실패:', error);
+        });
+
+    }
+
 
 
     return(
@@ -62,7 +81,8 @@ const LoginComponent = () => {
                     <div className="login-button-container">
                         <button
                             type="button"
-                            className="w-full h-14 rounded-xl bg-[#10b981] text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+                            className="w-full h-14 rounded-xl bg-[#10b981] text-lg font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]"
+                            onClick={onClickLogin}>
                             로그인
                         </button>
                     </div>
