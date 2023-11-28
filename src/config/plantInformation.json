@@ -13,7 +13,7 @@
     },
     {
       "plantName": "딸기",
-      "plantImage": "https://cdn-icons-png.flaticon.com/128/1652/1652128.png",
+      "plantImage": "https://cdn-icons-png.flaticon.com/128/1628/1628778.png",
       "disease" : [
           "잿빛곰팡이병",
           "목화진딧물",
@@ -27,7 +27,7 @@
     },
     {
       "plantName": "오이",
-      "plantImage": "https://cdn-icons-png.flaticon.com/128/7758/7758758.png",
+      "plantImage": "https://cdn-icons-png.flaticon.com/128/2578/2578715.png",
       "disease" : [
           "갈색무늬병",
           "목화바둑명나방",
