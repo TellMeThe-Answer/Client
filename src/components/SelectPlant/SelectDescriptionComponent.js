@@ -129,18 +129,20 @@ const SelectDescriptionComponent = () => {
                     aria-labelledby="exampleFrameBottomModalLabel"
                     aria-hidden="true">
                     <div data-te-modal-dialog-ref className="h-2/3 pointer-events-none absolute bottom-0 w-full translate-y-[50px] opacity-0 transition-all duration-300 ease-in-out">
-                        <div className="rounded-t-2xl pointer-events-auto relative flex w-full h-full flex-col border-none bg-white bg-clip-padding shadow-lg outline-none">
+                        <div className="rounded-t-2xl pointer-events-auto relative flex w-full h-full flex-col border-none bg-gray-50 bg-clip-padding shadow-lg outline-none">
                             <div className="relative h-full p-5" data-te-modal-body-ref>
 
                                 {/** x svg 이미지 */}
-                                <div className="flex justify-end">
+                                <div className="flex justify-end w-full">
+                                    <div className="w-40 text-center border-b-gray-400 border-solid border mr-16 my-2.5 mb-5"></div>
+
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" class="w-6 h-6" data-te-modal-dismiss>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </div>
                                 
                                 {/** 사진, 작물명, 병해충명, 학명 */}
-                                <div className="flex mb-4 bg-white w-full h-40 rounded-xl mt-4 p-2 drop-shadow-md ">
+                                <div className="flex mb-4 bg-white w-full h-50 rounded-xl mt-4 p-2 drop-shadow-md ">
                                     <div className="h-36 w-36">
                                         <img src={modalImage} className="w-36 h-36 rounded-xl" />
                                     </div>
@@ -153,8 +155,8 @@ const SelectDescriptionComponent = () => {
                                 </div>
 
                                 {/** 내용 */}
-                                <div className="flex flex-col h-80  bg-white w-full rounded-xl mt-4 p-2 drop-shadow-md ">
-                                    <div>
+                                <div className="flex flex-col justify-center h-fit bg-white w-full rounded-xl mt-4 p-2 drop-shadow-md ">
+                                    <div className="mb-4">
                                         <div className="text-3xl font-bold mb-2">피해</div>
                                         <p>{damage}</p>
 
@@ -171,8 +173,8 @@ const SelectDescriptionComponent = () => {
                                     <a href={link} target="_blank" rel="noopener noreferrer">
                                         <button
                                             type="button"
-                                            className="ml-2 inline-block rounded bg-[#10b981] px-4 pb-1.5 pt-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-                                            Learn more
+                                            className="ml-2 inline-block rounded bg-[#10b981] px-7 pb-1.5 pt-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
+                                        <span className="fs-4">더보기</span>        
                                         </button>
                                     </a>
                                 </div>
