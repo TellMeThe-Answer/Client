@@ -53,7 +53,7 @@ const ImageUpdoadComponent = () =>{
         });
       };
     
-      {/**판별한 이미지 받아오는 코드 */}
+    {/**판별한 이미지 받아오는 코드 */}
     const updateThumnail = async(image) =>{
 
         const requestData = {
@@ -98,6 +98,7 @@ const ImageUpdoadComponent = () =>{
             console.log('널 값 확인할 데이터:', response.data.contents);
             updateThumnail(response.data.image_path);
             setUpdateData(response.data.contents)
+            console.log(response.data.contents)
             } catch (error) {
             console.error('이미지 업로드 실패:', error);
             }
@@ -163,10 +164,7 @@ const ImageUpdoadComponent = () =>{
                                         <div className = "text-sm mr-1 mb-0.5">{data.percentage}%</div>
 
                                         <a href = {data.disease_url} target="_blank" className = "text-sm hover:text-[#10b981]"
-                                        data-te-toggle="modal"
-                                        data-te-target="#detailBottomModal"
-                                        data-te-ripple-init
-                                        data-te-ripple-color="light">상세보기</a>
+                                        >상세보기</a>
                                     </div>
                                 </>
                                 }
