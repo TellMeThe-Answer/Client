@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import data from '../../config/forcast.json';
 
-
 const CalendarComponent = () =>{
 
     const [selectedMonth, setSelectedMonth] = useState(null);
@@ -76,7 +75,7 @@ const CalendarComponent = () =>{
 
                         {openDiseaseIndex === index && (
 
-                        <div className="w-full flex flex-col items-start px-4 mb-1">
+                        <div className="w-full flex flex-col items-start px-6 mb-1">
 
                             {cropDetails.질병.map((disease, diseaseIndex) => (
                             <button key={diseaseIndex} className="w-full border-b-2 h-10">

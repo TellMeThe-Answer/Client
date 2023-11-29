@@ -33,3 +33,18 @@ export const previewImage = atom({
   key : 'preview',
   default : null,
 })
+
+export const detailInfor = atom({
+  key : 'detailInfor',
+  default : null,
+})
+
+export const selectImage = atom({
+  key : 'selectImage',
+  default : null,
+})
+
+export const selectDetail = atom({
+  key : 'selectDetail',
+  default : null,
+})

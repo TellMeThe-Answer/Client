@@ -3,12 +3,19 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import HashLoader from "react-spinners/HashLoader";
 import MoveBackComponent from '../common/MoveBackComponent';
+import {useRecoilState} from "recoil";
+import { detailInfor, selectImage, selectDetail} from '../../config/atom';
+import { Link } from 'react-router-dom';
+import DetailComponent from './DetailComponent';
 import xml2js from 'xml2js';
 
 const removeHyphens = (str) => str.replace(/-/g, '');
 
 const Modal = ({ isOpen, onClose, disease }) => {
-  const [diseaseDetail, setDiseaseDetail] = useState(null);
+
+  const [diseaseDetail, setDiseaseDetail] = useRecoilState(selectDetail);
+
+
 
   useEffect(() => {
     // 모달이 열리면 body 스크롤을 비활성화
@@ -112,7 +119,9 @@ const DictionaryComponent = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedDisease, setSelectedDisease] = useState(null);
+
+  const [selectedDisease, setSelectedDisease] = useRecoilState(detailInfor);
+  const [selectedImage, setSelectedImage] = useRecoilState(selectImage);
 
   useEffect(() => {
     const fetchDiseaseData = async () => {
@@ -148,12 +157,15 @@ const DictionaryComponent = () => {
 
   const openModal = (disease) => {
     setSelectedDisease(disease);
+    setSelectedImage(disease.thumbImg);
+    console.log(disease.thumbImg);
     setIsModalOpen(true);
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedDisease(null);
+    //setSelectedImage(null);
+    //setSelectedDisease(null);
   };
 
   return (
@@ -172,25 +184,26 @@ const DictionaryComponent = () => {
                         <div className="overflow-auto">
                         {diseaseList.map((disease, index) => (
                             (index % 2 === 1) && (
-                            <div key={index} className="active:bg-[#c6f8e7] flex flex-col bg-white p-4 rounded-xl mt-4 items-center transition duration-300 ease-in-out" onClick={() => openModal(disease)}>
+                            <Link to = {'/detail'} key={index} className="active:bg-[#c6f8e7] flex flex-col bg-white p-4 rounded-xl mt-4 items-center transition duration-300 ease-in-out" onClick={() => openModal(disease)}>
                                 <div className = "w-28 h-28">
                                     <img src={disease.thumbImg} className = "w-full h-full" alt={`${disease.sickNameKor} thumbnail`} />
                                 </div>
                                 <div className = "font-semibold pt-2">{disease.sickNameKor}</div>
-                            </div>
+                            </Link>
                             )))}
                         </div>
 
                         <div className = "overflow-auto">
                         {diseaseList.map((disease, index) => (
                             (index % 2 === 0) && (
-                            <div key={index} className=" active:bg-[#c6f8e7] flex flex-col bg-white p-4 rounded-2xl mt-4 items-center justify-center transition duration-300 ease-in-out" onClick={() => openModal(disease)}>
+                             <Link to = {'/detail'} key={index} className=" active:bg-[#c6f8e7] flex flex-col bg-white p-4 rounded-2xl mt-4 items-center justify-center transition duration-300 ease-in-out" onClick={() => openModal(disease)}>
                                 <div className = "w-28 h-28">
                                 <img src={disease.thumbImg} className = "w-full h-full object-contain" alt={`${disease.sickNameKor} thumbnail`} />
                                 </div>
                                 <div className = "font-semibold pt-2">{disease.sickNameKor}</div>
-                            </div>
+                            </Link>
                             )))}
+                          
                         </div>
 
                     </div>
