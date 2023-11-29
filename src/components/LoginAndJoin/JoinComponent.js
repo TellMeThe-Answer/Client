@@ -35,7 +35,7 @@ const JoinComponent = () => {
             password: formData.password
         };
         
-        await axios.post('member/signup', data, {
+        await axios.post('/member/signup', data, {
             headers: {
                 'Content-Type': 'application/json'
             }

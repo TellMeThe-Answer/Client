@@ -18,6 +18,7 @@ import DetailComponent from './components/Dictionary/DetailComponent';
 import MonthPage from './pages/test';
 
 function App() {
+
   return (
     <div className="App h-screen bg-gray-50">
         <Routes>

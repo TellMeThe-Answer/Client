@@ -60,7 +60,7 @@ const ImageUpdoadComponent = () =>{
             image_name: image
           };
           
-          axios.get('http://rong5026.iptime.org:5000/predict', 
+          axios.get('/predict', 
             {
             responseType: 'arraybuffer',
             params: requestData, // 파라미터를 이렇게 전달해야 합니다.
@@ -89,7 +89,7 @@ const ImageUpdoadComponent = () =>{
             formData.append('crop_type', plant)
 
             try {
-            const response = await axios.post('http://rong5026.iptime.org:5000/predict', formData, {
+            const response = await axios.post('/predict', formData, {
                 headers: {
                 'Content-Type': 'multipart/form-data',
                 },
