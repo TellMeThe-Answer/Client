@@ -128,7 +128,7 @@ const SelectDescriptionComponent = () => {
                     tabindex="-1"
                     aria-labelledby="exampleFrameBottomModalLabel"
                     aria-hidden="true">
-                    <div data-te-modal-dialog-ref className="h-2/3 pointer-events-none absolute bottom-0 w-full translate-y-[50px] opacity-0 transition-all duration-300 ease-in-out">
+                    <div data-te-modal-dialog-ref className="h-[70%] pointer-events-none absolute bottom-0 w-full translate-y-[50px] opacity-0 transition-all duration-300 ease-in-out">
                         <div className="rounded-t-2xl pointer-events-auto relative flex w-full h-full flex-col border-none bg-gray-50 bg-clip-padding shadow-lg outline-none">
                             <div className="relative h-full p-5" data-te-modal-body-ref>
 
@@ -140,7 +140,7 @@ const SelectDescriptionComponent = () => {
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </div>
-                                
+
                                 {/** 사진, 작물명, 병해충명, 학명 */}
                                 <div className="flex mb-4 bg-white w-full h-50 rounded-xl mt-4 p-2 drop-shadow-md ">
                                     <div className="h-36 w-36">
@@ -148,22 +148,38 @@ const SelectDescriptionComponent = () => {
                                     </div>
 
                                     <div className="flex flex-col justify-evenly ml-5">
-                                        <div>작물명 : {selectPlant}</div>
-                                        <div>병해충명 : {diseaseName}</div>
-                                        <div>학명: {scientifiName}</div>
+                                        <div class="flex items-center text-lg">
+                                            <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                                            <strong> {selectPlant}</strong>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                                            <strong> 병해충명: {diseaseName}</strong>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <div class="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                                            <strong>학명: {scientifiName}</strong>
+                                        </div>
+                                        
                                     </div>
                                 </div>
 
                                 {/** 내용 */}
                                 <div className="flex flex-col justify-center h-fit bg-white w-full rounded-xl mt-4 p-2 drop-shadow-md ">
-                                    <div className="mb-4">
-                                        <div className="text-3xl font-bold mb-2">피해</div>
+                                    <div className="mb-3">
+                                        <div className="w-full flex mb-1">
+                                            <div className="w-1.5 bg-green-600 mr-2"></div>
+                                            <div className="text-xl font-bold">피해</div>
+                                        </div>
                                         <p>{damage}</p>
 
                                     </div>
 
                                     <div>
-                                        <div className="text-3xl font-bold mb-2">방제</div>
+                                        <div className="w-full flex mb-1">
+                                            <div className="w-1.5 bg-green-600 mr-2"></div>
+                                            <div className="text-xl font-bold">방제</div>
+                                        </div>
                                         <p>{treat}</p>
                                     </div>
                                 </div>
@@ -174,7 +190,7 @@ const SelectDescriptionComponent = () => {
                                         <button
                                             type="button"
                                             className="ml-2 inline-block rounded bg-[#10b981] px-7 pb-1.5 pt-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-[#10b981] hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-[#10b981] focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-[#10b981] active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)]">
-                                        <span className="fs-4">더보기</span>        
+                                            <span className="fs-4">더보기</span>
                                         </button>
                                     </a>
                                 </div>
