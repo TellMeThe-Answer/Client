@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import data from '../jsonlist.json';
 import '../css/App.css';
-
+import NavBar from './pages/footer.js';
 const MonthPage = () => {
   const [selectedMonth, setSelectedMonth] = useState(null);
   const [crops, setCrops] = useState({});
@@ -59,6 +59,7 @@ const MonthPage = () => {
           </React.Fragment>
         ))}
       </div>
+      <NavBar />
     </div>
   );
 };
