@@ -23,7 +23,7 @@ const MapComponent = () => {
     console.log(message);
     return (
       <div className="modal" onClick={handleOutsideClick}>
-        <div className="w-72 h-32 p-4 bg-white rounded-2xl">
+        <div className="w-72 h-40 p-4 bg-white rounded-2xl">
             <div>작물 : {data.crop}</div>
             <div>질병 : {data.disease}</div>
             <div>주소 : {data.address}</div>
@@ -35,10 +35,10 @@ const MapComponent = () => {
   
   // 작물별 마커 이미지 경로
   const cropMarkerImages = {
-    'tomato': 'https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14_2-1024.png',
-    'cucumber': 'https://cdn3.iconfinder.com/data/icons/flat-pro-basic-set-1-1/32/location-green-1024.png',
-    'pepper': 'https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14-1024.png',
-    'strawberry': 'https://cdn1.iconfinder.com/data/icons/black-bold-style-1/3/14-1024.png',
+    '토마토': 'https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14_2-1024.png',
+    '오이': 'https://cdn3.iconfinder.com/data/icons/flat-pro-basic-set-1-1/32/location-green-1024.png',
+    '고추': 'https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14-1024.png',
+    '딸기': 'https://cdn1.iconfinder.com/data/icons/black-bold-style-1/3/14-1024.png',
   };
 
   const loadMapScript = () => {
@@ -79,6 +79,7 @@ const MapComponent = () => {
     
     mapData.forEach((m) => {
       const position = new window.kakao.maps.LatLng(m.lat, m.lng);
+      console.log(m.crop)
       const imageSrc = cropMarkerImages[m.crop] || 'default_marker_image.png';
       const markerImage = new window.kakao.maps.MarkerImage(imageSrc, new window.kakao.maps.Size(40, 40));
       const marker = new window.kakao.maps.Marker({
@@ -132,7 +133,7 @@ const MapComponent = () => {
           boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
         }}>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: '#FF6347', marginRight: '10px' }}></div>
+          <div style={{ width: '20px', height: '20px', backgroundColor: 'red', marginRight: '10px' }}></div>
           <div>토마토</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
@@ -144,7 +145,7 @@ const MapComponent = () => {
           <div>고추</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: 'red', marginRight: '10px' }}></div>
+          <div style={{ width: '20px', height: '20px', backgroundColor: '#FF6347', marginRight: '10px' }}></div>
           <div>딸기</div>
         </div>
       </div>
