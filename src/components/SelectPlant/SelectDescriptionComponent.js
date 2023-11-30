@@ -185,7 +185,7 @@ const SelectDescriptionComponent = () => {
                                 </div>
 
                                 {/** 버튼 */}
-                                <div className="w-full flex justify-center fixed bottom-0 left-0 mb-7">
+                                <div className="w-full flex justify-center fixed bottom-0 left-0 mb-5">
                                     <a href={link} target="_blank" rel="noopener noreferrer">
                                         <button
                                             type="button"
