@@ -117,10 +117,10 @@ const ImageUpdoadComponent = () => {
 
     return (
         <>
-         {check === false ?
-            <div className="w-full text-center items-center">
-                <div className="h-full rounded-lg border-2 border-gray-300 p-2 bg-[#10b981] mx-20 text-white"><strong>{plant}</strong></div>
-            </div> : <></>
+            {check === false ?
+                <div className="w-full text-center items-center">
+                    <div className="h-full rounded-lg border-2 border-gray-300 p-2 bg-[#10b981] mx-20 text-white"><strong>{plant}</strong></div>
+                </div> : <></>
             }
             <div class="flex items-center justify-center w-full h-full mb-2">
                 {/** 이미지 업로드 */}
@@ -171,8 +171,11 @@ const ImageUpdoadComponent = () => {
                         {uploadData != null ? uploadData.map((data) => (
                             <div className="w-full flex justify-between">
                                 {data == null ?
-                                    <div>
-                                        <div>병해가 발견되지 않았습니다.</div>
+                                    <div className='w-full h-full flex flex-col justify-center items-center'>
+                                        <div className='w-20 h-20 mb-8'>
+                                            <img src='/images/not_result.png' className='mx-auto'></img>
+                                        </div>
+                                        <div className='text-lg'>검출된 병해가 없습니다.</div>
                                     </div>
                                     :
                                     <>
