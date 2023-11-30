@@ -18,14 +18,26 @@ const MapPage = () => {
   
     return (
       <div className="modal" onClick={handleOutsideClick}>
-        <div className="modal-content">
-          
+        <div className="modal-content" style={{ 
+          whiteSpace: 'pre-line',
+          width: '60%', // Adjusted width
+          maxWidth: '800px', // Maximum width, adjust as needed
+          margin: 'auto', // This centers the modal
+          padding: '20px',
+          borderRadius: '10px',
+          boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+          backgroundColor: 'white',
+          // Additional styles for better layout
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center'
+        }}>
           <p>{message}</p>
         </div>
       </div>
     );
   };
-  
   // 작물별 마커 이미지 경로
   const cropMarkerImages = {
     'tomato': 'https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14_2-1024.png',
@@ -81,7 +93,8 @@ const MapPage = () => {
       });
         // 마커 클릭 이벤트 리스너 설정
       window.kakao.maps.event.addListener(marker, 'click', () => {
-        const message = `Marker Details:\nLatitude: ${m.lat}\nLongitude: ${m.lng}\nDate: ${m.date}`;
+        const message = `작물: 토마토\nDisease: 열과 \n주소: 서울 광진구 군자동 98 \n신고날짜: 2023년 12월 1일`;
+
         setModalMessage(message);
         setModalVisible(true);
         

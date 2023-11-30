@@ -12,6 +12,7 @@ import CropListPage from './pages/CropListPage';
 import ReportAddressPage from './pages/reportaddress-page';
 import ReportDetailpage from './pages/reportdetail-page';
 import  MarkerFixPage from  './pages/markerfix-page';
+import navBar from './pages/footer';
 import NavBar from './pages/footer';
 function App() {
   const [address, setAddress] = useState('');
@@ -20,7 +21,7 @@ function App() {
       
           <Router>
               <Routes>
-             
+
                   <Route path="/" element={<LoginPage />} />
                   <Route path="/month-page" element={<MonthPage />} />
                   <Route path="/detection-page" element={<DetectionPage />} />
@@ -33,7 +34,7 @@ function App() {
                   <Route path="/reportaddress-page" element={<ReportAddressPage />} />
                   <Route path="/reportdetail-page" element={<ReportDetailpage />} /> {/* SingoPage 라우트 설정 */}
                   <Route path="/markerfix-page" element={<MarkerFixPage />} />
-                
+                 <Route path="/footer" element={<NavBar />} />
               </Routes>
           </Router>
       

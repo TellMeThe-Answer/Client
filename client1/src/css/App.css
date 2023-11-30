@@ -534,3 +534,6 @@ h2 {
 .disease-button .warning {
   background-color: yellow; /* Yellow circle for warning */
 }
+.activeLink {
+  color: #3dd529;
+}
