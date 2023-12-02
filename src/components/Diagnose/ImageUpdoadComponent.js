@@ -145,13 +145,18 @@ const ImageUpdoadComponent = () => {
 
             {check === false ?
                 <div className='p-2 flex rounded-3xl border-2 border-none bg-[#e5f6f0] h-24'>
-                    <div className='w-24 h-full flex justify-center items-center'>
+                    <div className='w-24 h-full flex justify-center items-center ml-2'>
                         <img src='/images/warning.png' className='max-w-full max-h-full'></img>
                     </div>
-                    <div className='w-full h-full flex justify-center items-center text-[#10b981]'>
-                        {/* {plant}이미지 외 사진은 부정확한 결과를 얻으실 수 있습니다. */}
-                        다른 이미지들은 부정확한 결과를 얻을 수 있습니다.
+                   
+
+                    <div className='w-full h-full flex flex-col justify-center text-[#10b981] ml-2'>
+                        <div className="my-auto">
+                            <div>다른 이미지들은 부정확한</div>
+                            <div>결과를 얻을 수 있습니다.</div>
+                        </div>
                     </div>
+
                 </div>
                 : <></>}
             {check === true ?
