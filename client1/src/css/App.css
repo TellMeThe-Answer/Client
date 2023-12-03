@@ -537,3 +537,214 @@ h2 {
 .activeLink {
   color: #3dd529;
 }
+
+
+
+
+
+
+/* reportdetail-page*/
+body, html {
+  font-family: 'Noto Sans KR', sans-serif;
+  background-color: #f0f0f0;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.modal-content button {
+  padding: 10px 20px; /* Add padding for a larger clickable area */
+  margin: 0 5px; /* Add some space between buttons */
+  border: none; /* Remove the default border */
+  border-radius: 5px; /* Round the corners */
+  font-weight: bold; /* Make the text bold */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  outline: none; /* Remove the outline */
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+.modal-content button:hover {
+  opacity: 0.8; /* Slight transparency on hover */
+}
+
+/* Specific styles for the 'Yes' button */
+.modal-content .confirm-yes {
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+}
+
+/* Specific styles for the 'No' button */
+.modal-content .confirm-no {
+  background-color: #f44336; /* Red background */
+  color: white; /* White text */
+}
+.header {
+  background-color: #fff; /* white header */
+  color: #333;
+  border-radius: 10px;
+  padding: 15px 0;
+  font-size: 24px;
+  text-align: center;
+  border-bottom: 1px solid #eaeaea;
+}
+
+.report-list {
+  max-width: 600px; /* Adjust the width as needed */
+  margin: 20px auto;
+  border-radius: 10px;
+  background-color: #fff; /* white background for the list */
+}
+
+.report-item {
+  border-bottom: 1px solid #eaeaea;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 20px; /* Increase bottom margin to see if it takes effect */
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  border: 1px solid #d3d3d3;
+}
+
+.report-item-content {
+  flex-grow: 1; /* Allow content to grow but not to push buttons out of view */
+  
+  margin-right: 10px; /* Space between content and buttons */
+}
+
+.edit-input {
+  width: 100%; /* Take full width to maximize space */
+  height: 150px; /* Set a fixed height or use min-height for a flexible height */
+  padding: 10px; /* Add some padding inside the textarea */
+  border: 1px solid #ccc; /* A subtle border */
+  border-radius: 4px; /* Rounded corners */
+  box-sizing: border-box; /* Include padding and border in the width and height */
+  margin-bottom: 10px; /* Space below the textarea */
+  resize: vertical; /* Allow only vertical resizing */
+}
+
+.report-item-controls {
+  flex-shrink: 0; /* Prevent buttons from shrinking */
+  display: flex;
+  flex-direction: row; /* Ensure buttons are in a row */
+  align-items: center; /* Center buttons vertically */
+  gap: 10px; /* Space between buttons */
+}
+
+.edit-button, .save-button, .delete-button {
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding: 10px 20px; /* Example padding, adjust as needed */
+  border: none;
+  border-radius: 4px;
+  background-color: #00A8FF; /* Matching the pagination link color */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.report-item:last-child {
+  border-bottom: none;
+}
+
+.report-item h2 {
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+}
+
+.date, .price {
+  font-size: 14px;
+  color: #666;
+}
+
+.delete-button {
+  background: none;
+  border: none;
+  color: #FF6E40; /* Orange color for the icon */
+  cursor: pointer;
+  font-size: 1.5rem;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.pagination .page-item {
+  margin: 0 5px;
+}
+
+.pagination .page-link {
+  background-color: #00A8FF; /* Blue for pagination */
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+/* Styles for smaller screens */
+@media only screen and (max-width: 412px) {
+  .report-item {
+    flex-direction: column;
+    gap: 20px; /* Increase gap for smaller screens */
+    margin-bottom: 20px; /* Ensure it's consistent */
+  }
+
+  .report-list {
+    padding: 15px;
+  }
+
+  .report-item {
+    border-bottom: 1px solid #eaeaea;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  
+  
+  .edit-input, .report-detail {
+    flex: 1; /* Allow these elements to grow and take available space */
+    min-width: 0; /* Prevent overflow */
+    border-radius: 8px;
+  }
+  
+  .report-item {
+    flex-direction: column; /* Stack items vertically on smaller screens */
+  }
+  
+  .report-item-content, .report-item-controls {
+    width: 100%; /* Full width on smaller screens */
+  }
+  .report-item.editing .edit-input {
+    /* Increase the size or make other adjustments as needed when editing */
+    height: auto; /* Adjust height to content */
+    border-radius: 8px;
+    min-height: 50px; /* Minimum height when in edit mode */
+  }
+  /* Ensure buttons do not shrink and maintain their size */
+  .edit-button, .save-button, .delete-button {
+    white-space: nowrap;
+    flex-shrink: 0;
+    padding: 10px 20px; /* Example padding, adjust as needed */
+  border: none;
+  border-radius: 4px;
+  background-color: #00A8FF; /* Matching the pagination link color */
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  }
+  
+  .pagination {
+    padding: 15px 0;
+  }
+
+  .pagination .page-link {
+    padding: 5px 8px;
+  }
+
+
+}
