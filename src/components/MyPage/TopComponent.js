@@ -29,6 +29,7 @@ const TopComponent = () => {
         // localStorage에서 memberId 가져오기
         getUserData();
 
+       
     }, []);
 
 
