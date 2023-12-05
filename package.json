@@ -53,5 +53,8 @@
     "http-proxy-middleware": "^2.0.6",
     "kakao.maps.d.ts": "^0.1.39",
     "tailwindcss": "^3.3.3"
+  },
+
+  "proxy": "http://172.16.20.209:8080/"
   }
 }
