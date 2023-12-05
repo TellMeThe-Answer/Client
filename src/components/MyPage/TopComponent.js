@@ -5,9 +5,8 @@ const TopComponent = () => {
 
     const [email, setEmail] = useState();
 
-    
-    useEffect(async()=> {
-        // localStorage에서 memberId 가져오기
+
+    const getUserData = async() => {
         const memberId = localStorage.getItem('memberId');
 
         if (memberId) {
@@ -24,7 +23,13 @@ const TopComponent = () => {
                 console.error('GET 요청 실패:', error);
             });
         }
-    }, [])
+    };
+    
+    useEffect(()=> {
+        // localStorage에서 memberId 가져오기
+        getUserData();
+
+    }, []);
 
 
     return(
