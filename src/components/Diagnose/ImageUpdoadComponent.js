@@ -1,21 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { useRecoilState } from "recoil";
 import { plantState } from "../../config/atom";
 import { Link } from 'react-router-dom';
 import { previewImage } from '../../config/atom';
-import Modal from './Modal';
+import BottomModal from './Modal';
+import Cropper from 'cropperjs';
+import 'cropperjs/dist/cropper.css';
 
-import { Dropdown, initTE } from "tw-elements";
+import { Dropdown, Modal, initTE } from "tw-elements";
 initTE({ Dropdown });
-// Initialization for ES Users
 
 
 const ImageUpdoadComponent = () => {
 
     const [check, setCheck] = useState(false);
     {/** 미리보기 이미지 저장 */ }
-    const [preview, serPreview] = useRecoilState(previewImage);
+    const [preview, setPreview] = useRecoilState(previewImage);
     {/** 이미지 저장 */ }
     const [selectedFile, setSelectedFile] = useState(null);
     {/**선택한 작물 */ }
@@ -25,7 +26,12 @@ const ImageUpdoadComponent = () => {
     {/**신고하기 버튼 */ }
     const [declare, setDclare] = useState(true);
 
-    const setPreviewImg = (event) => {
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    // const [croppedImage, setCroppedImage] = useState(null);
+    const imageRef = useRef(null);
+    let cropper;
+
+    const handleImageChange = (event) => {
 
         {/** 이미지 보내기 위해 임시저장 */ }
         const file = event.target.files[0];
@@ -34,10 +40,14 @@ const ImageUpdoadComponent = () => {
         {/** 미리보기 이미지 저장 */ }
         var reader = new FileReader();
         reader.onload = function (event) {
-            serPreview(event.target.result);
-            setCheck(true);
+
+            setPreview(event.target.result);
+            // setCheck(true);
             setDclare(true);
+            setIsOpenModal(true);
         };
+
+        console.log(file)
 
         reader.readAsDataURL(event.target.files[0]);
     }
@@ -47,7 +57,7 @@ const ImageUpdoadComponent = () => {
         reader.readAsDataURL(fileBlob);
         return new Promise((resolve) => {
             reader.onload = () => {
-                serPreview(reader.result);
+                setPreview(reader.result);
                 resolve();
             };
         });
@@ -83,10 +93,13 @@ const ImageUpdoadComponent = () => {
 
     {/** 처음 이미지 판별위해 보내는 코드 */ }
     const handleUpload = async () => {
+
         if (selectedFile) {
             const formData = new FormData();
-            formData.append('image_file', selectedFile);
+            formData.append('image_file', (selectedFile));
             formData.append('crop_type', plant)
+
+            console.log(selectedFile)
 
             try {
                 const response = await axios.post('/predict', formData, {
@@ -107,11 +120,56 @@ const ImageUpdoadComponent = () => {
             setDclare(false);
         }
         else {
-            return (<Modal />);
+            return (<BottomModal />);
         }
     };
 
+    const dataURItoBlob = (dataURI) => {
+        const byteString = atob(dataURI.split(',')[1]);
+        const mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+        const ab = new ArrayBuffer(byteString.length);
+        const ia = new Uint8Array(ab);
+        for (let i = 0; i < byteString.length; i++) {
+            ia[i] = byteString.charCodeAt(i);
+        }
+        const blob = new Blob([ab], { type: mimeString });
+        return blob;
+    };
+
+
+    // 사진자르기
+    const handleCrop = () => {
+        if (cropper) {
+            const croppedCanvas = cropper.getCroppedCanvas();
+            if (croppedCanvas) {
+                const croppedImage = croppedCanvas.toDataURL(); // 크롭된 이미지 데이터 URI 가져오기
+                const croppedBlob = dataURItoBlob(croppedImage); // 데이터 URI를 Blob으로 변환
+                const croppedFile = new File([croppedBlob], 'cropped_image.png', { type: 'image/png' }); // Blob을 File 객체로 변환
+                setSelectedFile(croppedFile); // File 객체를 setSelectedFile 함수에 전달
+                setPreview(croppedImage);
+            }
+            closeModal(); // Crop 버튼 클릭 시 모달 닫기
+        }
+    };
+
+    // 모달창 닫기
+    const closeModal = () => {
+        setCheck(true);
+        setIsOpenModal(false);
+    };
+
     useEffect(() => {
+        if (preview && imageRef.current) {
+            cropper = new Cropper(imageRef.current, {
+                aspectRatio: 1 / 1,
+                viewMode: 1, // 1: 원본 이미지 비율 유지
+            });
+        }
+    }, [preview, isOpenModal]);
+
+
+    useEffect(() => {
+        initTE({ Modal });
         setCheck(false);
     }, [])
 
@@ -124,11 +182,45 @@ const ImageUpdoadComponent = () => {
             }
             <div class="flex items-center justify-center w-full h-full mb-2">
                 {/** 이미지 업로드 */}
+
+                {/* 이미크롭하기 */}
+                {isOpenModal && (
+                    <div>
+                        <div class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                            <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+                            <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+                                <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+                                    <div class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                                        <div class="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
+                                            <div class="sm:flex sm:items-start">
+
+                                                <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
+                                                    <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">이미지 자르기</h3>
+                                                    <div class="mt-2">
+                                                        <img className='h-full w-full' ref={imageRef} src={preview} alt="Selected" width="300" />
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                                            <button type="button" onClick={handleCrop} class="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">잘라내기</button>
+                                            <button type="button" onClick={closeModal} class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">취소하기</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                )}
+
                 {check === true ?
                     <label className="w-full h-full rounded-xl">
                         <img src={preview} className="w-full h-full rounded-xl" />
-                        <input id="dropzone-file" type="file" class="hidden" onChange={setPreviewImg} />
+                        <input id="dropzone-file" type="file" class="hidden" onChange={handleImageChange} />
                     </label>
+
                     :
                     <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-xl cursor-pointer bg-white">
                         <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -138,7 +230,7 @@ const ImageUpdoadComponent = () => {
                             <p class="mb-2 text-sm text-gray-500"><span class="font-semibold">Click to upload</span></p>
                             <p class="text-xs text-gray-500">SVG, PNG, JPG (MAX. 800x400px)</p>
                         </div>
-                        <input id="dropzone-file" type="file" class="hidden" onChange={setPreviewImg} />
+                        <input id="dropzone-file" type="file" class="hidden" onChange={handleImageChange} />
                     </label>
                 }
             </div>
@@ -148,7 +240,7 @@ const ImageUpdoadComponent = () => {
                     <div className='w-24 h-full flex justify-center items-center ml-2'>
                         <img src='/images/warning.png' className='max-w-full max-h-full'></img>
                     </div>
-                   
+
 
                     <div className='w-full h-full flex flex-col justify-center text-[#10b981] ml-2'>
                         <div className="my-auto">

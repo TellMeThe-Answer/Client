@@ -112,10 +112,6 @@ const DetectionPage = () => {
                     </div>
                 )}
             </div>
-
-
-
-
         </div>
     );
 };
