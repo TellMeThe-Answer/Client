@@ -1,11 +1,29 @@
 import React, { useState, useEffect} from "react";
+import axios from "axios";
 
 const TopComponent = () => {
 
     const [email, setEmail] = useState();
 
-    useEffect(()=>{
-        setEmail(localStorage.getItem("email"));
+    
+    useEffect(async()=> {
+        // localStorage에서 memberId 가져오기
+        const memberId = localStorage.getItem('memberId');
+
+        if (memberId) {
+            await axios.get(`/member/${memberId}`, {
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then(response => {
+                console.log('GET 요청 성공:', response.data);
+                setEmail(response.data.email);
+            })
+            .catch(error => {
+                console.error('GET 요청 실패:', error);
+            });
+        }
     }, [])
 
 
