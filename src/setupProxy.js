@@ -17,7 +17,7 @@ module.exports = function(app) {
   );
   app.use(
     createProxyMiddleware("/member", {
-      target: "http://localhost:8080",
+      target: "http://ec2-43-201-76-162.ap-northeast-2.compute.amazonaws.com:8080",
       changeOrigin: true,
     }),
   );
