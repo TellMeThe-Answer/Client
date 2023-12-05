@@ -13,12 +13,12 @@ import DictionaryComponent from './components/Dictionary/DictionaryComponent';
 import CropListComponent from './components/Dictionary/CropListComponent';
 import MapComponent from './components/Map/MapComponent';
 import ForcastPage from './pages/Forcast/ForcastPage';
-import TestPage from './pages/testPage';
 import DetailComponent from './components/Dictionary/DetailComponent';
 import MonthPage from './pages/test';
 import HistoryPage from './pages/HistoryPage/HistoryPage';
 
 function App() {
+  
   return (
     <div className="App h-screen bg-gray-50">
         <Routes>
@@ -80,8 +80,6 @@ function App() {
           <Route path = "/diagnose" Component = {DiagnosePage} />
           <Route path = "/declaration" Component = {DeclarationPage} />
           <Route path = "/location" Component = {LocationSettingComponent} />
-          <Route path = "/test" Component = {TestPage} />
-          <Route path = "/test2" Component = {MonthPage} />
           <Route path = "/detail" Component = {DetailComponent} />
           <Route path = "/history" Component = {HistoryPage} />
         </Routes>

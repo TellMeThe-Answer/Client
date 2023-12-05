@@ -30,7 +30,7 @@ const LoginComponent = () => {
         };
         
         
-        await axios.post('member/login', data, {
+        await axios.post('/member/login', data, {
             headers: {
                 'Content-Type': 'application/json'
             }
