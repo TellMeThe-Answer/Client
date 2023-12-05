@@ -1,18 +1,37 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import mapData from '../../config/mapData.json'
+// import markerData from '../../config/markerData.json'
+import axios from "axios";
 
 const MapComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [map, setMap] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [modalMessage, setModalMessage] = useState('');
   const [data, setData] = useState();
+  const [markerData, setMarkerData] = useState(null);
 
-  useEffect(()=>{
 
-  }, [])
+  const fetchData = async () => {
+    try {
+      const response = await axios.get('/report/list/all', {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      });
+      console.log('GET 요청 성공:', response.data.reportListDtoList);
+      setMarkerData(response.data.reportListDtoList);
+    } catch (error) {
+      console.error('GET 요청 실패:', error.response.data.message);
+    }
+  };
+
+  useEffect(() => {
+
+    fetchData();
+  }, []);
+
+
   const Modal = ({ message, onClose }) => {
     // 모달 바깥 부분을 클릭했을 때 닫기
     const handleOutsideClick = (e) => {
@@ -20,25 +39,29 @@ const MapComponent = () => {
         onClose();
       }
     };
-    console.log(message);
     return (
       <div className="modal" onClick={handleOutsideClick}>
-        <div className="w-72 h-40 p-4 bg-white rounded-2xl">
-            <div>작물 : {data.crop}</div>
-            <div>질병 : {data.disease}</div>
-            <div>주소 : {data.address}</div>
-            <div>신고날짜 : {data.date}</div>
+        <div className="w-72 h-90 p-4 bg-white rounded-2xl">
+          {data && data.imageLink && data.imageLink[0] ? (
+            <img src={data.imageLink[0].imageLink} alt='image' className='w-40 h-40' />
+          ) : (
+            <div></div>
+          )}
+          <div>작물 : {data.crop}</div>
+          <div>질병 : {data.disease}</div>
+          <div>신고날짜 : {data.createDate}</div>
+          <div>본문 : {data.content}</div>
         </div>
       </div>
     );
   };
-  
+
   // 작물별 마커 이미지 경로
   const cropMarkerImages = {
-    '토마토': 'https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14_2-1024.png',
-    '오이': 'https://cdn3.iconfinder.com/data/icons/flat-pro-basic-set-1-1/32/location-green-1024.png',
-    '고추': 'https://cdn1.iconfinder.com/data/icons/color-bold-style/21/14-1024.png',
-    '딸기': 'https://cdn1.iconfinder.com/data/icons/black-bold-style-1/3/14-1024.png',
+    '토마토': 'images/tomato_marker.png',
+    '오이': 'images/cucumber_marker.png',
+    '고추': 'images/pepper_marker.png',
+    '딸기': 'images/strawberry_marker.png',
   };
 
   const loadMapScript = () => {
@@ -59,7 +82,6 @@ const MapComponent = () => {
       level: 3, // 적절한 확대 레벨 설정
     };
     const createdMap = new window.kakao.maps.Map(container, options);
-    setMap(createdMap);
 
     const locPosition = new window.kakao.maps.LatLng(latitude, longitude);
     const currentMarker = new window.kakao.maps.Marker({
@@ -71,39 +93,42 @@ const MapComponent = () => {
     const infowindow = new window.kakao.maps.InfoWindow({
       content: '<div style="padding-left:42px;">현재 위치</div>',
     });
+
     infowindow.open(createdMap, currentMarker);
-
-    // 저장된 마커 로드 (예시)
-
-    const storedMarkers = JSON.parse(localStorage.getItem('reports')) || [];
-    
-    mapData.forEach((m) => {
-      const position = new window.kakao.maps.LatLng(m.lat, m.lng);
-      console.log(m.crop)
-      const imageSrc = cropMarkerImages[m.crop] || 'default_marker_image.png';
-      const markerImage = new window.kakao.maps.MarkerImage(imageSrc, new window.kakao.maps.Size(40, 40));
-      const marker = new window.kakao.maps.Marker({
-        position: position,
-        map: createdMap,
-        title: '신고된 위치',
-        image: markerImage,
-      });
-
-      window.kakao.maps.event.addListener(marker, 'click', () => {
-        const message = `Marker Details:\nLatitude: ${m.lat}\nLongitude: ${m.lng}\nDate: ${m.date}`;
-        setData(m);
-        setModalMessage(message);
-        setModalVisible(true);
-      });
-    });
+    initailizeMarker(latitude, longitude, createdMap);
   };
+
+  // 저장된 마커 로드 
+  const initailizeMarker = (latitude, longitude, createdMap) => {
+
+    if (markerData) {
+      markerData.forEach((m) => {
+        const position = new window.kakao.maps.LatLng(m.latitude, m.longitude);
+        const imageSrc = cropMarkerImages[m.crop] || 'images/tomato_marker.png';
+        const markerImage = new window.kakao.maps.MarkerImage(imageSrc, new window.kakao.maps.Size(40, 40));
+        const marker = new window.kakao.maps.Marker({
+          position: position,
+          map: createdMap,
+          title: '신고된 위치',
+          image: markerImage,
+        });
+
+        window.kakao.maps.event.addListener(marker, 'click', () => {
+          const message = `Marker Details:\nLatitude: ${m.latitude}\nLongitude: ${m.longitude}\nDate: ${m.createDate}`;
+          setData(m);
+          setModalMessage(message);
+          setModalVisible(true);
+        });
+      });
+    }
+  };
+
 
   useEffect(() => {
     let isCancelled = false;
 
     loadMapScript().then(() => {
       if (isCancelled) return;
-
       navigator.geolocation.getCurrentPosition((position) => {
         const { latitude, longitude } = position.coords;
         if (!isCancelled) initializeMap(latitude, longitude);
@@ -113,27 +138,24 @@ const MapComponent = () => {
     return () => {
       isCancelled = true;
     };
-  }, [location.state]);
+  }, [location.state, markerData]);
 
-  const goBack = () => {
-    navigate(-1);
-  };
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100vh' }}>
       {modalVisible && <Modal message={modalMessage} onClose={() => setModalVisible(false)} />}
-      <div style={{ 
-          position: 'absolute', 
-          top: '20px', 
-          right: '20px', 
-          zIndex: 5, 
-          backgroundColor: 'white', 
-          padding: '10px', 
-          borderRadius: '8px', 
-          boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
-        }}>
+      <div style={{
+        position: 'absolute',
+        top: '20px',
+        right: '20px',
+        zIndex: 5,
+        backgroundColor: 'white',
+        padding: '10px',
+        borderRadius: '8px',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
+      }}>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: 'red', marginRight: '10px' }}></div>
+          <div style={{ width: '20px', height: '20px', backgroundColor: '#DD1818', marginRight: '10px' }}></div>
           <div>토마토</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
@@ -149,13 +171,7 @@ const MapComponent = () => {
           <div>딸기</div>
         </div>
       </div>
-      <button onClick={goBack} style={{
-          position: 'absolute',
-          top: '20px',
-          left: '20px',
-          zIndex: 5
-      }}>
-      </button>
+
       <div id="map" style={{ width: '100%', height: '100%' }}></div>
     </div>
   );
