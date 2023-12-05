@@ -16,6 +16,7 @@ import ForcastPage from './pages/Forcast/ForcastPage';
 import TestPage from './pages/testPage';
 import DetailComponent from './components/Dictionary/DetailComponent';
 import MonthPage from './pages/test';
+import HistoryPage from './pages/HistoryPage/HistoryPage';
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
           <Route path = "/test" Component = {TestPage} />
           <Route path = "/test2" Component = {MonthPage} />
           <Route path = "/detail" Component = {DetailComponent} />
+          <Route path = "/history" Component = {HistoryPage} />
         </Routes>
     </div>
   );
