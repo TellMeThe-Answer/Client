@@ -14,8 +14,8 @@ import CropListComponent from './components/Dictionary/CropListComponent';
 import MapComponent from './components/Map/MapComponent';
 import ForcastPage from './pages/Forcast/ForcastPage';
 import DetailComponent from './components/Dictionary/DetailComponent';
-import Test from './test.js'
-import Test2 from './test2.js'
+import MonthPage from './pages/test';
+import HistoryPage from './pages/HistoryPage/HistoryPage';
 
 function App() {
   
@@ -81,8 +81,7 @@ function App() {
           <Route path = "/declaration" Component = {DeclarationPage} />
           <Route path = "/location" Component = {LocationSettingComponent} />
           <Route path = "/detail" Component = {DetailComponent} />
-          <Route path = "/test" Component= {Test}></Route>
-          <Route path = "/test2" Component= {Test2}></Route>
+          <Route path = "/history" Component = {HistoryPage} />
         </Routes>
     </div>
   );

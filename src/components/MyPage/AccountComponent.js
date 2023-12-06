@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import {Link} from 'react-router-dom'
 
 const AccountComponent = () => {
     return(
@@ -15,7 +15,7 @@ const AccountComponent = () => {
                         {/**왼쪽에 이미지 + 글 */}
                         <div className = "w-24 h-full flex items-center justify-between">
                             <img src = "https://img.icons8.com/?size=512&id=44020&format=png" className = "h-8 w-8"/>
-                            <div className = "font-semibold text-gray-500">신고내역</div>
+                            <Link to='/history' className = "font-semibold text-gray-500">신고내역</Link> 
                         </div>
                         {/**오른쪽 꺽쇠 svg */}
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
