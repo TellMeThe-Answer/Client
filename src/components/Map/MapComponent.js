@@ -41,17 +41,17 @@ const MapComponent = () => {
     };
     return (
       <div className="modal" onClick={handleOutsideClick}>
-       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-md w-72 h-96 flex flex-col items-center justify-center">
+       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white rounded-xl shadow-md w-72 h-1/2 flex flex-col items-center justify-center">
           {data && data.imageLink && data.imageLink[0] ? (
-            <img src={data.imageLink[0].imageLink} alt='image' className='w-40 h-40' />
+            <img src={data.imageLink[0].imageLink} alt='image' className='w-60 h-60' />
           ) : (
-            <img src='images/logo.png' alt='기본 이미지' className='w-40 h-40' />
+            <img src='images/logo.png' alt='기본 이미지' className='w-60 h-60' />
           )}
-          <div className="mt-4">
+          <div className="mt-4 w-full pl-7">
             <div className="text-lg font-bold">작물 : {data.crop}</div>
-            <div className="text-sm mt-2">날짜 : {data.createDate}</div>
-            <div className="text-sm">질병 : {data.disease}</div>
-            <div className="text-sm">본문 : {data.content}</div>
+            <div className="text-lg mt-2">날짜 : {data.createDate}</div>
+            <div className="text-lg">질병 : {data.disease}</div>
+            {/* <div className="text-sm">본문 : {data.content}</div> */}
           </div>
         </div>
 
