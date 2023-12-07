@@ -27,7 +27,6 @@ const MapComponent = () => {
   };
 
   useEffect(() => {
-
     fetchData();
   }, []);
 

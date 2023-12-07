@@ -4,6 +4,7 @@
 	font-size: large;
 	font-weight: bold;
 } */
+
 #loginform{
 	width: 100%;
 	height: 90%;
@@ -25,6 +26,18 @@
   	top: 0;
   	right: 0;
 	margin-right: 0.5rem;
+}
+
+.login-title {
+	font-family: GmarketSans;
+	font-size: 2rem;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+.component-title {
+	font-family: GmarketSans;
+	font-size: 1.8rem;
+	font-weight: bold;
 }
 
 .login-title {

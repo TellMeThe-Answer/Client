@@ -34,7 +34,7 @@ const CropListComponent = () => {
 
   return (
     <div className = "h-full bg-gray-50">
-      <div className = "flex w-full justify-center text-lg font-bold pt-10">병해 도감</div>
+      <div className = "component-title flex w-full justify-center text-lg font-bold pt-10">병해 도감</div>
 
             <div class=" px-10 bg-gray-50">
                 <div class="grid grid-cols-2 gap-4 bg-gray-50">
