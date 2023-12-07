@@ -280,7 +280,7 @@ const ImageUpdoadComponent = () => {
                                         <div className="flex">
                                             <div className="text-sm mr-1 mb-0.5">{data.percentage * 100}%</div>
 
-                                            <a href={data.disease_url} target="_blank" className="text-sm hover:text-[#10b981]"
+                                            <a href={data.disease_url} target="_blank" className="text-sm text-[#10b981]"
                                             >상세보기</a>
                                         </div>
                                     </>

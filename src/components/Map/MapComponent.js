@@ -51,7 +51,7 @@ const MapComponent = () => {
             <div className="text-lg font-bold">작물 : {data.crop}</div>
             <div className="text-lg mt-2">날짜 : {data.createDate}</div>
             <div className="text-lg">질병 : {data.disease}</div>
-            {/* <div className="text-sm">본문 : {data.content}</div> */}
+            <div className="text-lg">본문 : {data.content}</div>
           </div>
         </div>
 
