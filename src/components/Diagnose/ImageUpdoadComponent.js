@@ -69,7 +69,6 @@ const ImageUpdoadComponent = () => {
         const requestData = {
             image_name: image
         };
-
         axios.get('/predict',
             {
                 responseType: 'arraybuffer',
@@ -98,8 +97,6 @@ const ImageUpdoadComponent = () => {
             const formData = new FormData();
             formData.append('image_file', (selectedFile));
             formData.append('crop_type', plant)
-
-            console.log(selectedFile)
 
             try {
                 const response = await axios.post('/predict', formData, {
