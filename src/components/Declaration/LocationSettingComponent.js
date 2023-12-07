@@ -68,6 +68,7 @@ const LocationSettingComponent = () => {
     const setMapLocation = () =>{
         {/**주소 저장 */}
         setAddress(mapAddress)
+        console.log(mapAddress)
         {/**상세 주소 입력 */}
         setSearchAddress(true);
         {/**지도 닫기 */}

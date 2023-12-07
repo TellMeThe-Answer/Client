@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { mapLocation } from "../../config/atom";
 import { useRecoilState } from "recoil";
 import { previewImage } from '../../config/atom';
+import {markerLat} from "../../config/atom";
+import {markerLng} from "../../config/atom";
 import Modal from './Modal';
 import axios from "axios";
 
@@ -13,7 +15,9 @@ const DeclarationComponent = () => {
     const [preview, setPreview] = useRecoilState(previewImage)
     const [popup, setPopup] = useState(false);
     const [memberId, setMemberId] = useState(0);
-    
+    const [markerLat1, setMarkerLat1] = useRecoilState(markerLat);
+    const [markerLng1, setMarkerLng1] = useRecoilState(markerLng);
+  
     
     const [formData, setFormData] = useState({
         title: '',
@@ -61,6 +65,8 @@ const DeclarationComponent = () => {
             memberId: memberId,
             multipartFileList: croppedFile,
             location : mapAddress,
+            latitude : markerLat1,
+            longitude : markerLng1,
         };
     
         setFormData(newFormData); 

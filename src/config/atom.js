@@ -24,6 +24,15 @@ export const plantDescription = atom({
   ]
 });
 
+export const markerLat = atom({
+  key: 'markerLat',
+  default: 1,
+});
+export const markerLng = atom({
+  key: 'markerLng',
+  default: 1,
+});
+
 export const mapLocation = atom({
   key: 'mapLocation',
   default: '위치 설정하러 가기',

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {mapLocation} from "../../config/atom";
+import {markerLat} from "../../config/atom";
+import {markerLng} from "../../config/atom";
 import {useRecoilState} from "recoil";
 
 const CurrentLocation = () => {
@@ -9,7 +11,10 @@ const CurrentLocation = () => {
   const [marker, setMarker] = useState(null);
   const [address, setAddress] = useRecoilState(mapLocation);
   const [infoWindow, setInfoWindow] = useState(null);
-
+  
+  const [markerLat1, setMarkerLat1] = useRecoilState(markerLat);
+  const [markerLng1, setMarkerLng1] = useRecoilState(markerLng);
+  
   useEffect(() => {
 
     const script = document.createElement('script');
@@ -64,6 +69,8 @@ const CurrentLocation = () => {
       window.kakao.maps.event.addListener(marker, 'dragend', function() {
         const position = marker.getPosition();
         updateAddress(position.getLat(), position.getLng());
+        setMarkerLat1(position.getLat());
+        setMarkerLng1(position.getLng());
       });
     } 
   }, [marker, infoWindow]);
