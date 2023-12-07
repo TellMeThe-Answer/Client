@@ -35,6 +35,7 @@ const LocationSettingComponent = () => {
             console.log(`
                 주소: ${data.address},
                 우편번호: ${data.zonecode}`)
+            console.log(data)
             setAddress(data.address);
             setZoneCode(data.zonecode);
             

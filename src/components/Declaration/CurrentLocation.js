@@ -65,11 +65,11 @@ const CurrentLocation = () => {
         const position = marker.getPosition();
         updateAddress(position.getLat(), position.getLng());
       });
-    }
-    
+    } 
   }, [marker, infoWindow]);
 
 
+  // 마커 움직일때 마다 호출
   const updateAddress = (lat, lng) => {
     const geocoder = new window.kakao.maps.services.Geocoder();
     geocoder.coord2Address(lng, lat, (result, status) => {
