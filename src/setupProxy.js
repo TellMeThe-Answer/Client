@@ -17,21 +17,21 @@ module.exports = function(app) {
   );
   app.use(
     createProxyMiddleware("/member", {
-      target: "http://localhost:8080",
+      target: "http://172.16.20.209:8080",
       // target: "http://ec2-43-201-76-162.ap-northeast-2.compute.amazonaws.com:8080",
       changeOrigin: true,
     }),
   );
   app.use(
     createProxyMiddleware("/predict", {
-      target: "http://localhost:5050",
+      target: "http://172.16.20.209:5050",
       // target: "http://rong5026.iptime.org:5000",
       changeOrigin: true,
     }),
   );
   app.use(
     createProxyMiddleware("/report", {
-      target: "http://localhost:8080",
+      target: "http://172.16.20.209:8080",
       // target: "http://rong5026.iptime.org:5000",
       changeOrigin: true,
     }),
