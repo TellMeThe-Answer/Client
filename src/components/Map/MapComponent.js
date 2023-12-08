@@ -21,6 +21,7 @@ const MapComponent = () => {
       });
       console.log('GET 요청 성공:', response.data.reportListDtoList);
       setMarkerData(response.data.reportListDtoList);
+      console.log(response.data)
     } catch (error) {
       console.error('GET 요청 실패:', error.response.data.message);
     }

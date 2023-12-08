@@ -53,12 +53,21 @@ const DeclarationComponent = () => {
         return blob;
     };
 
+    function generateUniqueFileName(extension) {
+        const timestamp = new Date().getTime(); // 현재 시간을 밀리초로 얻기
+        const randomString = Math.random().toString(36).substring(2, 8); // 무작위 문자열 생성
+      
+        return `${timestamp}_${randomString}.${extension}`;
+      }
+
     const onClickReport = async (e) => {
         e.preventDefault();
         setPopup(current => !current);
     
         const croppedBlob = dataURItoBlob(preview); // 데이터 URI를 Blob으로 변환
-        const croppedFile = new File([croppedBlob], 'cropped_image.png', { type: 'image/png' }); // Blob을 File 객체로 변환
+        const uniqueFileName = generateUniqueFileName('png'); // 확장자에 맞게 수정 가능
+
+        const croppedFile = new File([croppedBlob], uniqueFileName, { type: 'image/png' }); // Blob을 File 객체로 변환
       
         const newFormData = {
             ...formData,
