@@ -60,10 +60,10 @@ const MapComponent = () => {
 
   // 작물별 마커 이미지 경로
   const cropMarkerImages = {
-    '토마토': 'images/tomato_marker.png',
-    '오이': 'images/cucumber_marker.png',
-    '고추': 'images/pepper_marker.png',
-    '딸기': 'images/strawberry_marker.png',
+    '토마토': 'images/tomato.png',
+    '오이': 'images/cucumber.png',
+    '고추': 'images/chili-pepper.png',
+    '딸기': 'images/strawberry.png',
   };
 
   const loadMapScript = () => {
@@ -157,19 +157,19 @@ const MapComponent = () => {
         boxShadow: '0 2px 4px rgba(0,0,0,0.2)'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: '#DD1818', marginRight: '10px' }}></div>
+        <img src='images/tomato.png' alt='기본 이미지' style={{ width: '20px', height: '20px', marginRight: '10px' }} />
           <div>토마토</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: '#10A24D', marginRight: '10px' }}></div>
+        <img src='images/cucumber.png' alt='기본 이미지' style={{ width: '20px', height: '20px', marginRight: '10px' }} />
           <div>오이</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center', marginBottom: '5px' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: 'blue', marginRight: '10px' }}></div>
+        <img src='images/chili-pepper.png' alt='기본 이미지' style={{ width: '20px', height: '20px', marginRight: '10px' }} />
           <div>고추</div>
         </div>
         <div style={{ display: 'flex', alignItems: 'center' }}>
-          <div style={{ width: '20px', height: '20px', backgroundColor: '#FF6347', marginRight: '10px' }}></div>
+        <img src='images/strawberry.png' alt='기본 이미지' style={{ width: '20px', height: '20px', marginRight: '10px' }} />
           <div>딸기</div>
         </div>
       </div>
